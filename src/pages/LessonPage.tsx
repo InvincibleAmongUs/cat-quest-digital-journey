@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import AppHeader from '@/components/layout/AppHeader';
 import LessonContent from '@/components/lessons/LessonContent';
-import QuizSection, { QuizQuestion } from '@/components/quiz/QuizSection';
+import QuizSection from '@/components/quiz/QuizSection';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ChevronRight, Book, Home } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { awardPoints, checkForNewBadges, getUserProgress, saveUserProgress } from '@/utils/gamification';
+import { awardPoints, checkForNewBadges, getUserProgress, saveUserProgress, availableBadges } from '@/utils/gamification';
 
 // Mock lesson data for the first lesson of Module 1
 const lessonData = {
@@ -146,7 +146,7 @@ export default function LessonPage() {
   };
   
   // If no user data is found, redirect to login
-  React.useEffect(() => {
+  useEffect(() => {
     if (!userData) {
       navigate('/login');
     }
