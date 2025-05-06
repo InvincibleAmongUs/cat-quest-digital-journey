@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import AppHeader from '@/components/layout/AppHeader';
@@ -6,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { BadgeCheck, ArrowRight, ChevronRight, Book, Award } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 
 // Mock data for module details
 const moduleData = {
