@@ -1,245 +1,284 @@
-import React from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import AppHeader from '@/components/layout/AppHeader';
+
+import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
-import { BadgeCheck, ArrowRight, ChevronRight, Book, Award } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
+import AppHeader from '@/components/layout/AppHeader';
+import { useAuth } from '@/contexts/AuthContext';
+import { CheckCircle, Lock, Book } from 'lucide-react';
 
-// Mock data for module details
-const moduleData = {
-  id: 1,
-  title: "System Superstars",
-  description: "Master computer systems, components and basic operations",
-  longDescription: "In this module, you'll learn about the essential components of computer systems, how they work together, and basic operations you need to master. From understanding hardware components to managing files and software, this module covers the fundamentals of computer technology.",
-  image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
-  progress: 35,
-  lessons: [
-    {
-      id: 1,
-      title: "Introduction to Computers",
-      description: "Learn about the information processing cycle and types of computers",
-      completed: true,
-      duration: "15 mins"
-    },
-    {
-      id: 2,
-      title: "Understanding Hardware Components",
-      description: "Explore the physical parts that make up a computer system",
-      completed: false,
-      duration: "20 mins"
-    },
-    {
-      id: 3,
-      title: "Computer Management Basics",
-      description: "Master file operations and desktop organization",
-      completed: false,
-      duration: "15 mins"
-    },
-    {
-      id: 4,
-      title: "Software Essentials",
-      description: "Learn about system and application software",
-      completed: false,
-      duration: "20 mins"
-    },
-    {
-      id: 5,
-      title: "Challenge Zone: Set Up Your Digital Workspace",
-      description: "Apply your knowledge in a practical challenge",
-      completed: false,
-      duration: "30 mins",
-      isChallenge: true
-    }
-  ],
-  badges: [
-    {
-      id: 1,
-      name: "System Explorer",
-      description: "Complete the Introduction to Computers lesson",
-      earned: true
-    },
-    {
-      id: 2,
-      name: "Hardware Hero",
-      description: "Identify all hardware components correctly",
-      earned: false
-    },
-    {
-      id: 3,
-      name: "File Master",
-      description: "Complete all file management exercises perfectly",
-      earned: false
-    }
-  ]
-};
+interface Lesson {
+  id: number;
+  title: string;
+  description: string;
+  status: 'completed' | 'available' | 'locked';
+  hasInteractive: boolean;
+}
 
 export default function ModuleDetail() {
   const { moduleId } = useParams();
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const { toast } = useToast();
+  const [moduleData, setModuleData] = useState<any>(null);
   
-  // Access user data from localStorage
-  const userDataString = localStorage.getItem('user');
-  const userData = userDataString ? JSON.parse(userDataString) : null;
-  
-  const handleLogout = () => {
-    localStorage.removeItem('user');
-    navigate('/login');
+  // Mock module data for the demo
+  const mockModules = {
+    "1": {
+      id: 1,
+      title: "System Superstars",
+      description: "Master computer systems, components and basic operations",
+      progress: 0,
+      image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
+      objectives: [
+        "Understand the basic components of a computer system",
+        "Identify different types of hardware and their functions",
+        "Explain the relationship between hardware and software",
+        "Describe the information processing cycle"
+      ],
+      lessons: [
+        {
+          id: 1,
+          title: "What is Hardware?",
+          description: "Learn the basic concepts of computer hardware and software.",
+          status: 'available',
+          hasInteractive: true
+        },
+        {
+          id: 2,
+          title: "Input Devices",
+          description: "Explore the various devices used to input data into a computer.",
+          status: 'locked',
+          hasInteractive: true
+        },
+        {
+          id: 3,
+          title: "Ports and Connectors",
+          description: "Discover the different ports and connectors on a computer.",
+          status: 'locked',
+          hasInteractive: true
+        },
+        {
+          id: 4,
+          title: "Storage Devices",
+          description: "Learn about the various ways computers store data.",
+          status: 'locked',
+          hasInteractive: false
+        },
+        {
+          id: 5,
+          title: "Processing Components",
+          description: "Understand how computers process information.",
+          status: 'locked',
+          hasInteractive: false
+        }
+      ]
+    }
   };
   
-  // If no user data is found, redirect to login
-  React.useEffect(() => {
-    if (!userData) {
+  useEffect(() => {
+    if (!user) {
       navigate('/login');
+      return;
     }
-  }, [userData, navigate]);
+    
+    // In a real app, we would fetch module data from an API
+    // For the demo, we're using mock data
+    const moduleInfo = mockModules[moduleId as keyof typeof mockModules];
+    
+    if (!moduleInfo) {
+      toast({
+        title: "Module Not Found",
+        description: "The module you're looking for doesn't exist.",
+        variant: "destructive",
+      });
+      navigate('/modules');
+      return;
+    }
+    
+    // Update lesson status based on user's completed lessons
+    const updatedLessons = moduleInfo.lessons.map((lesson: Lesson, index: number) => {
+      if (user.completedLessons.includes(lesson.id)) {
+        return { ...lesson, status: 'completed' as const };
+      }
+      
+      // First lesson is always available
+      if (index === 0) {
+        return { ...lesson, status: 'available' as const };
+      }
+      
+      // A lesson is available if the previous lesson is completed
+      const previousLesson = moduleInfo.lessons[index - 1];
+      if (previousLesson && user.completedLessons.includes(previousLesson.id)) {
+        return { ...lesson, status: 'available' as const };
+      }
+      
+      return lesson;
+    });
+    
+    // Calculate module progress
+    const completedCount = updatedLessons.filter(
+      (lesson: Lesson) => lesson.status === 'completed'
+    ).length;
+    
+    const progress = moduleInfo.lessons.length > 0
+      ? Math.round((completedCount / moduleInfo.lessons.length) * 100)
+      : 0;
+    
+    setModuleData({
+      ...moduleInfo,
+      lessons: updatedLessons,
+      progress
+    });
+  }, [moduleId, navigate, toast, user]);
   
-  if (!userData) {
+  if (!user || !moduleData) {
     return null;
   }
-
-  // In a real app, we would fetch the module data based on moduleId
-  const module = moduleData;
-
+  
   return (
     <div className="min-h-screen bg-background">
       <AppHeader 
-        username={userData.username} 
-        points={userData.points}
-        onLogout={handleLogout}
+        username={user.username} 
+        points={user.points}
       />
       
-      <div className="relative">
-        <div className="h-64 md:h-80 overflow-hidden">
-          <img 
-            src={module.image} 
-            alt={module.title}
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-        </div>
-        
-        <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-          <div className="container">
-            <h1 className="text-3xl md:text-4xl font-bold mb-2">{module.title}</h1>
-            <p className="md:text-lg opacity-90">{module.description}</p>
+      {/* Module Header */}
+      <div 
+        className="bg-cover bg-center h-48 relative"
+        style={{ backgroundImage: `url(${moduleData.image})` }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end">
+          <div className="container py-6">
+            <h1 className="text-3xl font-bold text-white">{moduleData.title}</h1>
+            <p className="text-white/80">{moduleData.description}</p>
           </div>
         </div>
       </div>
       
-      <main className="container py-8">
+      <div className="container py-8">
         <div className="grid md:grid-cols-3 gap-8">
-          <div className="md:col-span-2 space-y-8">
-            <div className="prose max-w-none">
-              <h2>Module Overview</h2>
-              <p>{module.longDescription}</p>
-            </div>
-            
-            <div>
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-2xl font-bold">Lessons</h2>
-                <div className="flex items-center text-sm">
-                  <span className="font-medium">{module.progress}% Complete</span>
+          {/* Sidebar */}
+          <div className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Module Progress</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span>Overall Progress</span>
+                    <span className="font-medium">{moduleData.progress}%</span>
+                  </div>
+                  <Progress value={moduleData.progress} className="h-2" />
                 </div>
-              </div>
-              
-              <Progress value={module.progress} className="mb-6 h-2" />
-              
-              <div className="space-y-4">
-                {module.lessons.map((lesson, index) => (
-                  <Card key={lesson.id} className={`border-l-4 ${lesson.completed ? 'border-l-tech-primary' : lesson.isChallenge ? 'border-l-tech-blue' : 'border-l-border'}`}>
-                    <div className="p-4 flex items-center justify-between">
-                      <div className="flex items-center gap-4">
-                        <div className={`w-8 h-8 rounded-full flex items-center justify-center ${lesson.completed ? 'bg-tech-primary text-white' : lesson.isChallenge ? 'bg-tech-blue text-white' : 'bg-secondary text-muted-foreground'}`}>
-                          {lesson.completed ? (
-                            <BadgeCheck className="h-5 w-5" />
-                          ) : lesson.isChallenge ? (
-                            <Award className="h-5 w-5" />
-                          ) : (
-                            <span>{index + 1}</span>
-                          )}
-                        </div>
-                        <div>
-                          <h3 className="font-medium">{lesson.title}</h3>
-                          <p className="text-sm text-muted-foreground">{lesson.description}</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-4">
-                        <span className="text-sm text-muted-foreground hidden sm:inline">
-                          {lesson.duration}
-                        </span>
-                        <Button 
-                          size="sm" 
-                          variant={lesson.completed ? "outline" : "default"}
-                          onClick={() => navigate(`/modules/${module.id}/lessons/${lesson.id}`)}
-                        >
-                          {lesson.completed ? "Review" : "Start"}
-                          <ChevronRight className="ml-1 h-4 w-4" />
-                        </Button>
-                      </div>
-                    </div>
-                  </Card>
-                ))}
-              </div>
-            </div>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardHeader>
+                <CardTitle>Learning Objectives</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2">
+                  {moduleData.objectives.map((objective: string, index: number) => (
+                    <li key={index} className="flex items-start">
+                      <span className="text-tech-primary mr-2">•</span>
+                      <span>{objective}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardHeader>
+                <CardTitle>Badges Available</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-wrap gap-2">
+                  <Badge className="bg-tech-blue">System Explorer</Badge>
+                  <Badge className="bg-tech-blue">Hardware Basics</Badge>
+                  <Badge className="bg-tech-blue">Component Master</Badge>
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button variant="outline" className="w-full" asChild>
+                  <Link to="/achievements">View All Badges</Link>
+                </Button>
+              </CardFooter>
+            </Card>
           </div>
           
-          <div className="space-y-8">
-            <Card>
-              <div className="p-6 space-y-6">
-                <div>
-                  <h3 className="font-bold text-lg mb-2">Module Progress</h3>
-                  <Progress value={module.progress} className="h-2 mb-2" />
-                  <div className="flex justify-between text-sm">
-                    <span>{module.progress}% Complete</span>
-                    <span>
-                      {module.lessons.filter(l => l.completed).length}/{module.lessons.length} Lessons
-                    </span>
-                  </div>
-                </div>
-                
-                <div>
-                  <Button className="w-full" onClick={() => {
-                    const nextLesson = module.lessons.find(l => !l.completed);
-                    if (nextLesson) {
-                      navigate(`/modules/${module.id}/lessons/${nextLesson.id}`);
-                    }
-                  }}>
-                    {module.lessons.some(l => l.completed) 
-                      ? "Continue Learning" 
-                      : "Start Learning"}
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
-            </Card>
+          {/* Lessons */}
+          <div className="md:col-span-2 space-y-6">
+            <h2 className="text-2xl font-bold">Module Lessons</h2>
+            <p className="text-muted-foreground">
+              Complete these lessons in order to master the concepts of computer hardware and systems.
+            </p>
             
-            <Card>
-              <div className="p-6">
-                <div className="flex items-center gap-2 mb-4">
-                  <Badge className="h-5 w-5 text-tech-primary" />
-                  <h3 className="font-bold text-lg">Available Badges</h3>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-4">
-                  {module.badges.map(badge => (
-                    <div 
-                      key={badge.id}
-                      className={`p-4 border rounded-lg flex flex-col items-center text-center space-y-2 ${badge.earned ? 'border-tech-primary bg-tech-primary/5' : 'border-gray-200'}`}
-                    >
-                      <div className={`p-2 rounded-full ${badge.earned ? 'bg-tech-primary text-white' : 'bg-gray-200 text-gray-400'}`}>
-                        <BadgeCheck className="h-5 w-5" />
+            <div className="space-y-4">
+              {moduleData.lessons.map((lesson: Lesson, index: number) => (
+                <Card 
+                  key={lesson.id}
+                  className={`border-l-4 ${
+                    lesson.status === 'completed' 
+                      ? 'border-l-green-500' 
+                      : lesson.status === 'available' 
+                        ? 'border-l-tech-primary' 
+                        : 'border-l-muted'
+                  }`}
+                >
+                  <CardHeader className="pb-2">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <CardTitle className="flex items-center gap-2">
+                          <div className="flex items-center justify-center w-6 h-6 rounded-full bg-muted text-xs font-semibold">
+                            {index + 1}
+                          </div>
+                          {lesson.title}
+                          {lesson.hasInteractive && (
+                            <Badge variant="outline" className="ml-2">Interactive</Badge>
+                          )}
+                        </CardTitle>
                       </div>
-                      <h4 className="font-medium">{badge.name}</h4>
-                      <p className="text-xs text-muted-foreground">{badge.description}</p>
+                      {lesson.status === 'completed' && (
+                        <Badge className="bg-green-500">
+                          <CheckCircle className="h-3 w-3 mr-1" /> Completed
+                        </Badge>
+                      )}
                     </div>
-                  ))}
-                </div>
-              </div>
-            </Card>
+                    <CardDescription>{lesson.description}</CardDescription>
+                  </CardHeader>
+                  <CardFooter>
+                    {lesson.status === 'locked' ? (
+                      <Button variant="outline" disabled className="w-full">
+                        <Lock className="h-4 w-4 mr-2" /> Locked
+                      </Button>
+                    ) : (
+                      <Button asChild className="w-full">
+                        <Link to={`/modules/${moduleId}/lessons/${lesson.id}`}>
+                          <Book className="h-4 w-4 mr-2" />
+                          {lesson.status === 'completed' ? 'Review Lesson' : 'Start Lesson'}
+                        </Link>
+                      </Button>
+                    )}
+                  </CardFooter>
+                </Card>
+              ))}
+            </div>
+            
+            <div className="flex justify-between pt-4">
+              <Button variant="outline" asChild>
+                <Link to="/modules">Back to Modules</Link>
+              </Button>
+            </div>
           </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 }

@@ -22,6 +22,36 @@ export default function AuthForm() {
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
     
+    // Demo credentials check
+    if ((email === "demo" && password === "demo") || 
+        (email === "admin" && password === "admin")) {
+      // Create a demo user
+      const demoUser = {
+        id: "demo-user-1",
+        username: email === "demo" ? "DemoStudent" : "AdminUser",
+        email: email,
+        isAuthenticated: true,
+        role: email === "admin" ? "admin" : "student",
+        points: 20,
+        completedLessons: [1],
+        completedModules: [],
+        quizScores: {},
+        badges: ["first_login"],
+      };
+      
+      // Store the user in localStorage
+      localStorage.setItem("user", JSON.stringify(demoUser));
+      
+      toast({
+        title: "Demo Login Successful",
+        description: `Welcome to CATalyst Learn, ${demoUser.username}!`,
+      });
+      
+      setIsLoading(false);
+      navigate('/');
+      return;
+    }
+    
     const success = await login(email, password);
     setIsLoading(false);
     
@@ -45,6 +75,35 @@ export default function AuthForm() {
     if (success) {
       navigate('/');
     }
+  };
+
+  const handleDemoLogin = () => {
+    setIsLoading(true);
+    
+    // Create a demo user
+    const demoUser = {
+      id: "demo-user-1",
+      username: "DemoStudent",
+      email: "demo@example.com",
+      isAuthenticated: true,
+      role: "student",
+      points: 20,
+      completedLessons: [1],
+      completedModules: [],
+      quizScores: {},
+      badges: ["first_login"],
+    };
+    
+    // Store the user in localStorage
+    localStorage.setItem("user", JSON.stringify(demoUser));
+    
+    toast({
+      title: "Demo Login Successful",
+      description: "Welcome to CATalyst Learn, DemoStudent!",
+    });
+    
+    setIsLoading(false);
+    navigate('/');
   };
 
   return (
@@ -91,8 +150,12 @@ export default function AuthForm() {
                 <Button disabled={isLoading}>
                   {isLoading ? "Logging in..." : "Log in"}
                 </Button>
+                <Button type="button" variant="outline" onClick={handleDemoLogin} disabled={isLoading}>
+                  Quick Demo Login
+                </Button>
                 <div className="text-xs text-center text-muted-foreground">
-                  <p>Demo admin access: Email: admin, Password: admin</p>
+                  <p>Demo access: Username: demo, Password: demo</p>
+                  <p>Admin access: Username: admin, Password: admin</p>
                 </div>
               </div>
             </form>

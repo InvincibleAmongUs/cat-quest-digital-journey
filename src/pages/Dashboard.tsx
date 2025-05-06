@@ -17,8 +17,8 @@ const currentModule = {
   title: "System Superstars",
   description: "Master computer systems, components and basic operations",
   progress: 35,
-  nextLessonId: 2,
-  nextLessonTitle: "Understanding Hardware Components",
+  nextLessonId: 1,
+  nextLessonTitle: "What is Hardware?",
   image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80"
 };
 
@@ -56,6 +56,16 @@ export default function Dashboard() {
   const navigate = useNavigate();
   const { user } = useAuth();
   
+  // Calculate user progress based on completed lessons
+  const calculateProgress = () => {
+    // For demo purposes, we'll base this on lessons 1-3 for Module 1
+    if (!user) return 0;
+    
+    const totalLessons = 5; // Total lessons in Module 1
+    const completedCount = user.completedLessons.filter(id => id >= 1 && id <= 5).length;
+    return Math.round((completedCount / totalLessons) * 100);
+  };
+  
   // If no user data is found, redirect to login
   useEffect(() => {
     if (!user) {
@@ -65,6 +75,38 @@ export default function Dashboard() {
   
   if (!user) {
     return null; // Or a loading spinner
+  }
+  
+  // Update progress for the current module
+  const updatedCurrentModule = {
+    ...currentModule,
+    progress: calculateProgress()
+  };
+  
+  // Update progress for the modules list
+  const updatedModules = recentModules.map(module => {
+    if (module.id === 1) {
+      return {
+        ...module,
+        progress: calculateProgress()
+      };
+    }
+    return module;
+  });
+  
+  // Determine next lesson based on completed lessons
+  let nextLessonId = 1;
+  let nextLessonTitle = "What is Hardware?";
+  
+  if (user.completedLessons.includes(1) && user.completedLessons.includes(2) && user.completedLessons.includes(3)) {
+    nextLessonId = 4;
+    nextLessonTitle = "Storage Devices";
+  } else if (user.completedLessons.includes(1) && user.completedLessons.includes(2)) {
+    nextLessonId = 3;
+    nextLessonTitle = "Ports and Connectors";
+  } else if (user.completedLessons.includes(1)) {
+    nextLessonId = 2;
+    nextLessonTitle = "Input Devices";
   }
 
   return (
@@ -82,11 +124,17 @@ export default function Dashboard() {
         
         <div className="grid md:grid-cols-2 gap-6">
           <ProgressOverview 
-            totalProgress={25} 
+            totalProgress={calculateProgress()} 
             earnedBadges={user.badges.length} 
             totalPoints={user.points} 
           />
-          <CurrentModule module={currentModule} />
+          <CurrentModule 
+            module={{
+              ...updatedCurrentModule,
+              nextLessonId,
+              nextLessonTitle
+            }} 
+          />
         </div>
         
         <div className="mt-12">
@@ -96,7 +144,7 @@ export default function Dashboard() {
               View All Modules
             </Button>
           </div>
-          <ModuleList modules={recentModules} />
+          <ModuleList modules={updatedModules} />
         </div>
         
         <div className="mt-12">
@@ -118,9 +166,10 @@ export default function Dashboard() {
                   className="p-6 border rounded-lg flex flex-col items-center text-center space-y-3 bg-gradient-to-b from-tech-primary/10 to-tech-primary/5 border-tech-primary"
                 >
                   <div className="badge-icon">
-                    <BadgeCheck className="h-5 w-5" />
+                    <BadgeCheck className="h-8 w-8 text-tech-primary" />
                   </div>
                   <h3 className="font-bold">{badge.name}</h3>
+                  <p className="text-xs text-muted-foreground">{badge.description}</p>
                 </div>
               );
             })}

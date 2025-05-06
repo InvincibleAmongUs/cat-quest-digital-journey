@@ -43,6 +43,12 @@ export const availableBadges: Badge[] = [
     criteria: (userData) => userData.completedLessons.includes(1)
   },
   {
+    id: "hardware_basics",
+    name: "Hardware Basics Badge",
+    description: "Mastered the fundamentals of computer hardware",
+    criteria: (userData) => userData.completedLessons.includes(3)
+  },
+  {
     id: "module_master",
     name: "Module Master",
     description: "Completed an entire module",
