@@ -1,58 +1,50 @@
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
 
-interface AuthFormProps {
-  onAuthenticated: (userData: { username: string; email: string }) => void;
-}
-
-export default function AuthForm({ onAuthenticated }: AuthFormProps) {
+export default function AuthForm() {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const { login, register } = useAuth();
+  const navigate = useNavigate();
   
-  // In a real app, this would connect to a backend authentication service
-  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
     
-    // Demo login - simulate API call
-    setTimeout(() => {
-      setIsLoading(false);
-      const formData = new FormData(e.currentTarget);
-      const email = formData.get("email") as string;
-      const username = email.split("@")[0];
-      
-      onAuthenticated({ username, email });
-      
-      toast({
-        title: "Welcome back, explorer!",
-        description: "Your digital journey awaits.",
-      });
-    }, 1000);
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+    
+    const success = await login(email, password);
+    setIsLoading(false);
+    
+    if (success) {
+      navigate('/');
+    }
   };
   
-  const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
     
-    // Demo registration - simulate API call
-    setTimeout(() => {
-      setIsLoading(false);
-      const formData = new FormData(e.currentTarget);
-      const email = formData.get("email") as string;
-      const username = formData.get("username") as string;
-      
-      onAuthenticated({ username, email });
-      
-      toast({
-        title: "Account created!",
-        description: "Welcome to your tech adventure.",
-      });
-    }, 1000);
+    const formData = new FormData(e.currentTarget);
+    const username = formData.get("username") as string;
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+    
+    const success = await register(username, email, password);
+    setIsLoading(false);
+    
+    if (success) {
+      navigate('/');
+    }
   };
 
   return (
@@ -75,8 +67,8 @@ export default function AuthForm({ onAuthenticated }: AuthFormProps) {
                   <Input
                     id="email"
                     name="email" 
-                    placeholder="name@school.edu"
-                    type="email"
+                    placeholder="Email or username"
+                    type="text"
                     autoCapitalize="none"
                     autoComplete="email"
                     autoCorrect="off"
@@ -99,6 +91,9 @@ export default function AuthForm({ onAuthenticated }: AuthFormProps) {
                 <Button disabled={isLoading}>
                   {isLoading ? "Logging in..." : "Log in"}
                 </Button>
+                <div className="text-xs text-center text-muted-foreground">
+                  <p>Demo admin access: Email: admin, Password: admin</p>
+                </div>
               </div>
             </form>
           </TabsContent>

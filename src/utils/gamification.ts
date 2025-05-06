@@ -1,19 +1,13 @@
 
+import { UserData } from '@/contexts/AuthContext';
+
 // Types for gamification system
 export interface Badge {
   id: string;
   name: string;
   description: string;
   imageUrl?: string;
-  criteria: (userData: UserProgress) => boolean;
-}
-
-export interface UserProgress {
-  completedLessons: number[];
-  completedModules: number[];
-  points: number;
-  quizScores: Record<number, number>; // lessonId -> score
-  badges: string[]; // badge IDs
+  criteria: (userData: UserData) => boolean;
 }
 
 // Available badges in the system
@@ -53,11 +47,17 @@ export const availableBadges: Badge[] = [
     name: "Module Master",
     description: "Completed an entire module",
     criteria: (userData) => userData.completedModules.length > 0
+  },
+  {
+    id: "admin_badge",
+    name: "Administrator",
+    description: "You have administrator privileges",
+    criteria: (userData) => userData.role === 'admin'
   }
 ];
 
 // Check for new badges based on user progress
-export function checkForNewBadges(userData: UserProgress): string[] {
+export function checkForNewBadges(userData: UserData): string[] {
   const newBadges: string[] = [];
   
   availableBadges.forEach(badge => {
@@ -81,46 +81,52 @@ export function awardPoints(action: 'lesson_complete' | 'quiz_complete' | 'perfe
   return pointsMap[action];
 }
 
-// Get user progress from localStorage
-export function getUserProgress(): UserProgress {
-  const userDataString = localStorage.getItem('user');
-  const userData = userDataString ? JSON.parse(userDataString) : null;
-  
-  if (!userData) {
-    return {
-      completedLessons: [],
-      completedModules: [],
-      points: 0,
-      quizScores: {},
-      badges: []
-    };
-  }
-  
-  // Ensure the user data has all the required fields
-  return {
-    completedLessons: userData.completedLessons || [],
-    completedModules: userData.completedModules || [],
-    points: userData.points || 0,
-    quizScores: userData.quizScores || {},
-    badges: userData.badges || [],
-    ...userData
-  };
-}
-
-// Save user progress to localStorage
-export function saveUserProgress(progress: Partial<UserProgress>): void {
-  const currentData = getUserProgress();
-  const userDataString = localStorage.getItem('user');
-  const userData = userDataString ? JSON.parse(userDataString) : {};
-  
+// Save user progress
+export function saveUserProgress(userData: UserData, updates: Partial<UserData>): UserData {
+  // Create updated user data
   const updatedUserData = {
     ...userData,
-    completedLessons: [...currentData.completedLessons, ...(progress.completedLessons || [])].filter((v, i, a) => a.indexOf(v) === i),
-    completedModules: [...currentData.completedModules, ...(progress.completedModules || [])].filter((v, i, a) => a.indexOf(v) === i),
-    points: (currentData.points || 0) + (progress.points || 0),
-    quizScores: { ...currentData.quizScores, ...(progress.quizScores || {}) },
-    badges: [...currentData.badges, ...(progress.badges || [])].filter((v, i, a) => a.indexOf(v) === i)
+    completedLessons: [
+      ...userData.completedLessons,
+      ...(updates.completedLessons || [])
+    ].filter((v, i, a) => a.indexOf(v) === i),
+    completedModules: [
+      ...userData.completedModules,
+      ...(updates.completedModules || [])
+    ].filter((v, i, a) => a.indexOf(v) === i),
+    points: (userData.points || 0) + (updates.points || 0),
+    quizScores: { ...userData.quizScores, ...(updates.quizScores || {}) },
+    badges: [
+      ...userData.badges,
+      ...(updates.badges || [])
+    ].filter((v, i, a) => a.indexOf(v) === i)
   };
   
+  // In a real application, we would send this to the backend
+  // For now we update localStorage
   localStorage.setItem('user', JSON.stringify(updatedUserData));
+  
+  // Update user data in all_users if it exists
+  const allUsers = localStorage.getItem('all_users');
+  if (allUsers) {
+    try {
+      const users = JSON.parse(allUsers);
+      const updatedUsers = users.map((user: any) => {
+        if (user.email === userData.email) {
+          const { password, ...userDataWithoutPassword } = user;
+          return {
+            ...userDataWithoutPassword,
+            ...updatedUserData,
+            password // Keep the password
+          };
+        }
+        return user;
+      });
+      localStorage.setItem('all_users', JSON.stringify(updatedUsers));
+    } catch (error) {
+      console.error('Failed to update user in all_users:', error);
+    }
+  }
+  
+  return updatedUserData;
 }

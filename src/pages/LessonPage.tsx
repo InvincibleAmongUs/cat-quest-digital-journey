@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import AppHeader from '@/components/layout/AppHeader';
@@ -7,7 +8,8 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ChevronRight, Book, Home } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { awardPoints, checkForNewBadges, getUserProgress, saveUserProgress, availableBadges } from '@/utils/gamification';
+import { awardPoints, checkForNewBadges, saveUserProgress, availableBadges } from '@/utils/gamification';
+import { useAuth } from '@/contexts/AuthContext';
 
 // Mock lesson data for the first lesson of Module 1
 const lessonData = {
@@ -135,24 +137,16 @@ export default function LessonPage() {
   const [showQuiz, setShowQuiz] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
   const { toast } = useToast();
-  
-  // Access user data from localStorage
-  const userDataString = localStorage.getItem('user');
-  const userData = userDataString ? JSON.parse(userDataString) : null;
-  
-  const handleLogout = () => {
-    localStorage.removeItem('user');
-    navigate('/login');
-  };
-  
+  const { user, updateUserData } = useAuth();
+
   // If no user data is found, redirect to login
   useEffect(() => {
-    if (!userData) {
+    if (!user) {
       navigate('/login');
     }
-  }, [userData, navigate]);
+  }, [user, navigate]);
   
-  if (!userData) {
+  if (!user) {
     return null;
   }
 
@@ -171,9 +165,7 @@ export default function LessonPage() {
   
   const handleQuizComplete = (score: number) => {
     // Save quiz score
-    saveUserProgress({
-      quizScores: { [lesson.id]: score }
-    });
+    const quizScores = { ...user.quizScores, [lesson.id]: score };
     
     // Award points based on score
     let pointsAwarded = awardPoints('quiz_complete');
@@ -182,32 +174,41 @@ export default function LessonPage() {
     }
     
     // Complete the lesson
-    completeLesson();
+    completeLesson(pointsAwarded, quizScores);
   };
   
-  const completeLesson = () => {
+  const completeLesson = (additionalPoints = 0, quizScores = {}) => {
     setIsCompleted(true);
     
-    // Mark lesson as completed
-    const pointsAwarded = awardPoints('lesson_complete');
+    // Mark lesson as completed if not already
+    const completedLessons = [...user.completedLessons];
+    if (!completedLessons.includes(lesson.id)) {
+      completedLessons.push(lesson.id);
+    }
     
-    // Update user progress
-    saveUserProgress({
-      completedLessons: [lesson.id],
-      points: pointsAwarded
+    // Award points for lesson completion
+    const pointsAwarded = awardPoints('lesson_complete') + additionalPoints;
+    
+    // Create updated user data
+    const updatedUserData = saveUserProgress(user, {
+      completedLessons,
+      points: pointsAwarded,
+      quizScores
     });
     
     // Check for new badges
-    const userProgress = getUserProgress();
-    const newBadges = checkForNewBadges(userProgress);
+    const newBadges = checkForNewBadges(updatedUserData);
     
     if (newBadges.length > 0) {
       // Save the new badges
-      saveUserProgress({
+      const finalUserData = saveUserProgress(updatedUserData, {
         badges: newBadges
       });
       
-      // Show badge notification
+      // Update user data in the context
+      updateUserData(finalUserData);
+      
+      // Show badge notifications
       newBadges.forEach(badgeId => {
         const badge = availableBadges.find(b => b.id === badgeId);
         if (badge) {
@@ -218,14 +219,10 @@ export default function LessonPage() {
           });
         }
       });
+    } else {
+      // Update user data in the context
+      updateUserData(updatedUserData);
     }
-    
-    // Update points display in the UI
-    const updatedUserData = {
-      ...userData,
-      points: userData.points + pointsAwarded
-    };
-    localStorage.setItem('user', JSON.stringify(updatedUserData));
   };
 
   const handleNextLesson = () => {
@@ -243,9 +240,8 @@ export default function LessonPage() {
   return (
     <div className="min-h-screen bg-background">
       <AppHeader 
-        username={userData.username} 
-        points={userData.points}
-        onLogout={handleLogout}
+        username={user.username} 
+        points={user.points}
       />
       
       <div className="bg-muted py-4 border-b">

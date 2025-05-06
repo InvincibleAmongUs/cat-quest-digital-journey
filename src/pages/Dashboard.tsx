@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import AppHeader from '@/components/layout/AppHeader';
@@ -8,6 +8,7 @@ import CurrentModule from '@/components/dashboard/CurrentModule';
 import ModuleList from '@/components/dashboard/ModuleList';
 import DataDragon from '@/components/mascot/DataDragon';
 import { BadgeCheck } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
 
 // Mock data
 const currentModule = {
@@ -52,46 +53,37 @@ const recentModules = [
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  
-  // Access user data from localStorage
-  const userDataString = localStorage.getItem('user');
-  const userData = userDataString ? JSON.parse(userDataString) : null;
-  
-  const handleLogout = () => {
-    localStorage.removeItem('user');
-    navigate('/login');
-  };
+  const { user } = useAuth();
   
   // If no user data is found, redirect to login
-  React.useEffect(() => {
-    if (!userData) {
+  useEffect(() => {
+    if (!user) {
       navigate('/login');
     }
-  }, [userData, navigate]);
+  }, [user, navigate]);
   
-  if (!userData) {
+  if (!user) {
     return null; // Or a loading spinner
   }
 
   return (
     <div className="min-h-screen bg-background">
       <AppHeader 
-        username={userData.username} 
-        points={userData.points}
-        onLogout={handleLogout}
+        username={user.username} 
+        points={user.points}
       />
       
       <main className="container py-6 space-y-8">
         <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold">Welcome back, {userData.username}!</h1>
+          <h1 className="text-3xl font-bold">Welcome back, {user.username}!</h1>
           <DataDragon message="Ready to continue your tech adventure today?" />
         </div>
         
         <div className="grid md:grid-cols-2 gap-6">
           <ProgressOverview 
             totalProgress={25} 
-            earnedBadges={2} 
-            totalPoints={userData.points} 
+            earnedBadges={user.badges.length} 
+            totalPoints={user.points} 
           />
           <CurrentModule module={currentModule} />
         </div>
@@ -115,20 +107,28 @@ export default function Dashboard() {
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div className="p-6 border rounded-lg flex flex-col items-center text-center space-y-3 bg-gradient-to-b from-tech-primary/10 to-tech-primary/5 border-tech-primary">
-              <div className="badge-icon">
-                <BadgeCheck className="h-5 w-5" />
+            {user.badges.slice(0, 4).map((badgeId, index) => {
+              const badge = availableBadges.find(b => b.id === badgeId);
+              if (!badge) return null;
+              
+              return (
+                <div 
+                  key={index}
+                  className="p-6 border rounded-lg flex flex-col items-center text-center space-y-3 bg-gradient-to-b from-tech-primary/10 to-tech-primary/5 border-tech-primary"
+                >
+                  <div className="badge-icon">
+                    <BadgeCheck className="h-5 w-5" />
+                  </div>
+                  <h3 className="font-bold">{badge.name}</h3>
+                </div>
+              );
+            })}
+            
+            {user.badges.length === 0 && (
+              <div className="col-span-4 p-6 border rounded-lg text-center">
+                <p className="text-muted-foreground">You haven't earned any badges yet. Complete lessons and quizzes to earn your first badge!</p>
               </div>
-              <h3 className="font-bold">First Login</h3>
-            </div>
-            <div className="p-6 border rounded-lg flex flex-col items-center text-center space-y-3 bg-gradient-to-b from-tech-primary/10 to-tech-primary/5 border-tech-primary">
-              <div className="badge-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
-                  <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
-                </svg>
-              </div>
-              <h3 className="font-bold">Journey Begun</h3>
-            </div>
+            )}
           </div>
         </div>
       </main>
