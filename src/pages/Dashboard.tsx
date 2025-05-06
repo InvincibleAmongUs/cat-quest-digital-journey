@@ -9,6 +9,7 @@ import ModuleList from '@/components/dashboard/ModuleList';
 import DataDragon from '@/components/mascot/DataDragon';
 import { BadgeCheck } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
+import { availableBadges } from '@/utils/gamification';
 
 // Mock data
 const currentModule = {
