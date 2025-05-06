@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -28,6 +29,7 @@ export default function LessonContent({
 }: LessonContentProps) {
   const [isCompleted, setIsCompleted] = useState(false);
   const [quizStarted, setQuizStarted] = useState(false);
+  const [selectedAnswers, setSelectedAnswers] = useState<Record<number, number>>({});
   const { toast } = useToast();
 
   const handleComplete = () => {
@@ -45,6 +47,26 @@ export default function LessonContent({
     });
   };
 
+  const handleAnswerSelect = (questionIndex: number, answerIndex: number) => {
+    setSelectedAnswers(prev => ({
+      ...prev,
+      [questionIndex]: answerIndex
+    }));
+  };
+
+  const quizQuestions = [
+    {
+      question: "What does CPU stand for?",
+      options: ["Central Processing Unit", "Computer Personal Unit", "Central Personal Utility"],
+      correctAnswer: 0
+    },
+    {
+      question: "Which of these is NOT a type of computer?",
+      options: ["Desktop", "Laptop", "Dataphone"],
+      correctAnswer: 2
+    }
+  ];
+
   return (
     <div className="space-y-6">
       <div className="prose max-w-none">
@@ -61,25 +83,24 @@ export default function LessonContent({
             <CardContent className="p-6">
               <h3 className="text-xl font-bold mb-4">Quick Quiz</h3>
               
-              {/* This is a simple example quiz - in a real app, this would be dynamic */}
               <div className="space-y-4">
-                <div className="space-y-2">
-                  <p className="font-medium">1. What does CPU stand for?</p>
-                  <div className="grid grid-cols-1 gap-2">
-                    <Button variant="outline" className="justify-start">Central Processing Unit</Button>
-                    <Button variant="outline" className="justify-start">Computer Personal Unit</Button>
-                    <Button variant="outline" className="justify-start">Central Personal Utility</Button>
+                {quizQuestions.map((q, qIndex) => (
+                  <div key={qIndex} className="space-y-2">
+                    <p className="font-medium">{qIndex + 1}. {q.question}</p>
+                    <div className="grid grid-cols-1 gap-2">
+                      {q.options.map((option, aIndex) => (
+                        <Button 
+                          key={aIndex}
+                          variant={selectedAnswers[qIndex] === aIndex ? "default" : "outline"} 
+                          className="justify-start"
+                          onClick={() => handleAnswerSelect(qIndex, aIndex)}
+                        >
+                          {option}
+                        </Button>
+                      ))}
+                    </div>
                   </div>
-                </div>
-                
-                <div className="space-y-2">
-                  <p className="font-medium">2. Which of these is NOT a type of computer?</p>
-                  <div className="grid grid-cols-1 gap-2">
-                    <Button variant="outline" className="justify-start">Desktop</Button>
-                    <Button variant="outline" className="justify-start">Laptop</Button>
-                    <Button variant="outline" className="justify-start">Dataphone</Button>
-                  </div>
-                </div>
+                ))}
               </div>
             </CardContent>
           </Card>
@@ -99,7 +120,10 @@ export default function LessonContent({
         
         <div className="flex gap-2">
           {!isCompleted ? (
-            <Button onClick={handleComplete}>
+            <Button 
+              onClick={handleComplete}
+              disabled={lesson.hasQuiz && quizStarted && Object.keys(selectedAnswers).length !== quizQuestions.length}
+            >
               {lesson.hasQuiz && !quizStarted ? 'Take Quiz' : 'Complete Lesson'}
               {!lesson.hasQuiz && <Check className="ml-2 h-4 w-4" />}
             </Button>

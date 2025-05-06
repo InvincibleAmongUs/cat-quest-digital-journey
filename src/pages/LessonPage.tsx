@@ -1,11 +1,13 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import AppHeader from '@/components/layout/AppHeader';
 import LessonContent from '@/components/lessons/LessonContent';
+import QuizSection, { QuizQuestion } from '@/components/quiz/QuizSection';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ChevronRight, Book, Home } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
+import { awardPoints, checkForNewBadges, getUserProgress, saveUserProgress } from '@/utils/gamification';
 
 // Mock lesson data for the first lesson of Module 1
 const lessonData = {
@@ -107,12 +109,32 @@ const lessonData = {
         <li>Transportation (GPS navigation, traffic updates)</li>
       </ul>
     </div>
-  )
+  ),
+  quizQuestions: [
+    {
+      question: "What does CPU stand for?",
+      options: ["Central Processing Unit", "Computer Personal Unit", "Central Personal Utility"],
+      correctAnswer: 0
+    },
+    {
+      question: "Which of these is NOT a type of computer?",
+      options: ["Desktop", "Laptop", "Dataphone"],
+      correctAnswer: 2
+    },
+    {
+      question: "What is the main purpose of computer storage?",
+      options: ["To process data", "To save data for future use", "To display output"],
+      correctAnswer: 1
+    }
+  ]
 };
 
 export default function LessonPage() {
   const { moduleId, lessonId } = useParams();
   const navigate = useNavigate();
+  const [showQuiz, setShowQuiz] = useState(false);
+  const [isCompleted, setIsCompleted] = useState(false);
+  const { toast } = useToast();
   
   // Access user data from localStorage
   const userDataString = localStorage.getItem('user');
@@ -138,13 +160,72 @@ export default function LessonPage() {
   const lesson = lessonData;
 
   const handleComplete = () => {
+    if (lesson.hasQuiz && !showQuiz) {
+      setShowQuiz(true);
+      return;
+    }
+    
     // In a real app, we would update the user's progress
-    // For now, just update local storage with some points
-    const updatedPoints = userData.points + 10;
-    localStorage.setItem('user', JSON.stringify({
+    completeLesson();
+  };
+  
+  const handleQuizComplete = (score: number) => {
+    // Save quiz score
+    saveUserProgress({
+      quizScores: { [lesson.id]: score }
+    });
+    
+    // Award points based on score
+    let pointsAwarded = awardPoints('quiz_complete');
+    if (score === 100) {
+      pointsAwarded += awardPoints('perfect_score');
+    }
+    
+    // Complete the lesson
+    completeLesson();
+  };
+  
+  const completeLesson = () => {
+    setIsCompleted(true);
+    
+    // Mark lesson as completed
+    const pointsAwarded = awardPoints('lesson_complete');
+    
+    // Update user progress
+    saveUserProgress({
+      completedLessons: [lesson.id],
+      points: pointsAwarded
+    });
+    
+    // Check for new badges
+    const userProgress = getUserProgress();
+    const newBadges = checkForNewBadges(userProgress);
+    
+    if (newBadges.length > 0) {
+      // Save the new badges
+      saveUserProgress({
+        badges: newBadges
+      });
+      
+      // Show badge notification
+      newBadges.forEach(badgeId => {
+        const badge = availableBadges.find(b => b.id === badgeId);
+        if (badge) {
+          toast({
+            title: `New Badge Earned: ${badge.name}`,
+            description: badge.description,
+            variant: "default",
+          });
+        }
+      });
+    }
+    
+    // Update points display in the UI
+    const updatedUserData = {
       ...userData,
-      points: updatedPoints
-    }));
+      points: userData.points + pointsAwarded
+    };
+    localStorage.setItem('user', JSON.stringify(updatedUserData));
   };
 
   const handleNextLesson = () => {
@@ -195,14 +276,40 @@ export default function LessonPage() {
       
       <main className="container py-8">
         <div className="max-w-4xl mx-auto">
-          <LessonContent 
-            lesson={lesson}
-            onComplete={handleComplete}
-            onNextLesson={handleNextLesson}
-            onPreviousLesson={handlePreviousLesson}
-            hasNextLesson={true}
-            hasPreviousLesson={false}
-          />
+          {showQuiz ? (
+            <>
+              <h1 className="text-3xl font-bold mb-4">{lesson.title} - Quiz</h1>
+              <p className="mb-6 text-muted-foreground">Test your knowledge of the concepts covered in this lesson.</p>
+              <QuizSection 
+                questions={lesson.quizQuestions} 
+                onQuizComplete={handleQuizComplete} 
+                lessonId={Number(lessonId)}
+              />
+            </>
+          ) : (
+            <LessonContent 
+              lesson={lesson}
+              onComplete={handleComplete}
+              onNextLesson={handleNextLesson}
+              onPreviousLesson={handlePreviousLesson}
+              hasNextLesson={true}
+              hasPreviousLesson={false}
+            />
+          )}
+          
+          {isCompleted && (
+            <div className="mt-8 p-6 border border-tech-primary rounded-lg bg-tech-primary/5">
+              <h2 className="text-xl font-bold mb-2">🎉 Lesson Completed!</h2>
+              <p>Great job finishing this lesson. You've earned points and made progress in your learning journey.</p>
+              <Button 
+                className="mt-4" 
+                onClick={handleNextLesson}
+              >
+                Continue to Next Lesson
+                <ChevronRight className="ml-2 h-4 w-4" />
+              </Button>
+            </div>
+          )}
         </div>
       </main>
     </div>

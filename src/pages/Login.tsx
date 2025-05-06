@@ -2,19 +2,39 @@
 import React from 'react';
 import AuthForm from '@/components/auth/AuthForm';
 import { useNavigate } from 'react-router-dom';
+import { availableBadges, saveUserProgress } from '@/utils/gamification';
+import { toast } from '@/hooks/use-toast';
 
 export default function Login() {
   const navigate = useNavigate();
 
   const handleAuthenticated = (userData: { username: string; email: string }) => {
+    // Check if this is a new user
+    const existingUser = localStorage.getItem('user');
+    const isNewUser = !existingUser;
+    
     // In a real app, we would store tokens in a more secure way
     // This is just for demo purposes
-    localStorage.setItem('user', JSON.stringify({
+    const initialUserData = {
       username: userData.username,
       email: userData.email,
       points: 50,
-      isAuthenticated: true
-    }));
+      isAuthenticated: true,
+      completedLessons: [],
+      completedModules: [],
+      quizScores: {},
+      badges: isNewUser ? ["first_login"] : [] // Award first login badge to new users
+    };
+    
+    localStorage.setItem('user', JSON.stringify(initialUserData));
+    
+    // Show welcome toast for new users
+    if (isNewUser) {
+      toast({
+        title: "Welcome to CATalyst Learn! 🚀",
+        description: "You've earned your first badge: First Login",
+      });
+    }
     
     navigate('/');
   };

@@ -4,8 +4,8 @@ import AppHeader from '@/components/layout/AppHeader';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { BadgeCheck, ArrowRight, ChevronRight, Book, Award } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import { BadgeCheck, ArrowRight, ChevronRight, Book, Award } from 'lucide-react';
 
 // Mock data for module details
 const moduleData = {
