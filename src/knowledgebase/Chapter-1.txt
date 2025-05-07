@@ -1,0 +1,235 @@
+## CHAPTER 1 CONCEPTS OF COMPUTING
+
+**CHAPTER OVERVIEW**
+Unit 1.1 Information and communication technology
+Unit 1.2 Data and information
+Unit 1.3 Computers and ICT
+Unit 1.4 Types of computers
+Unit 1.5 Economic benefits of computers
+
+### INTRODUCTION
+
+We use many different types of computers, or computer-controlled devices every day. This can range from smartphones and calculators, to the scanners used in supermarkets.
+
+The history of computing goes back over 2 500 years to the abacus, which is a simple calculator made from beads and wires, and is still used in some parts of the world today.
+
+In the following units, you will learn more about the different concepts used in computing, the different types of ICT systems used, as well as what the difference is between data and information. You will also look at the various components of a computer and the different types of computers available. Lastly, you will learn about the economic value of computers.
+
+---
+
+### UNIT 1.1 Information and communication technology
+
+#### ICT SYSTEMS USED IN EVERYDAY LIFE
+
+ICT systems are often confused with computers; however, they are not the same thing. Computers refer to the hardware that forms part of an ICT system. The ICT system refers to the overall set-up, consisting of hardware, software, data and the people that use it. It commonly includes communication technology, such as the internet.
+
+Information and communication technology (ICT) is a field that is related to computers and communication networks. It can also be in the form of audiovisuals, for example, film and digital productions. Digital technologies use data, such as text, numbers, images, sounds and videos. Computers use this data to show information.
+
+In the past, these technologies used to be separate systems, but recently, these technologies have become almost “one”. Computers have become more like smartphones and smartphones have become more like computers. ICT is the field that looks at all these technologies as one.
+
+An ICT system depends on computers, data and people to make the system work. For ICT systems to function correctly, they need to receive, store, retrieve, manipulate and transmit data. Data is often in the form of text, numbers, sounds and images.
+
+#### EXAMPLE OF AN ICT SYSTEM IN EVERYDAY LIFE
+
+Computers, however, cannot act on their own; a computer needs someone to give it (enter) the data that needs to be processed. To understand how it works, look at the following example.
+
+Supermarkets and chain stores use ICT systems for a variety of reasons. In this example, we will look at the processes of receiving, manipulating, storing and communicating data at a point-of-sale (POS) system.
+
+#### PROCESSES AT A POS SYSTEM
+
+When you look at a supermarket’s ICT system from the cashier and customer’s point of view, all you see is a stand-alone computer. This computer is called a cash register. However, the cash register consists of much more than that.
+
+All items have a **barcode**, which is a pattern of narrow and wide stripes that can be read by a barcode reader. The barcode reader is used to scan the barcode optically and convert the stripes into numerical data, which can automatically be transferred to the check-out computer (i.e. the cash register). The barcode reader sometimes beeps after scanning an item to signal to the cashier that the item has been identified.
+
+[Image: ch1_figure_1_1_barcode_example.png]
+
+**INPUT AND STORING DATA**
+When an item is scanned, the check-out computer checks for the price of the item in the database. The running total of each item is stored temporarily in the check-out terminal. (There may be other data stored there as well, such as money that was taken out of the till during the day.)
+
+**MANIPULATING DATA**
+After all the items have been scanned, the check-out computer calculates the data to determine the total cost. If the customer pays with cash and requires change, the cashier will enter the amount given and the check-out computer will calculate any change that should be given to the customer. This is an example of the computer receiving data from the user.
+
+**TRANSMITTING DATA**
+When all the items are scanned into the check-out computer, the customer can see information about the price of each item, which is shown on a small display.
+
+After all the items have been scanned, the total amount is shown. The customer then pays and is given a printed till receipt showing all the items that were bought and how much each item costs.
+
+[Image: ch1_figure_1_2_cash_register_receipt.png]
+
+**COMMUNICATION**
+In some instances, a product’s data can also be sent to the shop’s main computer for stocktaking purposes, as well as to the manufacturer for their stock purposes.
+
+---
+
+### UNIT 1.2 Data and information
+
+In computing, it is very important to understand the difference between data and information. This section will look at the differences between the two and the importance thereof.
+
+What do you think of first when you hear the word **data**? What comes to mind is raw material, which refers to something that has not yet been processed. Data needs to be processed before it can become useful. Data can be in the form of text, words, numbers or symbols which, if not put into some type of context, is pretty useless to us.
+
+**Information**, on the other hand, is data that is processed and formatted in such a way that we can actually use it. Both data and information are important; it is through accurate data collection that people, such as managers, have the necessary information to make informed decisions. Let’s take a look at the following examples of data and information:
+
+Example of data: 5605, David, 30, Bisho, 0731112222, Ramaphosa, Mahlangu, Avenue
+Example of information:
+David Mahlangu
+30 Ramaphosa Avenue
+Bisho
+5605
+(073) 111 2222
+
+As you can see from this example, the data appears to be a set of random words and numbers. Only after the data has been interpreted, organised and formatted, you can see that it is the contact details for David Mahlangu.
+
+Let’s look at the following example of how data can be converted into useful information.
+
+**DETERMINING HOW THE LEARNERS DO IN MATHEMATICS**
+Mandla’s Mathematics teacher needs to determine how the learners in her class are performing. She must get the test results (data) and the average of each learner, as well as the average mark for the entire class (information).
+There are five learners in the Mathematics class and so far, they have written three tests.
+
+[Table: ch1_table_1_1_learner_test_data.png]
+
+[Table: ch1_table_1_2_maths_results_sorted.png]
+
+Tables 1.1 and 1.2 show the difference between data and information. In Table 1.1, we cannot see how the learners are performing. However, after the computer manipulated the test scores, we are given meaningful information, as can be seen in Table 1.2. Remember, the information we get out of a computer is only as good as the data that is entered into it.
+
+#### THE GIGO PRINCIPLE
+
+**GIGO** is an acronym for **G**arbage **I**n, **G**arbage **O**ut. Simply put, it means that bad input will result in bad output. It is very important to remember the GIGO principle, because bad data will give you bad information.
+
+Using the example of the learners’ test results, if the teacher entered the incorrect marks into the computer (i.e. bad data), the information that she would get as a result, will also be incorrect.
+
+It is quite possible for data to be interpreted incorrectly. This is often the result of incorrect or incomplete data, or a lack of context.
+
+#### THE INFORMATION-PROCESSING CYCLE
+
+For you to understand how a computer works, you need to understand the information-processing cycle. The stages in this cycle repeat itself over and over again and is made up of the following:
+*   **Input:** In the first stage of computing, the computer receives some data or instructions to follow.
+*   **Processing:** In the second stage of computing, the computer follows the instructions programmed into it and manipulates the data in some way.
+*   **Output:** In the third stage of computing, the computer supplies the new, manipulated information in some way. This information can be displayed on the screen (for example, the message you see on the screen while you type), or it can be sent to a different part of the computer where it is received as input.
+*   **Storage:** An optional stage is where data is stored. The data can be stored permanently (on a **hard drive**), or temporarily (on RAM – i.e. the computer’s short-term memory).
+*   **Communication:** Another optional stage is communication, where the output created is sent across a network to other computers. While this step used to be rare in the past, most computer programs perform some type of communication today.
+
+An example of the information-processing cycle is shown in the following figure:
+
+[Image: ch1_figure_1_3_information_processing_cycle.png]
+
+The information-processing cycle is a series of stages carried out to get information from raw data. Although each of the first three stages explained above (input, processing and output) must be taken in order, the order is **cyclic**. The output stage can lead to the repeat of the data-collection stage, resulting in another cycle of data processing.
+
+---
+
+### UNIT 1.3 Computers and ICT
+
+Computers are electronic devices that receive data, manipulate the data and then turn it into useful information, before storing it and/or sending it to someone, or somewhere, to be read or acted upon.
+
+The following figure tries to explain how a computer works. You can see that the functions of a computer are similar to the stages of the information-processing cycle.
+
+[Image: ch1_figure_1_4_computer_model_general.png]
+
+Looking at the figure, you will see that all basic computers consist of four functions:
+1.  Input
+2.  Storage
+3.  Processing
+4.  Output
+
+These four things are combined to make a computer work.
+
+For a computer to function properly, it must consist of both hardware and software, which both depend on each other. Without software, the hardware of a computer will have no function and vice versa. Both of these concepts are discussed in detail in the chapters to follow; however, we will just briefly explain what each means.
+*   **Hardware:** The physical components of a computer, also referred to as the **equipment** of a computer.
+*   **Software:** More commonly known as apps (applications) or programs and consists of a list of instructions in a computer language that instructs the computer on what to do.
+
+Examples of hardware devices consist of the following:
+*   Keyboard and mouse used for input
+*   Monitors, printers and speakers used for output
+*   Hard drives and flash disks used for storage
+*   Routers used for communication
+
+[Image: ch1_figure_1_5_computer_hardware_desktop.png]
+
+---
+
+### UNIT 1.4 Types of computers
+
+As you know, computers are devices used to process information. There are several terms used to describe computers; most of these terms indicate the size and the capability of the computer. The two main categories of computers are:
+1.  **Multi-purpose:** These types of computers have an operating system that can run many applications at the same time. Some examples are devices, such as servers, laptops and smartphones.
+2.  **Dedicated devices:** These are devices that can only run one task. Some examples are ATMs and processors embedded in devices, such as refrigerators and motor cars.
+
+[Image: ch1_figure_1_6_computer_types_collage.png]
+
+#### MULTI-PURPOSE DEVICES
+
+*(Note: The following section is derived from Table 1.3 in the PDF)*
+
+**Supercomputer**
+*   **Description:** A supercomputer is the fastest, most powerful and most expensive type of computer made today. It Is used to perform many instructions per minute.
+*   **Examples of Use:** Supercomputers are used for difficult or complicated calculations, such as:
+    *   Predicting the weather
+    *   Locating possible oil deposits
+
+**Mainframe**
+*   **Description:** A mainframe is a powerful computer that has a high processing power and performance. It is big in size and can be used by several people at the same time.
+*   **Examples of Use:** It is used primarily by large organisations for critical tasks, such as:
+    *   Bulk data processing and storing of vast amounts of data, for example, census
+    *   It is also used in banks, company head offices and IT organisations
+
+**Server**
+*   **Description:** A server is a computer that has really powerful processors, large hard drives and plenty of memory power.
+*   **Examples of Use:** Servers are computers that provide (or serve) information to other computers (for example, **web pages**). A server can be used in different environments, such as:
+    *   Offices and schools where data or a printer needs to be shared amongst many people
+
+**Workstation**
+*   **Description:** A workstation is a type of computer with a high-resolution graphics screen and usually has a mass storage device, such as a **disk drive**.
+*   **Examples of Use:** It is used to perform special tasks, such as:
+    *   Precision drawings
+    *   **Computer-aided design (CAD)**, 3D graphics and software development
+    *   It can also be used in different fields, such as engineering or medicine research
+
+**Desktop**
+*   **Description:** A desktop computer is not designed to be carried around as it is made up of separate components. These computers are designed to be set up in a permanent location on a desk or table.
+*   **Examples of Use:** Desktops are used in a variety of environments, such as:
+    *   Schools: It helps school learners to gain knowledge by doing research for projects or assignments.
+    *   Entertainment: You can watch videos, listen to music, or stream videos.
+    *   Communication: Users can use desktops to make phone calls, send emails, and use instant messaging just by having a proper internet connection.
+
+**Laptop**
+*   **Description:** Laptops are also known as **notebooks** and are portable PCs that combine the display, keyboard, processor, memory, hard drive and **cursor-positioning device**, such as a touch- or trackpad, all in one package that is operated by a battery.
+*   **Examples of Use:** Laptops are best used for the office or at home. It can be used for basic administration tasks and daily office use. It can also be used for personal use, such as browsing the internet, listening to music, or watching videos.
+
+**Tablet**
+*   **Description:** Tablets are smaller than normal laptops and are **ultra portable**. Although tablets are generally cheaper than brand-new laptops, their processors and other components are less powerful than regular laptops. Tablets have virtual keyboards, or make use of a **digital pen** instead of physical keyboards.
+*   **Examples of Use:** Tablets generally have one user. With this device, you can access information and data from anywhere in the world at any time. Tablets can be used in a variety of environments:
+    *   Home: Can be used for domestic use, such as listening to music, browsing the internet, listening to music and streaming videos.
+    *   Work: Can be used as a laptop replacement; however, you will need one that has at least a nine-inch screen.
+    *   School: Can be used to access study material, as well as browsing the internet, listening to music, or doing research for projects.
+
+**Smartphone**
+*   **Description:** These handheld-sized computers use a **flash memory** instead of a hard drive for storage. It has virtual keyboards and uses **touch-screen** technology. Smartphones are lightweight and have a good battery life, depending on the make. You can access data and information as long as you have a good internet connection.
+*   **Examples of Use:** Smartphones are used in a variety of ways:
+    *   To browse the internet
+    *   To listen to music
+    *   To take photos
+    *   To navigate
+    *   To make phone calls and send and receive messages.
+
+#### DEDICATED (EMBEDDED) DEVICES
+
+**Embedded devices** are devices designed for a single purpose; whether that purpose is to wake you up in the morning, control the temperature of the air conditioning or help navigate. As such, these devices are usually excellent at their specific tasks, but they are also unable to do anything else. Embedded devices are designed to perform specific dedicated computing tasks. Examples of these devices are:
+*   ATM machines
+*   MP3 players
+*   DVD players
+*   Drones
+*   Anti-lock braking systems
+*   Airbag control systems
+*   Digital watches
+
+---
+
+### UNIT 1.5 Economic benefits of computers
+
+Over the years, it became impossible to imagine a world without computers or computer controlled devices, such as ATMs, cameras and music players.
+
+Computers have several economic benefits, such as:
+*   **Saving paper:** Companies and individuals can save paper by working electronically on computers. People can now send letters (emails), magazines and read books electronically instead of having to print out hard copies. This also saves money and time in the long run. Estimates have shown that there can be a 10 to 30% decrease in paper usage if the correct technology is used.
+*   **Saving labour:** Businesses can save money and labour (people) by using computer controlled devices to perform repetitive functions that require several employees to perform.
+*   **Communication speed and costs:** Telephone and postage costs can be decreased drastically using computers and the internet. It also allows information to be sent and received faster than in the past. For example, the use of email allows instant communication with staff, clients and other individuals at any place or time. The use of smartphones will help employers to keep in touch with their employees regularly, which ultimately saves time and phone calls.
+*   **Efficiency:** Instead of being swamped with paperwork or sorting out piles of paperwork, files can be stored on computers. Retrieval of old documents is much easier when it is stored electronically. Also, computers can do the work of more than one person in less time than normal employees.
+*   **Accuracy:** Computers produce more accurate data or results than human beings. This, however, depends on the quality of the input data. If the information entered is incorrect, the results produced will most likely be incorrect. Computers can, however, detect certain human errors and might highlight these errors.
+*   **Reliability:** Computers that are maintained properly will be reliable in the long run. It is safe to say that we can rely on computers to perform the tasks that they have been programmed to do.

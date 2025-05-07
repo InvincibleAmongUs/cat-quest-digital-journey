@@ -1,0 +1,242 @@
+## CHAPTER 2 USING A COMPUTER
+
+**CHAPTER OVERVIEW**
+Unit 2.1 Operating a computer
+Unit 2.2 Posture and ergonomics
+
+### INTRODUCTION
+
+As a modern-day learner, you have probably used, seen, or read about computers. We use computers in our everyday lives, for example, in banks, schools, shops, hospitals, and maybe the people in your home use computers on a daily basis. Being able to use a computer is an important skill to learn; not only for school or university purposes, but also for the workplace.
+
+In this chapter, we will introduce you to the practical side of using computers.
+
+---
+
+### UNIT 2.1 Operating a computer
+
+Operating a computer may not be as difficult as you think. In this unit, we will focus on:
+*   Switching a computer on.
+*   Using the mouse correctly.
+*   Using your desktop.
+*   Applying basic file operations, such as opening, saving and printing a file.
+
+#### SWITCHING THE COMPUTER ON
+
+To start up your computer, you need to do the following:
+1.  Make sure that the computer has been plugged into a power socket.
+2.  To switch the computer on, press the **Power** button. On some computers, this button lights up after the computer is switched on.
+3.  The computer will now **boot**. This is when the computer loads the operating system and checks that all the components are in good order.
+4.  After the computer has booted, a **log on** screen might appear. Logging on allows registered users access to the computer. If you are the only user of the computer, it will go straight to the desktop screen once it is turned on.
+5.  If you share the computer with other users, you might have to log in your details. You can do this by typing in your **username** and **password**, and then pressing the **Enter** key. After the computer accepts the login details, the desktop display will appear on the screen.
+
+#### USING THE MOUSE
+
+The mouse is one of the main hardware devices used to control the computer and interact with the GUI interface. Most mice are designed to have a scroller and two buttons – i.e. a left button and a right button, as seen in Figure 2.1.
+
+When holding the mouse, rest your hand over it and place your index finger on the left button of the mouse. You can rest your thumb and pinkie (little finger) on the sides of the mouse. An example of how to do this is shown in Figure 2.2.
+
+[Image: ch2_figure_2_1_mouse_parts.png]
+[Image: ch2_figure_2_2_holding_mouse.png]
+
+By **default**, a mouse is set for a right-handed person with the primary button on the left. You can change the function of the mouse buttons from the default left click to a right click.
+
+However, most left-handed people either use the mouse in their right hand, or they place the mouse on the left-hand side of the keyboard and use their middle finger for the left button.
+
+To explain how the mouse works, we will be using the left button of the mouse. The following table shows the basic things you need to know about a mouse.
+
+[Table: ch2_table_2_1_mouse_basics.png]
+
+A mouse can do a variety of tasks, such as:
+*   **Selecting an item:** To select something, move the cursor over the item, click once with the left button and then you can let go.
+*   **Opening an item:** To open something like a file, double click the left button. This is usually how it works, but sometimes a single click will also open a program. Through practice, you will learn when to use which one.
+*   **Moving items:** To move an item, you must drag and drop. You do this by pressing down on the left button above the item, as you drag the mouse along. Once you have placed the item where you want it, you can let go of the left button.
+*   **Scrolling up and down a page:** This is done by rolling the scroll- or mouse wheel up or down.
+
+#### USING THE KEYBOARD
+
+A keyboard is used for entering information, such as letters, words, numbers and symbols into a computer. Pressing any key on the keyboard is an input that the computer uses as data.
+
+The basic keyboard, as seen in Figure 2.3, is called the QWERTY keyboard.
+
+A keyboard is used for entering information, such as letters, words, numbers and symbols. Pressing any key on the keyboard is an input that the computer uses as data.
+
+[Image: ch2_figure_2_3_qwerty_keyboard.png]
+
+#### USING THE DESKTOP
+
+The desktop screen is the first thing you see when you switch the computer on. It has a logical display surface and contains user-interface objects, such as windows, menus and buttons. Its main features are the start button, **taskbar** and icons. For you to use the desktop, each computer has an operating system (OS). An operating system is the system software that allows a user to communicate with a computer in the following ways:
+*   It manages a computer’s hardware, such as the input and output devices, network devices, as well as storage devices.
+*   It provides services to facilitate the operation and management of additional software application programs.
+*   It assigns the necessary memory.
+*   It provides the **graphical user interface (GUI)**, pronounced as “gooey”, which allows a user to interact with and control software applications, or hardware devices using **graphical interface elements**, such as **windows**, **icons** and **menus**. This means that a program has graphical controls that a user can select using a mouse or keyboard.
+
+The operating system has the following user interfaces:
+*   **Desktop:** This is the main screen of the GUI and consists of a system of icons on a screen.
+*   **Window:** Used to display the contents of an application with which the user can view and interact. It shows the information of each file, application, or folder in a separate window on the screen.
+*   **Dialogue boxes/message windows:** These are small or basic windows that are usually opened by a program to indicate to the user that more information is required.
+*   **Toolbars:** These are a set of icons at the top of a window, which can be clicked to perform certain functions.
+*   **List box:** This allows the user to selected one or more items from a list. The user must click the box next to the item to select it.
+*   **Checkbox:** This is a small square box on the screen, which allows the user to click it to indicate an answer, or to allow a setting.
+*   **Windows Explorer:** Windows Explorer is a GUI component available in Microsoft Windows that enables users to access, edit, copy, delete and manage data, files and other content stored on a computer, or mobile device.
+
+Figure 2.4 is an example of an operating system interface.
+[Image: ch2_figure_2_4_os_interface_example.png]
+
+Figure 2.5 shows examples of some of the interfaces of an operating system:
+[Image: ch2_figure_2_5_os_interface_elements.png]
+
+As most of you will start your computing experience with an operating system called Microsoft Windows, we will use Windows throughout the course.
+
+With the desktop, you can use **shortcuts** to find folders, files, or programs quickly. You can identify a shortcut by checking if there is a curving arrow on the bottom left-hand side of the icon, as seen in Figure 2.6.
+
+[Image: ch2_figure_2_6_shortcut_example.png]
+
+Let’s look in more detail at the desktop and icons that you can find on a computer:
+
+[Image: ch2_figure_2_7_desktop_components.png]
+
+#### THE START BUTTON
+
+The **Start** button can be found at the bottom left-hand corner of the desktop. It allows you to open programs, files, or folders on the computer. The **Start** menu appears when you click on the Start button. From there, you can select the application, folder, or file you want to open by clicking on it.
+
+#### THE TASKBAR
+
+The taskbar can be found at the bottom of the screen, as seen in Figure 2.7. It shows a button for each open folder, file, or application. When you click on any of the buttons on the taskbar, it will open the file, folder, or application, and therefore, becomes an active window.
+
+The taskbar also has the **Start** button on the left-hand side and the **notification tray** on the right-hand side. You can perform certain functions, such as change the time, volume, or connect to the **Wi-Fi** by selecting the icons in the notification tray.
+
+#### THIS PC, FILE MANAGER, MY DOCUMENTS AND RECYCLE BIN
+
+After you click on the **This PC**, **My Documents**, or the **Recycle Bin** icon, a folder will open in a window on the desktop.
+*   **This PC:** When you open the **This PC** folder, it will give you information about the different storage disks, external hard drives, or hard disks on the computer.
+
+[Image: ch2_figure_2_8_this_pc_folder.png]
+
+*   **File manager:** A file manager is an application that helps manage the file system on a computer.
+*   **My Documents:** When you open this folder by double clicking on the icon, you can find your documents, music, pictures and other files. These files are stored in the **My Documents** folder on the computer’s hard disk.
+*   **Recycle Bin:** When you delete items, such as folders or files from the computer, they are stored temporarily in the **Recycle Bin**. If you deleted a file by mistake, it can be restored to its original folder from the Recycle Bin. The files or folders in the Recycle Bin can also be permanently deleted by deleting them.
+
+#### ACCESSING APPLICATIONS
+
+You can access the different applications on the computer by using the **Start** menu. Click on the **Start** button and then scroll through the alphabetical list. If you want to save time, you can limit the scrolling by selecting any letter from the alphabetical list. From there, you can choose the letter that the application begins with.
+
+If you are still having difficulty finding the application that you are looking for, type in the name of the application in the search box on the taskbar.
+
+#### GETTING TO KNOW WINDOWS
+
+Zama needs to use Microsoft Word for a small project. Let’s look at an example of how Zama uses Microsoft Word.
+
+1.  To open Word, she clicks on the **Start** button and then moves the mouse pointer onto the Word icon and clicks on it, as seen in Figure 2.9.
+
+[Image: ch2_figure_2_9_opening_word.png]
+
+2.  Word will open in a separate window and the Word icon will appear on the taskbar.
+
+[Image: ch2_figure_2_10_word_window.png]
+
+##### SOME THINGS TO NOTE ABOUT WINDOWS
+
+The following section will look at the different features of windows, using the Word window as an example.
+
+The title bar is found at the top of the window and the name of the open file can be seen on the title bar. Since the document is not named yet, the title bar will be *Document1-Word*.
+
+[Image: ch2_figure_2_11_title_bar.png]
+
+To minimise the taskbar, click on the **Minimise** button on the top-right corner of the window, as seen below.
+[Image: ch2_figure_2_12_minimise_button.png]
+
+To enlarge the window or make it bigger, click on the **Maximise** button, as shown below. This can also be done by dragging the window from the title bar to the top of the screen.
+[Image: ch2_figure_2_13_maximise_button.png]
+
+To close a window, click on the **Close** button (which is the x in the top-right corner of the window), as shown below.
+[Image: ch2_figure_2_14_close_button.png]
+
+#### FILE MANAGEMENT
+
+##### OPENING A DOCUMENT AND SAVING DATA
+
+Now we must open the document and save the data we need on Word. Let us see how she does this.
+
+*(Practical steps omitted - See Guided Activity 2.3 in PDF)*
+
+When you are done using the computer, you can switch it off by first clicking on the **Start** button, then on the **Power** button where you choose **Shut down** to shut down the computer.
+
+##### OPENING A FILE
+
+In the previous example, you saved a document with the file name ‘Test’. Now let’s learn how to open the saved file.
+
+*(Practical steps omitted - See Guided Activity 2.4 in PDF)*
+
+[Image: ch2_figure_2_15_open_dialogue_box.png]
+
+##### PRINTING A DOCUMENT
+
+You will learn how to print documents when you study word processing. Refer to Chapter 1: Introduction to Word Processing in the Practical Book for more information.
+
+---
+
+### UNIT 2.2 Posture and ergonomics
+
+As computing takes over our lives more and more, typing is one of the most important and necessary skills that you will ever learn.
+
+**Touch typing** is all about making sure that each finger has its own place on the keyboard. Because of that, you do not have to look down on the keyboard while typing, which makes your typing speed much faster.
+
+Let’s look at the following benefits of being able to touch type:
+*   **Speed:** This is the most obvious advantage of touch typing. On average, you can easily reach typing speeds of 75 to 80 words per minute. Comparing that to the average of ten words per minute of someone who does not touch type, you can see that it is much faster.
+*   **Time:** If you increase your typing time, you obviously decrease the time it will take you to complete a document. A person who types with two fingers at ten words per minute, will take 17 minutes to type a 170-word document. Typing at 60 words per minute will do the same document in four minutes.
+*   **Decrease fatigue:** Typing is very tiring when it is done over long periods of time. Learning to touch type reduces this exhaustion, as you do not have to focus on two things at a time. It also prevents you from looking up and down the whole time, placing less strain on your eyes, neck and spine.
+*   **Health:** Touch typing is better for your health, because you do not hunch over and look at the keys while using your fingers. This helps to reduce the strain on your joints.
+*   **Accuracy:** The better you can touch type, the less typing errors you will make, because you are looking at what you type, and not having to look down and find the right keys.
+
+#### SOCIAL IMPLICATIONS: CORRECT TYPING POSTURE
+
+Posture is defined as the position in which a person holds his or her body when sitting or walking. Sitting in front of a computer for long periods of time, even with a good posture, can lead to tiredness or eye discomfort.
+
+Having the correct posture also helps you to type correctly and more efficiently.
+
+A tip for having a good posture when using the computer, is to position yourself so that your belly button is in line with the letter “H” on the keyboard. You can see an example of this in Figure 2.16.
+
+[Image: ch2_figure_2_16_correct_posture.png]
+
+The following are elements for maintaining a good posture:
+*   **Body:** Your back should be straight, upright and relaxed, but comfortable. For your back to be supported, it should be aligned with the chair’s backrest. Do not lean too far forward as this will cause discomfort later.
+*   **Feet:** For your feet to feel comfortable, make sure that they are flat on the floor, or on a foot rest.
+*   **Knees and hips:** Push your hips as far back as they can go in the chair. As seen in Figure 2.16, your knees and hips should form a 90° angle when sitting on the chair. Also, make sure your knees do not touch the chair.
+*   **Arms, wrists, fingers and hands:** Your arms should be placed horizontally in a 90° angle, your wrists should be in a neutral position and your fingers should be placed on the home row.
+*   **Eyes:** Your eyes should focus on the text that you are typing on the screen. To position your screen, make sure it is slightly lower than your eye level.
+
+Having the wrong posture when sitting in front of a computer, can cause various health problems, such as:
+*   **Posture-related injuries:** Posture-related injuries include back and neck pain, headaches, and shoulder and arm pain. Poor posture can affect your spine alignment, causing problems with blood vessels, and ultimately leading to blood clots and varicose veins. When your body is slumped over for long periods of time, you are more likely to clench your jaw and tighten your facial muscles. This can lead to jaw pain and headaches.
+*   **Computer-related overuse injuries:** The muscles and tendons in the elbows, wrists and hands can become painful with repetitive movement and bad posture. Symptoms include pain, swelling, stiffness of the joints, weakness and numbness.
+*   **Eye strain:** Eye strain is caused by focusing the eyes at the same distant point for long periods of time, working with the screen too close to the eyes and looking at the illuminated computer screen for too long.
+*   **Laptop-related injuries:** Laptops were never meant to be used for long periods of time. The fact that the screen and the keyboard are very close together, it can cause eye strain, as well as a bad posture. Even carrying the laptop around can put strain on your muscles and joints.
+
+#### ERGONOMICS
+
+Ergonomics is the study of the way in which humans work with the goal of increasing productivity, comfort and safety.
+
+When speaking of computer ergonomics, the focus is mainly on the way in which people use computers, and how this can be improved to make people more comfortable and reduce discomfort and injuries.
+
+Key ergonomic guidelines for safe computer usage include:
+*   Sit up straight with your back perpendicular to the ground.
+*   Your forearms should be at the same height as your mouse and keyboard.
+*   Your feet should be placed firmly on the ground or on a foot rest.
+*   The back and height of your chair, as well as the height of your armrests should be adjusted to support your body in this position.
+*   The monitor should be positioned at eye level and roughly 50 cm away from you. You may need to place something under the monitor to increase its height.
+*   The monitor should be tilted upwards to reduce glare.
+*   You should stand up and take regular breaks.
+
+#### PREVENTION
+
+Prevention is always better than cure. Many people suffer from posture-related injuries. Health problems related to poor posture and ergonomics can be prevented in different ways.
+
+To prevent a repetitive strain injury, you should:
+*   Make sure your forearms are level with your mouse and keyboard.
+*   Make sure the mouse is positioned close to the keyboard.
+*   Take regular breaks and let your arms relax when you are not typing.
+
+To avoid eye strain:
+*   Make sure that there is no glare on the monitor.
+*   Do not sit too close to the monitor.
+*   Make sure that the monitor is placed at eye level (or slightly lower).
+*   Take regular breaks to focus on far-away objects.

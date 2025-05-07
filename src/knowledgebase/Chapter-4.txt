@@ -1,0 +1,170 @@
+## CHAPTER 4 FILE AND PRINT MANAGEMENT
+
+**CHAPTER OVERVIEW**
+Unit 4.1 File management skills
+Unit 4.2 File compression
+Unit 4.3 Print management
+
+### INTRODUCTION
+
+When you open an application using the menu system, it can sometimes be time consuming. An easy way to save time is to create a shortcut for an application or program that you use often. In this section, you will learn how to create **shortcuts**, take screenshots, as well as how to compress and decompress files.
+
+Print management is the managing and monitoring of various print tasks. Before learning how to print, you will learn how to add a new peripheral device, as well as how to do basic printing and apply printer queue management.
+
+---
+
+### UNIT 4.1 File management skills
+
+In this section, you will learn about basic computer management tasks that you need to do when working on a computer.
+
+#### CREATING SHORTCUTS
+
+This section will look at how to create a shortcut on the desktop for your favourite program, application, or website, for easy access. There are different ways to create shortcuts and in this section, we will look at some of these ways.
+
+*(Guided Activity 4.1 steps incorporated as Option 1)*
+**Option 1:** If you want to create a desktop shortcut for your favourite program or file, do the following:
+1.  Right click on the **.exe** file.
+2.  Select *Send To:*
+3.  Click on *Desktop (create shortcut)* to create the shortcut.
+A shortcut of this program will then be created on the Windows desktop.
+
+[Image: ch4_figure_4_1_creating_shortcut_sendto.png]
+
+If you select *Create Shortcut* (indicated with the red rectangle), the shortcut will be created in the same location. In this example, the shortcut will be created in the *Music* folder.
+
+*(Guided Activity 4.2 steps incorporated as Option 2)*
+**Option 2:** Another way of creating a shortcut would be to right click on the desktop, and then select *New* and then *Shortcut*.
+
+[Image: ch4_figure_4_2_creating_shortcut_desktop.png]
+
+This will open the *Create Shortcut* wizard dialogue box.
+
+[Image: ch4_figure_4_3_create_shortcut_wizard.png]
+
+This **wizard** will help you to create a shortcut on the desktop.
+
+*(Guided Activity 4.3 steps incorporated as Option 3)*
+**Option 3:** Lastly, we will look at creating a shortcut for your favourite website. The method might differ for different operating systems. For this example, we will look at creating a shortcut for a website using the Google Chrome browser.
+1.  Open your favourite website or web page.
+2.  Click on the *Options* button on the top right-hand side of the web page, as seen in Figure 4.4:
+
+[Image: ch4_figure_4_4_web_browser_shortcut_menu.png]
+
+3.  Go to *More tools*, from the drop-down menu and choose *Create shortcut*.
+    A dialogue box will appear asking you if you want to create the shortcut.
+4.  Click on *Create*, and the shortcut will be placed on the desktop.
+
+#### TAKING SCREENSHOTS
+
+A screenshot is an image of how the computer screen looks the moment you capture the screen. For example, it is a snapshot of whatever is displayed on the computer screen at that time.
+
+Different models of computers have different shortcuts on how to take a screenshot. For most cases, you will press the **ALT** key and the **PrtSc** (print screen) key on the keyboard at the same time to take a screenshot of the selected window. **PrtSc** on its own takes a screenshot of the whole desktop.
+
+This image is then saved to the **clipboard**. The clipboard is a memory space on the computer where data or graphics that are copied or cut are temporarily stored.
+
+*(Guided Activity 4.4 steps incorporated)*
+To save the screenshot permanently, you can paste it into an application. In this example, the application is *Paint*. Do the following:
+1.  Open *Paint*.
+2.  Select *Edit* then *Paste* from the menu bar of the *Paint* window. An easier way to paste the screenshot will be to use the **hotkeys** (Ctrl+V) and the image will be pasted into *Paint*.
+3.  You can then save the screenshot by clicking *File* and then *Save As* from the *Paint* window’s menu bar.
+4.  You can use the hotkeys (Ctrl+S) and save the file with the file name and file location you want, and then select *Save*.
+
+---
+
+### UNIT 4.2 File compression
+
+Compressed files can be referred to as **archived** or **zipped** files and can contain many separate files in one large archive. This takes up much less space than the original files. Decompressing files is pretty much the opposite of compressing the files, which means to expand the archived or zipped folder back into its original form. In Windows, you can compress (zip) and decompress (unzip) files without installing any extra programs or applications. In this section, you will learn about compressing and decompressing files and folders.
+
+#### COMPRESSING AND DECOMPRESSING FILES AND FOLDERS
+
+*(Guided Activity 4.5 steps incorporated)*
+To compress files or folders using Microsoft Windows, you can do the following:
+1.  From the *Start* menu, open *This PC*.
+2.  Select all the files and folders you want to include in the compressed folder by holding down the *Ctrl* key while clicking on each file.
+3.  Right click on the selected items and from the drop-down menu, choose *Send To*. Then select the *Compressed (zipped) folder* option. This will create a zipped file, in the same location, in which the files are located. The file extension for compressed folders is **.zip**.
+4.  Finally, enter a name for the compressed folder.
+
+[Image: ch4_figure_4_5_compressing_folder.png]
+
+#### DECOMPRESSING FILES OR FOLDERS
+
+*(Guided Activity 4.6 steps incorporated)*
+To decompress files or folders using Microsoft Windows, you can do the following:
+1.  From the *Start* menu, open *This PC*.
+2.  Look for the **.zip** file that you want to decompress, right click on it and choose *Extract Files…*
+    A dialogue box will open. You should choose the destination for the decompressed files.
+3.  Click on *New Folder*.
+4.  Name the folder.
+5.  Click *Ok*. The files will be extracted to the folder that you created.
+
+File compression has the following multiple advantages:
+*   Compressed files require less storage space. This allows you to fit more files onto storage devices.
+*   Because the files use less storage space, it can be transferred more easily and quickly between storage devices. This is especially true when the files need to be transferred over the internet.
+*   Because many files can be stored in one archive, it is easier to transfer the data and to ensure that the recipient gets all the correct files.
+
+However, compressed files also have some disadvantages, with the most notable being:
+*   Some compressed files need specific software to decompress them. Fortunately, Windows 10 can decompress **.zip** files without requiring any additional software.
+*   Compressing and decompressing files can take a bit of time, depending on the level of compression and the size of the files that need to be compressed.
+
+---
+
+### UNIT 4.3 Print management
+
+Print management allows you to install, view and manage printers. Print management is managing and monitoring various print tasks. Many software companies have proper print management software that coordinates all the print jobs that need to take place.
+
+#### ADDING A NEW PERIPHERAL
+
+Some printers have software that must be installed before it is connected to the computer. Always read the instructions that come with the printer to see if this is the case. However, in most cases, you can connect printers immediately.
+
+*(Guided Activity 4.7 steps incorporated)*
+To install a new printer, do the following:
+1.  Connect the printer to the computer, turn it on and turn the computer on.
+2.  Click *Start* and look for *Control Panel > Devices and Printers > Add Printer*, and then choose the type of printer that you are installing.
+3.  This opens the *Add Printer* wizard, which will guide you on how to add the printer.
+
+[Image: ch4_figure_4_6_add_printer_wizard.png]
+
+*(Guided Activity 4.8 steps incorporated)*
+To add a mouse,
+1.  Click on *Start > Devices and Printers > Add a Device*.
+    The *Add a Device* window will open.
+2.  The window will show you a list of devices that are available to connect.
+3.  Click on the device that you want to connect to (in this case, the mouse).
+4.  Click *Next* and follow the instructions.
+
+#### CHANGING THE DEFAULT PRINTER
+
+If you already have a printer added to your computer, this printer will always be used as the default printer. However, if you have more than one printer installed on the computer, you can change the default printer.
+
+*(Guided Activity 4.9 steps incorporated)*
+To change a default printer, you can do the following:
+1.  Click on *Start*.
+2.  Click on *Control Panel* and choose *Devices and Printers*.
+3.  Right click on the printer you want and from the drop-down menu, select the *Set as default printer*.
+After you have done this, the default printer will have a tick next to it to indicate that this is the current default printer.
+
+[Image: ch4_figure_4_7_changing_default_printer.png]
+
+#### BASIC PRINTING
+
+If you need to print a document or image, you can do so in the following way.
+
+*(Guided Activity 4.10 steps incorporated)*
+1.  Select the document or image that you want to print.
+2.  Right click on the file and choose *Print*.
+3.  If a dialogue box appears, click *OK*, or the *Print* button.
+
+The computer will immediately send the pages to the printer, which should start printing the pages automatically.
+
+#### PRINTER QUEUE MANAGEMENT
+
+When a printer needs to print more than one document, it is placed in a queue and printed according to the sequence that it was selected.
+
+*(Guided Activity 4.11 steps incorporated)*
+To check what you are printing:
+1.  Click on *Start*.
+2.  Select *Control Panel > Devices and Printers*.
+3.  Double-click on the *Default Printer*.
+The *Printer* window will open and this will show in the order in which the documents will be printed.
+
+[Image: ch4_figure_4_8_printer_queue.png]

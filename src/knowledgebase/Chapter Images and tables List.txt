@@ -1,0 +1,873 @@
+Chapter 1: Concepts of computing
+
+Images:
+
+ch1_figure_1_1_barcode_example.png
+
+ch1_figure_1_2_cash_register_receipt.png
+
+ch1_figure_1_3_information_processing_cycle.png
+
+ch1_figure_1_4_computer_model_general.png
+
+ch1_figure_1_5_computer_hardware_desktop.png
+
+ch1_figure_1_6_computer_types_collage.png
+
+Tables:
+
+ch1_table_1_1_learner_test_data.png (Table 1.1: Data about learners’ test results for three tests)
+
+ch1_table_1_2_maths_results_sorted.png (Table 1.2: Maths results Term 1 (sorted from highest to lowest score in percentage))
+
+ch1_table_1_3_computer_types_uses.png (Table 1.3: Different types of general-purpose computers)
+
+Chapter 2: USING A COMPUTER
+
+Images:
+
+ch2_figure_2_1_mouse_parts.png
+
+ch2_figure_2_2_holding_mouse.png
+
+ch2_figure_2_3_qwerty_keyboard.png
+
+ch2_figure_2_4_os_interface_example.png
+
+ch2_figure_2_5_os_interface_elements.png
+
+ch2_figure_2_6_shortcut_example.png
+
+ch2_figure_2_7_desktop_components.png
+
+ch2_figure_2_8_this_pc_folder.png
+
+ch2_figure_2_9_opening_word.png
+
+ch2_figure_2_10_word_window.png
+
+ch2_figure_2_11_title_bar.png
+
+ch2_figure_2_12_minimise_button.png
+
+ch2_figure_2_13_maximise_button.png
+
+ch2_figure_2_14_close_button.png
+
+ch2_figure_2_15_open_dialogue_box.png
+
+ch2_figure_2_16_correct_posture.png
+
+Tables:
+
+ch2_table_2_1_mouse_basics.png (Table 2.1: Basics of the mouse)
+
+Chapter 3: FILE MANAGEMENT
+
+Images:
+
+ch3_figure_3_1_folders_management.png
+
+ch3_figure_3_2_storage_media.png
+
+ch3_figure_3_3_hierarchical_tree.png
+
+ch3_figure_3_4_file_path_example.png
+
+ch3_figure_3_5_address_bar.png
+
+ch3_figure_3_6_file_path_properties.png
+
+ch3_figure_3_8_this_pc_overview.png
+
+ch3_figure_3_9_music_folder_files.png
+
+ch3_figure_3_10_folder_subfolders_files.png
+
+ch3_figure_3_11_creating_new_folder.png
+
+ch3_figure_3_12_file_properties.png
+
+ch3_figure_3_13_searching_files.png
+
+ch3_figure_3_14_txt_example.png
+
+ch3_figure_3_15_document_file_example.png
+
+ch3_figure_3_16_save_as_example.png
+
+ch3_figure_3_17_presentation_example.png
+
+ch3_figure_3_18_spreadsheet_example.png
+
+ch3_figure_3_19_database_example.png
+
+ch3_figure_3_20_video_file_formats.png
+
+Tables:
+
+ch3_table_3_1_rename_files.png (Table 3.1: How to rename files)
+
+ch3_table_3_2_copy_paste_files.png (Table 3.2: How to copy and paste files)
+
+ch3_table_3_3_move_files.png (Table 3.3: How to move files)
+
+ch3_table_3_4_use_recycle_bin.png (Table 3.4: How to use the Recycle Bin)
+
+ch3_table_3_5_permanently_delete_files.png (Table 3.5: How to remove files from the computer permanently)
+
+Chapter 4: FILE AND PRINT MANAGEMENT
+
+Images:
+
+ch4_figure_4_1_creating_shortcut_sendto.png
+
+ch4_figure_4_2_creating_shortcut_desktop.png
+
+ch4_figure_4_3_create_shortcut_wizard.png
+
+ch4_figure_4_4_web_browser_shortcut_menu.png
+
+ch4_figure_4_5_compressing_folder.png
+
+ch4_figure_4_6_add_printer_wizard.png
+
+ch4_figure_4_7_changing_default_printer.png
+
+ch4_figure_4_8_printer_queue.png
+
+Tables:
+
+None identified in the main text flow.
+
+Chapter 5: HARDWARE
+
+Images:
+
+ch5_figure_5_1_port_connector.png
+
+ch5_img_usb_port.png
+
+ch5_img_usb_connector.png
+
+ch5_img_vga_port.png
+
+ch5_img_vga_connector.png
+
+ch5_img_dvi_port.png
+
+ch5_img_dvi_connector.png
+
+ch5_img_hdmi_port.png
+
+ch5_img_hdmi_connector.png
+
+ch5_img_3_5mm_port.png
+
+ch5_img_3_5mm_connector.png
+
+ch5_img_ethernet_port.png
+
+ch5_img_ethernet_connector.png
+
+ch5_img_rj11_port.png
+
+ch5_img_rj11_connector.png
+
+ch5_img_standard_keyboard.png
+
+ch5_img_laptop_keyboard.png
+
+ch5_img_ergonomic_keyboard.png
+
+ch5_img_gaming_keyboard.png
+
+ch5_img_foldable_keyboard.png
+
+ch5_img_laser_keyboard.png
+
+ch5_img_wireless_mouse.png
+
+ch5_img_cable_mouse.png
+
+ch5_figure_5_2_engelbart_mouse.png
+
+ch5_figure_5_3_lcd_monitor.png
+
+ch5_figure_5_4_inkjet_printer.png
+
+ch5_figure_5_5_laser_printer.png
+
+ch5_figure_5_6_3d_printer.png
+
+ch5_img_internal_hdd.png (From Table 5.6)
+
+ch5_img_external_hdd.png (From Table 5.6)
+
+ch5_img_sd_card.png (From Table 5.6)
+
+ch5_img_ssd.png (From Table 5.6)
+
+ch5_img_flash_drive.png (From Table 5.6)
+
+ch5_figure_5_7_cartridge_recycling.png
+
+Tables:
+
+ch5_table_5_1_ports_connectors.png (Table 5.1: Types of ports, common connectors and examples)
+
+ch5_table_5_2_keyboard_types.png (Table 5.2: Different types of keyboards)
+
+ch5_table_5_3_mice_types.png (Table 5.3: Different types of mice)
+
+ch5_table_5_4_printer_comparison.png (Table 5.4: Advantages and disadvantages of different printers)
+
+ch5_table_5_5_measuring_capacity.png (Table 5.5: Measuring capacity)
+
+ch5_table_5_6_common_storage_devices.png (Table 5.6: Types of common storage devices)
+
+ch5_table_5_7_capacity_robustness.png (Table 5.7: The average capacity and robustness of storage devices)
+
+Chapter 6: EXTENDED HARDWARE CONCEPTS
+
+Images:
+
+ch6_img_touchpad.png (From Table 6.1)
+
+ch6_img_trackball.png (From Table 6.1)
+
+ch6_img_touchscreen.png (From Table 6.1)
+
+ch6_img_stylus.png (From Table 6.1)
+
+ch6_img_joystick.png (From Table 6.1)
+
+ch6_figure_6_1_digital_camera.png
+
+ch6_img_flatbed_scanner.png (From Table 6.2)
+
+ch6_img_multifunction_printer.png (From Table 6.2)
+
+ch6_img_handheld_scanner.png (From Table 6.2)
+
+ch6_img_mouse_scanner.png (From Table 6.2)
+
+ch6_img_smartphone_scanner.png (From Table 6.2)
+
+ch6_figure_6_2_rfid_scanner.png
+
+ch6_img_magnetic_stripe_reader.png (From Table 6.3)
+
+ch6_img_barcode_reader.png (From Table 6.3)
+
+ch6_img_qr_code_reader.png (From Table 6.3)
+
+ch6_figure_6_3_ocr_scanner.png
+
+ch6_img_video_camera.png (From Table 6.4)
+
+ch6_img_webcam.png (From Table 6.4)
+
+ch6_img_microphone.png (From Table 6.5)
+
+ch6_img_voice_recorder.png (From Table 6.5)
+
+ch6_img_fingerprint_scanner.png (From Table 6.6)
+
+ch6_img_retina_scanner.png (From Table 6.6)
+
+ch6_img_iris_scanner.png (From Table 6.6)
+
+ch6_img_facial_recognition.png (From Table 6.6)
+
+ch6_img_headset.png (From Table 6.7)
+
+ch6_img_speakers.png (From Table 6.7)
+
+ch6_figure_6_4_projector.png
+
+ch6_img_cd_dvd_bluray.png (From Table 6.8)
+
+ch6_img_memory_card.png (From Table 6.8)
+
+ch6_img_card_reader.png (From Table 6.8)
+
+ch6_figure_6_5_motherboard.png
+
+ch6_figure_6_6_quad_core_cpu.png
+
+ch6_img_ram.png (From Table 6.9)
+
+ch6_img_rom_chip.png (From Table 6.9)
+
+ch6_figure_6_7_disk_properties.png
+
+Tables:
+
+ch6_table_6_1_pointing_devices.png (Table 6.1: Different types of pointing devices)
+
+ch6_table_6_2_scanning_devices.png (Table 6.2: Types of integrated scanning devices)
+
+ch6_table_6_3_reader_types.png (Table 6.3: Types of readers)
+
+ch6_table_6_4_video_input_devices.png (Table 6.4: Types of video input devices)
+
+ch6_table_6_5_audio_input_devices.png (Table 6.5: Types of audio input devices)
+
+ch6_table_6_6_biometric_devices.png (Table 6.6: Different biometric devices)
+
+ch6_table_6_7_audio_output_devices.png (Table 6.7: Types of audio output devices)
+
+ch6_table_6_8_storage_devices.png (Table 6.8: Types of storage devices)
+
+ch6_table_6_9_ram_rom.png (Table 6.9: RAM and ROM)
+
+Chapter 7: COMPUTER SOFTWARE
+
+Images:
+
+ch7_figure_7_1_software_apps.png
+
+ch7_figure_7_2_calculator_app.png
+
+ch7_figure_7_3_snipping_tool.png
+
+ch7_figure_7_4_paint_tool.png
+
+ch7_figure_7_5_windows_gui.png
+
+ch7_figure_7_6_gui_elements.png
+
+ch7_img_checkboxes.png (From Table 7.3)
+
+ch7_img_option_buttons.png (From Table 7.3)
+
+ch7_img_list_combo_box.png (From Table 7.3)
+
+ch7_img_dialog_box.png (From Table 7.3)
+
+ch7_img_icons.png (From Table 7.4)
+
+ch7_img_menu_bar.png (From Table 7.4)
+
+ch7_img_navigation_pane.png (From Table 7.4)
+
+ch7_img_toolbar.png (From Table 7.5)
+
+ch7_img_message_box.png (From Table 7.5)
+
+ch7_figure_7_7_windows_interface.png
+
+ch7_figure_7_8_mac_elcapitan_interface.png
+
+ch7_figure_7_9_linux_interface.png
+
+ch7_figure_7_10_authentication_methods.png
+
+Tables:
+
+ch7_table_7_1_app_software_examples.png (Table 7.1: Examples and types of application software)
+
+ch7_table_7_2_system_software_examples.png (Table 7.2: Examples and types of system software)
+
+ch7_table_7_3_input_controls.png (Table 7.3: Input controls)
+
+ch7_table_7_4_navigational_components.png (Table 7.4: Navigational components)
+
+ch7_table_7_5_informational_components.png (Table 7.5: Informational components)
+
+Contained within each table (from the screenshots that needs to be uploaded to lovable) converted into a textual format, along with context about its purpose in the lesson, so this text can be uploaded and used within your app.
+
+Here is the detailed textual breakdown and explanation for each table screenshot you provided from Chapters 1-7:
+
+Textual Content and Context for Textbook Tables (Chapters 1-7)
+
+General Note: This text describes the content of the tables shown in your screenshots. It should be used alongside the main chapter text previously extracted to provide the full context within your web app.
+
+Filename: ch1_table_1_1_learner_test_data.png
+
+Original: Table 1.1: Data about learners’ test results for three tests (Unit 1.2)
+
+Context/Purpose: This table appears early in Unit 1.2 (Data and information) and serves as a primary example of raw data. It shows unprocessed numbers (test scores) that lack immediate meaning regarding overall performance without further calculation or organization. It's designed to be contrasted with Table 1.2, which shows the processed information.
+
+Content Explanation:
+
+The table lists the scores for five learners (James, Mandla, Lucy, Jarred, Zanele) on three different tests.
+
+The maximum marks for each test are indicated (Test 1: 20, Test 2: 30, Test 3: 15).
+
+Scores:
+
+James: Test 1=13, Test 2=20, Test 3=7
+
+Mandla: Test 1=14, Test 2=18, Test 3=11
+
+Lucy: Test 1=10, Test 2=23, Test 3=9
+
+Jarred: Test 1=13, Test 2=21, Test 3=8
+
+Zanele: Test 1=18, Test 2=25, Test 3=8
+
+(Illustrative cartoon images of the learners are included but contain no data).
+
+Filename: ch1_table_1_2_maths_results_sorted.png
+
+Original: Table 1.2: Maths results Term 1 (sorted from highest to lowest score in percentage) (Unit 1.2)
+
+Context/Purpose: Following Table 1.1 in Unit 1.2, this table exemplifies information. It shows the raw data from Table 1.1 after processing (calculating totals and averages, sorting) to make it meaningful and allow for easy interpretation of learner performance.
+
+Content Explanation:
+
+The table presents the processed results for the same five learners, sorted by their average percentage score (highest to lowest).
+
+It includes the original scores for Test 1 (out of 20), Test 2 (out of 30), and Test 3 (out of 15).
+
+It adds calculated columns: TOTAL (sum of scores, max 65) and AVERAGE (%).
+
+Results:
+
+Zanele: Test 1=18, Test 2=25, Test 3=8, TOTAL=51, AVERAGE=78%
+
+Mandla: Test 1=14, Test 2=18, Test 3=11, TOTAL=43, AVERAGE=66%
+
+Lucy: Test 1=10, Test 2=23, Test 3=9, TOTAL=42, AVERAGE=65%
+
+Jarred: Test 1=13, Test 2=21, Test 3=8, TOTAL=42, AVERAGE=65%
+
+James: Test 1=13, Test 2=20, Test 3=7, TOTAL=40, AVERAGE=62%
+
+A TERM AVERAGE MARK of 67% is also indicated at the bottom.
+
+Filename: ch1_table_1_3_computer_types_uses_part1.png & ch1_table_1_3_computer_types_uses_part2.png
+
+Original: Table 1.3: Different types of general-purpose computers (Unit 1.4)
+
+Context/Purpose: This table, spanning two screenshots, is used in Unit 1.4 (Types of computers) to introduce and differentiate various common multi-purpose computers. It provides a description, visual representation, and typical use cases for each.
+
+Content Explanation:
+
+Supercomputer: Fastest, most powerful, expensive; used for complex calculations (weather, oil deposits).
+
+Mainframe: Powerful, large, multi-user; used by large organizations (bulk data processing, banks, census).
+
+Server: Powerful processors, large storage/memory; provides services/info to other computers (web pages, shared drives/printers in offices/schools).
+
+Workstation: High-resolution graphics, mass storage; used for special tasks (CAD, 3D graphics, software development, research).
+
+Desktop: Not portable, separate components; used in schools (research), entertainment (videos, music), communication (calls, email, IM).
+
+Laptop (Notebook): Portable, integrated components, battery-powered; used for office/home admin tasks, personal use (browsing, music, videos).
+
+Tablet: Smaller than laptops, ultra-portable, virtual keyboard/digital pen; used for home (music, browsing, videos), work (laptop replacement, needs larger screen), school (study material, research).
+
+Smartphone: Handheld, flash memory, touch-screen, good battery life; used for browsing, music, photos, navigation, calls, messaging.
+
+(Each entry includes a representative image).
+
+Filename: ch2_table_2_1_mouse_basics.png
+
+Original: Table 2.1: Basics of the mouse (Unit 2.1)
+
+Context/Purpose: Found in Unit 2.1 (Operating a computer), this table visually explains the different cursor appearances a user might encounter when using a mouse, linking the visual feedback to the computer's state or potential interaction.
+
+Content Explanation:
+
+Action/State: Moving the mouse moves a pointer/cursor. Image: Standard arrow pointer.
+
+Action/State: The cursor shape changes depending on the task. Image: Hand pointer and wait (hourglass/spinner) cursor.
+
+Action/State: The hand icon allows opening an internet link. Image: Hand pointer.
+
+Action/State: The wait icon means the computer is busy. Image: Wait (hourglass/spinner) cursor.
+
+Filename: ch3_table_3_1_rename_files.png
+
+Original: Table 3.1: How to rename files (Unit 3.1)
+
+Context/Purpose: Appears in Unit 3.1 (Basic concepts of file management), specifically the section on file operations. It provides a concise guide showing users three distinct methods to rename a file in Windows.
+
+Content Explanation:
+
+Method 1: ACTION MENU: 1. Select file(s). 2. Right-click selected file(s). 3. Choose 'Rename' from the menu. 4. Type new name, press Enter.
+
+Method 2: SHORTCUT KEY: 1. Select file. 2. Press F2 key. 3. Type new name, press Enter.
+
+Method 3: LEFT CLICK: 1. Select file. 2. Click (single) on the filename text. 3. Type new name, press Enter.
+
+Filename: ch3_table_3_2_copy_paste_files.png
+
+Original: Table 3.2: How to copy and paste files (Unit 3.1)
+
+Context/Purpose: Located in Unit 3.1 (Copying Files), this table details three methods for creating a duplicate of a file in a new location.
+
+Content Explanation:
+
+Method 1: ACTION MENU: 1. Select file(s). 2. Right-click selected file(s). 3. Choose 'Copy'. 4. Navigate to destination folder. 5. Right-click in folder, choose 'Paste'.
+
+Method 2: SHORTCUT KEY: 1. Select file(s). 2. Press Ctrl+C. 3. Navigate to destination folder. 4. Press Ctrl+V.
+
+Method 3: DRAG AND DROP: 1. Select file(s). 2. Open destination folder in another window. 3. Press and hold Ctrl key. 4. Drag files from source to destination. 5. Release mouse button (and Ctrl key).
+
+Filename: ch3_table_3_3_move_files.png
+
+Original: Table 3.3: How to move files (Unit 3.1)
+
+Context/Purpose: Found in Unit 3.1 (Moving Files), this table explains three ways to relocate a file from one folder to another, removing it from the original location.
+
+Content Explanation:
+
+Method 1: ACTION MENU: 1. Select file(s). 2. Right-click selected file(s). 3. Choose 'Cut'. 4. Navigate to destination folder. 5. Right-click in folder, choose 'Paste'.
+
+Method 2: SHORTCUT KEY: 1. Select file(s). 2. Press Ctrl+X. 3. Navigate to destination folder. 4. Press Ctrl+V.
+
+Method 3: DRAG AND DROP: 1. Select file(s). 2. Open destination folder in another window. 3. Press and hold Shift key (usually for moving between different drives; simple drag often moves on the same drive). 4. Drag files from source to destination. 5. Release mouse button (and Shift key). (Note: Cut/Paste using Ctrl+X/V is the most universally reliable method for explicit moving).
+
+Filename: ch3_table_3_4_use_recycle_bin.png
+
+Original: Table 3.4: How to use the Recycle Bin (Unit 3.1)
+
+Context/Purpose: Part of Unit 3.1 (Deleting Files), this table shows the standard ways to delete a file, which typically sends it to the Recycle Bin for potential recovery.
+
+Content Explanation:
+
+Method 1: ACTION MENU: 1. Select file(s). 2. Right-click selected file(s). 3. Choose 'Delete' from the menu. 4. Confirm 'Yes' if prompted.
+
+Method 2: SHORTCUT KEY: 1. Select file(s). 2. Press Delete key. 3. Confirm 'Yes' if prompted.
+
+Filename: ch3_table_3_5_permanently_delete_files.png
+
+Original: Table 3.5: How to remove files from the computer permanently (Unit 3.1)
+
+Context/Purpose: Also in Unit 3.1 (Deleting Files / Restoring Files), this table explains methods to bypass the Recycle Bin and delete files permanently in one step, or how to empty the Recycle Bin itself.
+
+Content Explanation:
+
+Method 1: EMPTY THE RECYCLING BIN: 1. Delete files normally (see Table 3.4). 2. Go to Desktop. 3. Right-click Recycle Bin icon. 4. Select 'Empty Recycle Bin'. 5. Confirm 'Yes'.
+
+Method 2: SHORTCUT KEY: 1. Select file(s) you want to remove permanently. 2. Hold Shift key and press Delete key. 3. Confirm 'Yes'.
+
+Filename: ch5_table_5_1_ports_connectors.png
+
+Original: Table 5.1: Types of ports, common connectors and examples (Unit 5.1)
+
+Context/Purpose: Found in Unit 5.1 (What is hardware?), this is a vital visual reference table identifying common physical ports on a computer and the corresponding connectors on cables/devices, along with their main functions.
+
+Content Explanation: (Each row matches a port image to a connector image and lists uses)
+
+USB port: Connects many devices (smartphones, flash drives, external HDDs).
+
+VGA port: Connects monitors and data projectors.
+
+DVI port: Connects display devices (e.g., monitors).
+
+HDMI port: Connects monitors, data projectors, gaming consoles.
+
+3.5 mm port: Connects audio devices (speakers, headphones, microphones).
+
+Ethernet port: Connects to network devices (switch, router).
+
+RJ-11 port: Connects an internet router to a telephone line.
+
+Filename: ch5_table_5_2_keyboard_types.png
+
+Original: Table 5.2: Different types of keyboards (Unit 5.2)
+
+Context/Purpose: Located in Unit 5.2 (Input devices), this table visually showcases the variety of keyboard designs available beyond the standard external type.
+
+Content Explanation: (Each row lists a type and shows a corresponding image)
+
+Standard keyboard (external)
+
+Laptop keyboard (built-in)
+
+Ergonomic keyboard
+
+Gaming keyboard
+
+Foldable keyboard
+
+Laser keyboard
+
+Filename: ch5_table_5_3_mice_types.png
+
+Original: Table 5.3: Different types of mice (Unit 5.2)
+
+Context/Purpose: In Unit 5.2 (Pointing Devices), this table provides basic examples of mouse types, focusing on the connection method.
+
+Content Explanation: (Each row has type, description, image)
+
+Wireless mouse: Connects via Wi-Fi or Bluetooth.
+
+Cable mouse: Uses a USB connector to connect.
+
+Filename: ch5_table_5_4_printer_comparison.png
+
+Original: Table 5.4: Advantages and disadvantages of different printers (Unit 5.3)
+
+Context/Purpose: Found in Unit 5.3 (Output devices), this comprehensive table compares the key characteristics, benefits, and drawbacks of major printer types to help users understand which technology suits different needs.
+
+Content Explanation: (Compares Inkjet, Ink tank, Laser, 3D printers across Advantages and Disadvantages columns)
+
+Inkjet: Advantages (Portability, Low initial cost, Low page cost vs laser, Small size). Disadvantages (Expensive cartridges, Slow speed, Lower quality/wet prints).
+
+Ink tank: Advantages (Portability, Cheaper refills vs cartridges, Lower page cost vs inkjet). Disadvantages (Higher initial cost vs inkjet, Similar speed/quality issues to inkjet).
+
+Laser: Advantages (High quality, Fast speed, Cheaper toner vs cartridges, Low noise). Disadvantages (Expensive initial cost, Larger/heavier, Maintenance cost).
+
+3D: Advantages (Speed vs traditional manufacturing, Low labour cost, Customization). Disadvantages (Lower quality vs traditional parts, Expensive equipment/material, Limited materials (mostly plastic), Toxic emissions).
+
+Filename: ch5_table_5_5_measuring_capacity.png
+
+Original: Table 5.5: Measuring capacity (Unit 5.4)
+
+Context/Purpose: Appears in Unit 5.4 (Storage devices) to define the standard units used to measure digital storage capacity, providing scale and context.
+
+Content Explanation:
+
+Kilobytes (Kb): 1024 bytes (e.g., Word doc ~100 Kb).
+
+Megabytes (Mb): 1024 Kb (e.g., music file ~6 Mb).
+
+Gigabyte (Gb): Approx 1024 Mb (e.g., modern HDD ~400 Gb).
+
+Terabyte (Tb): Approx 1024 Gb (e.g., external HDDs >= 1 Tb).
+
+Filename: ch5_table_5_6_common_storage_devices.png
+
+Original: Table 5.6: Types of common storage devices (Unit 5.4)
+
+Context/Purpose: Used in Unit 5.4 to visually introduce and describe common digital storage devices, outlining their primary function and form factor.
+
+Content Explanation: (Each row has device, description, uses, image)
+
+Internal hard drive: Found inside computers, difficult to move, high capacity (up to 12 Tb); Main storage for OS, apps, user files.
+
+External hard drive: Non-volatile, used outside the case (USB/wireless); Quick connection for file transfer/backup.
+
+SD card: Small, common in portable devices (up to 512 Gb); Extra storage for phones, cameras.
+
+SSD (Solid-state drive): Internal, no moving parts, faster but lower capacity/higher cost than HDD; Stores data, used in some laptops.
+
+Flash drives: Small, portable, USB connection; Transferring files between computers.
+
+Filename: ch5_table_5_7_capacity_robustness.png
+
+Original: Table 5.7: The average capacity and robustness of storage devices (Unit 5.4)
+
+Context/Purpose: Located in Unit 5.4, this table provides a comparative overview of typical storage capacities and the physical durability (robustness) of common storage devices.
+
+Content Explanation: (Compares devices based on Capacity and Robustness)
+
+Internal HDD: Up to 2 Tb; Sensitive moving parts, can last long if treated carefully.
+
+Portable HDD: Up to 2 Tb; Quite robust, but easily damaged if dropped (some have protective casing).
+
+SSD: Up to 4 Tb; No moving parts, not easily damaged.
+
+Flash drive: Up to 2 Tb; Robust if treated carefully, no moving parts.
+
+SD card: Up to 512 Gb (1 Tb possible); Robust, not easily damaged.
+
+Filename: ch6_table_6_1_pointing_devices.png
+
+Original: Table 6.1: Different types of pointing devices (Unit 6.1)
+
+Context/Purpose: Appears in Unit 6.1 (More about input devices) to expand on pointing devices beyond the basic mouse, showing alternatives used for specific tasks or on different device types.
+
+Content Explanation: (Each row has device, description, image)
+
+Touch pad: Rectangular pad on notebooks/laptops, move pointer with fingers.
+
+Trackball: Stationary device with a rolling ball to move the cursor.
+
+Touch screen: Allows direct interaction by touching the screen (smartphones, tablets, some notebooks).
+
+Stylus: Pen-like device for drawing/writing/selecting on flat surfaces.
+
+Joystick: Controller (mainly for games) with stick/buttons for input.
+
+Filename: ch6_table_6_2_scanning_devices.png
+
+Original: Table 6.2: Types of integrated scanning devices (Unit 6.1)
+
+Context/Purpose: Found in Unit 6.1 (Scanning and reading devices), this table categorizes and illustrates different types of scanners used to convert physical documents/images into digital format.
+
+Content Explanation: (Each row has device, description, image)
+
+Flatbed: Scans document/picture, creates electronic file in computer memory.
+
+Multi-functional: Printers with built-in scan, email, copy functions.
+
+Handheld: Example: barcode scanner (supermarkets/warehouses), uses laser/light patterns.
+
+Mouse: Small, portable scanner, good for text but limited resolution for photos.
+
+Smartphone: Can act as barcode/QR scanner, can scan documents via camera/apps.
+
+Filename: ch6_table_6_3_reader_types.png
+
+Original: Table 6.3: Types of readers (Unit 6.1)
+
+Context/Purpose: Part of Unit 6.1 (Reading Devices), this table focuses on devices specifically designed to read data encoded in different formats like magnetic stripes, barcodes, or QR codes.
+
+Content Explanation: (Each row has reader type, description, image)
+
+Magnetic strip: Reads info from bank card stripes (account number, name, expiry, etc.).
+
+Barcode: Decodes/captures info in barcodes (shops, warehouses, POS systems).
+
+Quick response (QR) code: Reads QR codes (which contain item info); often used with smartphone apps (e.g., paying bills).
+
+Filename: ch6_table_6_4_video_input_devices.png
+
+Original: Table 6.4: Types of video input devices (Unit 6.1)
+
+Context/Purpose: In Unit 6.1 (Video Input Devices), this table introduces common devices used to capture moving images or live video feeds for computer processing or display.
+
+Content Explanation: (Each row has device, description, image)
+
+Video camera: Captures/stores video on memory card; can connect to computer/TV for viewing or transfer.
+
+Web cam: Captures still pictures or video; built-in or connected via USB; used for video calls (Skype), recording interviews.
+
+Filename: ch6_table_6_5_audio_input_devices.png
+
+Original: Table 6.5: Types of audio input devices (Unit 6.1)
+
+Context/Purpose: Found in Unit 6.1 (Audio Input Devices), this table shows devices specifically designed to capture sound for computer input.
+
+Content Explanation: (Each row has device, description, uses, image)
+
+Microphone: Inputs sound, stores digitally; used for presentations, mixing music, podcasts.
+
+Voice recorder: Any device capable of recording voice; used for VoIP calls, computer gaming chat.
+
+Filename: ch6_table_6_6_biometric_devices.png
+
+Original: Table 6.6: Different biometric devices (Unit 6.1)
+
+Context/Purpose: In Unit 6.1 (Biometric Input Devices), this table introduces various technologies that use unique biological characteristics for identification and authentication.
+
+Content Explanation: (Each row has device, description/uses, image)
+
+Fingerprint scanner: Verifies user fingerprint against saved data; common on smartphones.
+
+Retina scanner: Uses unique retina blood vessel patterns; used in high-security areas (labs, banks).
+
+Iris scanner: Uses patterns in the coloured part of the eye (iris); highly accurate, used in banks, some smartphones, border control (e.g., UAE).
+
+Facial recognition scanner: Matches facial nodal points to stored print; used in security systems, social media tagging (e.g., Facebook).
+
+Filename: ch6_table_6_7_audio_output_devices.png
+
+Original: Table 6.7: Types of audio output devices (Unit 6.2)
+
+Context/Purpose: Appears in Unit 6.2 (More about output devices), this table shows common hardware used to convert digital audio data into audible sound.
+
+Content Explanation: (Each row has device, description, image)
+
+Headsets (Earphones): Hardware output device plugged into computer/smartphone/MP3 player for private listening.
+
+Speakers: Convert computer data into sound for general listening; quality depends on speaker setup (more speakers can create surround sound).
+
+Filename: ch6_table_6_8_storage_devices.png
+
+Original: Table 6.8: Types of storage devices (Unit 6.3)
+
+Context/Purpose: Located in Unit 6.3 (Storage media and devices), this table focuses specifically on optical media and memory card formats as storage solutions.
+
+Content Explanation: (Each row has device, description, uses, image)
+
+CDs, DVD and Blu-Ray: Common portable storage (CD <= 0.9 Gb, DVD <= 9.7 Gb, Blu-Ray <= 50 Gb); Used for distributing music/movies, can be written to with correct drive. Specific drives needed (DVD drive reads CDs, Blu-Ray drive reads DVDs/CDs).
+
+Memory card: Storage device found in portable electronics (phones, cameras, media players); Mainly for storing digital info, less common for file transfer due to size/cost.
+
+Memory card reader: Reads memory cards; often built into printers/smartphones/computers; Used to read memory and SD cards.
+
+Filename: ch6_table_6_9_ram_rom.png
+
+Original: Table 6.9: RAM and ROM (Unit 6.4)
+
+Context/Purpose: Found in Unit 6.4 (Processing devices), this crucial table differentiates between the two main types of computer memory, explaining their function, characteristics (especially volatility), and physical appearance.
+
+Content Explanation: (Compares RAM and ROM)
+
+RAM (Random Access Memory): Stores programs/data CPU currently uses; can be read, rewritten, erased; Volatile (data lost when power off), requires constant power, faster than HDDs, not permanent storage.
+
+ROM (Read-Only Memory): Used when computer starts up (contains boot instructions); Non-volatile (data retained without power).
+
+Filename: ch7_table_7_1_app_software_examples.png
+
+Original: Table 7.1: Examples and types of application software (Unit 7.1)
+
+Context/Purpose: Appears in Unit 7.1 (Basic software concepts) to provide numerous examples of common application software, categorized by function, helping students understand the breadth of user-focused programs.
+
+Content Explanation: (Lists Application Software category and gives Examples)
+
+Office suites: Microsoft Office, Libre Office, Google G-Suite
+
+Internet browser: Chrome, Firefox, Internet Explorer, Edge
+
+Movie player: VLC, Windows Media Player
+
+Presentations: PowerPoint
+
+Word processor: Microsoft Word
+
+Portable Document Format (PDF): Adobe Acrobat Reader, Foxit Reader
+
+Operating system: Microsoft Windows, Linux, Android, iOS (Note: While listed here, OS is primarily System Software)
+
+Antivirus: Norton, AVG, McAfee, Symantec, Windows Defender
+
+Spreadsheets: Microsoft Excel
+
+Accounting: Pastel, QuickBooks
+
+Gaming: Minesweeper, Solitaire, Counter Strike
+
+Designing and graphics: Adobe Photoshop, AutoCAD
+
+Filename: ch7_table_7_2_system_software_examples.png
+
+Original: Table 7.2: Examples and types of system software (Unit 7.1)
+
+Context/Purpose: Used in Unit 7.1 to define and exemplify the different categories of system software responsible for managing the computer's hardware and basic operations.
+
+Content Explanation: (Lists System Software category and gives Examples)
+
+Operating systems: Microsoft Windows, Linux, Android, iOS
+
+Device drivers: Drivers for mouse, keyboard, sound card, display card, network card, printer, etc.
+
+Firmware: Operational software embedded in hardware (flash drive, ROM, EPROM) for OS identification.
+
+Utilities (for computer maintenance): Antivirus/security software, Disk partition services, Disk defragmentation, File compression, Data back-up, Hardware diagnostics, Data recovery, Firewall, Screensaver.
+
+Filename: ch7_table_7_4_navigational_components.png
+
+Original: Table 7.4: Navigational components (Unit 7.2)
+
+Context/Purpose: Appears in Unit 7.2 (Operating system and GUI) to visually identify and describe standard components within a Graphical User Interface that users interact with to move around or access different parts of a program or system.
+
+Content Explanation: (Lists Element, Description, Image)
+
+Icons: Picture/symbol to navigate to a specific program; found on taskbar, PC Home screen.
+
+Menu: Thin horizontal bar with drop-down menus for program functions (opening/closing files).
+
+Navigation bar or pane: Set of buttons/graphics in a row allowing selection of an option for more information.
+
+Filename: ch7_table_7_5_informational_components.png
+
+Original: Table 7.5: Informational components (Unit 7.2)
+
+Context/Purpose: Also in Unit 7.2 (GUI), this table identifies GUI elements whose primary purpose is to provide information to the user or offer quick access to common actions.
+
+Content Explanation: (Lists Element, Description, Image)
+
+Toolbars: Gives quick access to frequently used commands.
+
+Message boxes: Similar to dialogue boxes; displays a message based on user input or system status.
+
+This detailed breakdown should provide the necessary textual content and context for each table, enabling you to integrate them effectively into Lovable.dev application. 

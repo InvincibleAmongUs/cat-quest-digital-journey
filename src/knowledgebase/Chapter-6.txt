@@ -1,0 +1,280 @@
+## CHAPTER 6 EXTENDED HARDWARE CONCEPTS
+
+**CHAPTER OVERVIEW**
+Unit 6.1 More about input devices
+Unit 6.2 More about output devices
+Unit 6.3 Storage media and devices
+Unit 6.4 Processing devices
+Unit 6.5 Caring for your PC and storage devices
+
+### INTRODUCTION
+
+Hardware devices can also come in the form of pointing devices, scanning and reading devices, microphones and many more. In this chapter, you will learn more about the different types of hardware devices, their features and uses.
+
+---
+
+### UNIT 6.1 More about input devices
+
+As you learned earlier, an input device is any hardware device that allows you to enter data into or interact with the computer. This section will focus on the following types of input devices:
+*   Pointing devices
+*   Digital cameras
+*   Scanning and reading devices
+*   Video input devices
+*   Audio input devices
+*   Biometric input devices
+
+#### POINTING DEVICES
+
+Pointing devices are used to control the movement of the **cursor** on the screen. Two examples of a pointing device are the mouse for the desktop computer and the touch pad for the laptop.
+
+[Table: ch6_table_6_1_pointing_devices.png] *(Table 6.1: Different types of pointing devices)*
+*(Note: This table includes Touch pad, Trackball, Touch screen, Stylus, Joystick with descriptions and images. Extract the descriptions below)*
+
+*   **Touch pad:** These are small rectangular pads that are mostly found on notebooks and laptops. You can move the mouse pointer on the screen by moving your fingers on the pad. Although notebooks and laptops do not need additional devices to move the mouse pointer, it is not the most efficient way to do it.
+*   **Trackball:** This is a stationary pointing device; an “upside down mouse” as some people call it. It has the same functions as a mouse, although the user makes use of the ball to move the cursor.
+*   **Touch screen:** Touch screens enable you to use your fingers to press the keys directly on the screen. Most smartphones and tablets are designed with touch screens, and it seems that notebooks are also following this design.
+*   **Stylus:** A stylus is a pen-like device that is used draw, write, or select an object on a flat surface, such as the computer screen, mobile device, or tablet.
+*   **Joystick:** A joystick or game controller is a type of input device mainly used for games. It is made up of one or more buttons for special functions, such as moving an on-screen character and other action buttons linked to specific actions inside a game.
+
+#### DIGITAL CAMERA
+
+A **digital camera** is designed to capture and store images on a **memory card**. Digital cameras are available in different price ranges and require no film.
+
+[Image: ch6_figure_6_1_digital_camera.png]
+*Figure 6.1: An example of a digital camera*
+
+#### SCANNING AND READING DEVICES
+
+##### SCANNING DEVICES
+
+Scanning devices are commonly used in offices, schools and even homes to scan documents, such as photographs and pages of text, and then convert it into a digital format. It reads typewritten, computer-printed or handwritten characters from ordinary documents and translates them into a form that the computer can understand.
+
+[Table: ch6_table_6_2_scanning_devices.png] *(Table 6.2: Types of integrated scanning devices)*
+*(Note: This table includes Flatbed, Multi-functional, Handheld, Mouse, Smartphone scanners with descriptions and images. Extract the descriptions below)*
+
+*   **Flatbed:** After the document or picture has been scanned, an electronic file is created by the scanner in the computer’s memory.
+*   **Multi-functional:** Some printers come with four-in-one functions, which means that it can scan, email, copy and print.
+*   **Handheld:** A barcode scanner is an example of a handheld scanner. It is generally found in supermarkets or warehouses and is used to read a product’s barcode. It uses a laser beam that uses light patterns that are able to decode vertical barcode lines.
+*   **Mouse:** This is a small and portable scanner that can easily be carried around. It can be used for text scanning, but because of its limitation in terms of resolution, it is not recommended for scanning photographs.
+*   **Smartphone:** A smartphone has the ability to act as a barcode and QR scanner. It can also scan documents, provided that you download the application for it. Smartphones scan by using the built-in camera of the phone.
+
+##### READING DEVICES
+
+There are several fields where reading or scanning technology is applied. In this section, we will explain these in some more detail.
+
+**RADIO FREQUENCY IDENTIFICATION (RFID) READERS**
+RFID is a form of wireless communication that uses radiowaves to automatically identify and track tags attached to objects. These tags, called RFID tags, have the advantage in that they do not have to be positioned precisely relative to the reader, but can work within a few metres away (more or less five metres) from the reader.
+
+Although this technology has been available for many years, mostly to track cattle, it has become a common technology for tracking consumer products worldwide. These tiny tags can be added to any product and can be scanned by an RFID reader. For example, manufacturers use these tags to help track the location of each product they produce until each is sold.
+
+[Image: ch6_figure_6_2_rfid_scanner.png]
+*Figure 6.2: Type of RFID scanner*
+
+RFID tags come in various shapes and sizes, and may be covered in a variety of materials, such as:
+*   Rice-sized tags inserted underneath the skin of animals to identify them
+*   Screw shaped tags to identify trees or wooden items
+*   Credit-card shaped for use in access applications
+*   Anti-theft hard plastic tags attached to merchandise in stores
+*   Heavy-duty millimetre-rectangular transponders used to track shipping containers, heavy machinery, trucks and railroad cars
+
+[Table: ch6_table_6_3_reader_types.png] *(Table 6.3: Types of readers)*
+*(Note: This table includes Magnetic strip, Barcode, Quick response (QR) code readers with descriptions and images. Extract the descriptions below)*
+
+*   **Magnetic strip:** A magnetic strip is often found on bank cards. A magnetic strip reader is able to scan the information contained in the strip, such as a bank account number, card number, name, expiry date of the card and pin number.
+*   **Barcode:** This is an electronic device that is used to decode and capture information in a barcode. This type of reader is used in places, such as shops and warehouses. A barcode reader is one of the devices that is used in a POS system.
+*   **Quick response (QR) code:** A quick response (QR) code is a type of barcode that contains information about the item to which it is attached. The user can download a QR reader application on his or her phone. You can use a QR reader to pay a bill at a restaurant, for example.
+
+*(Example 6.1 Text)*
+Nowadays, you can use your phone to pay the bill, or even split the bill with a friend. This is done by scanning the QR code on the bill with Zapper. First, you have to sign up to the application and when the bill comes, use the application to pay the bill.
+*(End Example 6.1 Text)*
+
+**OPTICAL CHARACTER RECOGNITION (OCR) SCANNERS**
+OCR scanners, also called optical character readers, can recognise almost any kind of typed, handwritten, or printed text inside images, for example in scanned documents or photos, and convert it into machine-readable text data.
+
+[Image: ch6_figure_6_3_ocr_scanner.png]
+*Figure 6.3: An OCR scanner*
+
+The most popular application of OCR scanners is converting printed paper documents into machine-readable text documents that can be edited with a word-processing program. However, it can also be used to sort magazines and letters, and therefore, speed up mail delivery, for example.
+
+#### VIDEO INPUT DEVICES
+
+Video input devices allow you to capture media, such as pictures, videos and sound, which can be stored on a computer, or on a storage device and accessed whenever you need them. The following are examples of common types of video inputs.
+
+[Table: ch6_table_6_4_video_input_devices.png] *(Table 6.4: Types of video input devices)*
+*(Note: This table includes Video camera, Web cam with descriptions and images. Extract the descriptions below)*
+
+*   **Video camera:** Video cameras are designed to capture and store videos on a memory card. A video camera functions as an input device, as it can be connected to a computer or television to view the videos directly through these devices. The videos can also be transferred to a computer for storage purposes and viewing later.
+*   **Web cam:** A web cam is short for ‘web camera’ and is used to capture still pictures, or video images of a scene in front of it. It can be either built into a computer, or connected using a USB cable. It is used when making video calls, recording interviews on a computer, or taking part in a video **Skype** meeting.
+
+#### AUDIO INPUT DEVICES
+
+Audio input devices allow you to communicate with a computer using your voice. Because of the world in which we live, you can now talk to your friend in Spain via Skype, or video calling with the proper audio input. Some examples are discussed in the table below.
+
+[Table: ch6_table_6_5_audio_input_devices.png] *(Table 6.5: Types of audio input devices)*
+*(Note: This table includes Microphone, Voice recorder with descriptions, uses and images. Extract the descriptions and uses below)*
+
+*   **Microphone:**
+    *   **Description:** A microphone is an input device used to input sound into a computer that is then stored in a digital form to be played back later. It can be used, for example, to add sound to a multi-media presentation, or to mix music.
+    *   **Uses:** Recording voice for podcasts: A podcast is an audio broadcast that is often listened to on a computer.
+*   **Voice recorder:**
+    *   **Description:** A voice recorder refers to any device capable of recording a voice message.
+    *   **Uses:** VoIP: VoIP stands for “voice over **internet protocol**”, which makes it possible for users to make calls over the internet. Computer gaming: Used to talk to your team mates during a game.
+
+#### VOICE RECOGNITION
+
+Voice recognition, or speech recognition, is a type of computer program that is able to interpret spoken instructions and respond to them. In most cases, a microphone is necessary to be able to use the software. This microphone can be a separate device (desktop computer), or built-in (laptop and smartphone).
+
+Computers using the Windows operating system include a speech-recognition program included called *Windows Speech Recognition*. Most smartphones have a built-in speech recognition software.
+
+#### BIOMETRIC INPUT DEVICES
+
+**Biometric inputs** measure a person’s unique physical characteristic, with the most commonly used biometric being fingerprints. Other biometrics are hand or palm geometry and retina, iris, or facial characteristics. Behavioural characters include signature, voice, keystroke pattern and a person’s manner of walking.
+
+Biometrics can be integrated into any application that requires security, access control and the identification and verification of people.
+
+[Table: ch6_table_6_6_biometric_devices.png] *(Table 6.6: Different biometric devices)*
+*(Note: This table includes Fingerprint scanner, Retina scanner, Iris scanner, Facial recognition scanner with descriptions/uses and images. Extract the descriptions/uses below)*
+
+*   **Fingerprint scanner:** Fingerprint scanners are one of the most developed and commonly used biometric devices. It serves as a type of authentication device that verifies the user’s fingerprint by comparing it with the saved fingerprint data. It can, therefore, not be stolen, forgotten, borrowed, or forged. Nowadays, it is also a feature of most smartphones.
+*   **Retina scanner:** Uses the unique patterns on a user’s retina blood vessels to identify the user. It is commonly used in high-security areas, such as research labs, banks, as well as government organisations.
+*   **Iris scanner:** Uses the patterns found in the coloured ring of tissue that is found around the pupil to identify the user. It is highly accurate and is used all over the world. It is used as a security at some banks and on some smartphones. In some countries, such as the United Arab Emirates (UAE), it is used at border posts to identify travellers.
+*   **Facial recognition scanner:** Facial recognition identifies the user by matching the nodal points of the user’s face to the print that is on the system. Nodal points are different characteristics on a person’s face that measure the length and width of the nose, cheekbones and eye socket width, for example. It is used in security systems. Social sites, such as Facebook, use facial recognition to tag users in pictures.
+
+---
+
+### UNIT 6.2 More about output devices
+
+Output devices are used to send information from a computer to another device, or to you as the user. In this section, you will learn about the following output devices:
+*   Headsets and speakers
+*   Multi-function devices
+*   Data projectors
+
+#### AUDIO OUTPUT
+
+Audio output devices convert data on a computer into sound. This allows you to listen to music, chat to friends, or watch a movie or episode of a series on a computer.
+
+[Table: ch6_table_6_7_audio_output_devices.png] *(Table 6.7: Types of audio output devices)*
+*(Note: This table includes Headsets, Speakers with descriptions and images. Extract the descriptions below)*
+
+*   **Headsets:** Headsets are also referred to as earphones and are a hardware output device that is plugged into a computer, smartphone, or MP3 player so that you can listen to audio privately, without anyone else hearing what you are listening to.
+*   **Speakers:** Speakers convert data on a computer into sound. You can listen to music, or watch a show using your speakers. Determining the quality of speakers is a difficult task; however, having more speakers can increase the **surround sound**, but not necessarily the quality. Therefore, it is always advised to have two quality speakers to produce quality sound rather than many low-quality speakers.
+
+#### OTHER OUTPUT
+
+There are a variety of other output devices used with computers and this section will look at some of these devices.
+
+##### MULTI-FUNCTIONAL DEVICES
+
+Multi-functional devices are able to perform various functions of several devices, but only takes the space of one, such as a four-in-one printer, where you can print, copy, fax and scan using just the one hardware device.
+
+##### DATA OR DLP PROJECTOR
+
+Projectors use a bright light to project the images that would be displayed on a monitor on any flat surface, such as a wall or a screen. This then replaces the image on the monitor and an enlarged magnified image is shown on the screen, which can be viewed by a group of people. Projectors are used in schools and offices, with bigger projectors used in cinemas.
+
+There are two types of data projectors:
+1.  Liquid crystal display (LCD) projectors
+2.  Digital light processing (DLP) projectors
+
+Most projectors use DLP technology.
+
+[Image: ch6_figure_6_4_projector.png]
+*Figure 6.4: Example of a projector*
+
+---
+
+### UNIT 6.3 Storage media and devices
+
+In the previous chapter on hardware, you learned that storage devices all serve the same general purpose – i.e. to store data. In this section, you will learn more about:
+*   CDs, DVDs and Blu-Ray
+*   Memory cards
+*   Card readers
+
+[Table: ch6_table_6_8_storage_devices.png] *(Table 6.8: Types of storage devices)*
+*(Note: This table includes CDs/DVD/Blu-Ray, Memory card, Memory card reader with descriptions, uses and images. Extract the descriptions and uses below)*
+
+*   **CDs, DVD and Blu-Ray:**
+    *   **Description:** Compact discs (CDs), Digital Versatile Discs (DVDs) and Blu-Ray discs are still three of the most commonly used forms of portable storage. The sizes of the different media are: CD: Up to 0.9 Gb; DVD: Up to 9.7 Gb; Blu-Ray: Up to 50 Gb
+    *   **Uses:** This is mainly because music, series and movies are stored and sold on these discs. However, data files from a computer can also be copied on the disks, using the correct CD, DVD or Blu-Ray writer. Even though DVD drives can read CDs, CD drives cannot read DVDs and a special Blu-Ray drive is needed to view and use Blu-Rays.
+*   **Memory card:**
+    *   **Description:** A memory card is a storage device. You will find it in many portable electronic devices, such as phones, digital cameras and media players.
+    *   **Uses:** It is mainly used for storing digital information. Although it can be used to transfer files between different devices, it is usually too small and too expensive to use for this purpose.
+*   **Memory card reader:**
+    *   **Description:** This device reads memory cards. It is usually built-in in some printers and smartphones, as well as most personal and tablet computers.
+    *   **Uses:** Used to read memory and SD cards.
+
+---
+
+### UNIT 6.4 Processing devices
+
+When a computer receives data from an input device, for example the mouse or keyboard, the data must be processed before it can go to an output device, such as the printer or monitor. A processing device is responsible for converting that data into useful information.
+
+In this section, we will look at the following processing devices:
+*   Motherboard
+*   **Central Processing Unit (CPU)**
+*   **Random Access Memory (RAM)** and **Read-only memory (ROM)**
+
+#### MOTHERBOARD
+
+The motherboard can be compared to the skeleton of the human body; it connects all the parts of a computer together. You can also think of it as a mother that holds all her children (pieces) together.
+
+The motherboard is a large printed circuit board connecting all the different components in a computer, such as the CPU and RAM.
+
+[Image: ch6_figure_6_5_motherboard.png]
+*Figure 6.5: An example of a motherboard*
+
+There are also connectors on a motherboard allowing you to connect a power supply to the computer and finally, it has a number of ports in the back that allow you to easily plug in devices, such as keyboards, speakers and monitors.
+
+#### CENTRAL PROCESSING UNIT (CPU)
+
+Think of a computer as a human body with the CPU being the brain, controlling everything the computer does.
+
+The CPU is the part of a computer responsible for receiving and carrying out computer instructions. It does this by making use of millions (or even billions) of transistors, which can each be switched on or off individually.
+
+Each CPU can be made up of multiple **cores**, which are independent processing units that can complete tasks on their own. By adding multiple cores to a CPU (which is then called a **multi-core processor**), a computer can dramatically increase the processing power available to it.
+
+The speed of a CPU is measured in **gigahertz (GHz)**, which shows how many instructions can be performed in one second. One GHz is equal to a 100 million hertz.
+
+[Image: ch6_figure_6_6_quad_core_cpu.png]
+*Figure 6.6: An example of a CPU quad core*
+
+*(Sidebar text incorporated)*
+The CPU was first developed during the 1970s at Intel, with the first processor, the 4004 processor, released.
+The type of processor determines the speed and its capabilities. In the past, computer processors used numbers to identify and name the processor. For example, the Intel 80486 (386) processor is faster than the 80386 (286) processor. However, after the Intel Pentium processor was developed, processors started getting names, such as Pentium, Celeron and Duron.
+
+#### MEMORY
+
+You learned about hard drives earlier on. Other than the hard drive, there is the **random access memory (RAM)** and **read-only memory (ROM)**.
+
+[Table: ch6_table_6_9_ram_rom.png] *(Table 6.9: RAM and ROM)*
+*(Note: This table includes RAM, ROM with descriptions, features and images. Extract the descriptions and features below)*
+
+*   **RAM (Random Access Memory):**
+    *   **Description:** RAM is used to store the programs and data used by the CPU in real time. Data on RAM can be read, rewritten, or erased when needed to.
+    *   **Features:** The data that is stored on the RAM is erased the minute you switch off the computer. It requires a constant supply of power to keep the data safe. This is called **volatile memory** and is why we cannot use RAM as a permanent storage device, even though it is way faster than normal hard drives.
+*   **ROM (Read-Only Memory):**
+    *   **Description:** The ROM is used when a computer starts up; it uses the information that is stored on the ROM to start up.
+    *   **Features:** ROM is a **non-volatile** memory; it will not forget any data that is stored on it, even after the computer is switched off, or if the power supply is turned off.
+
+---
+
+### UNIT 6.5 Caring for your PC and storage devices
+
+You must always take care of your PC system and storage devices, as some of the components and the information loss can be quite costly. To take care of your PC, keep food and drinks away from it and keep back-ups on a storage device, such as an external hard drive. Also install an **antivirus program** and keep your PC clean. These are just some examples of taking care of your PC.
+
+For storage devices, examples would be that CDs and DVDs can get scratched, making them unreadable. Flash disks are small and can easily land on the floor. When stepped on, they can become damaged. They can also be damaged by water and high temperatures, or other environmental factors. Even normal wear can cause them to become unusable.
+
+Although external hard drives are normally resistant to damage, care should be taken not to drop them as they contain small parts that can easily be damaged.
+
+Always take care of your computer, shut it down in the correct way when you are done using it, so that the computer can last for a long period of time.
+
+*(Guided Activity 6.1 steps incorporated)*
+To check the size of a hard disk and the space available on a plugged-in storage device, the following should be done:
+1.  Double click on the *My Computer* icon in the *Start* menu.
+2.  From the *My Computer* window, right click on the icon that shows the drive that you want to look at.
+3.  In this case, we will look at the *Windows (C:)* icon.
+4.  Right click on the icon.
+5.  Click on *Properties* from the drop-down menu, this will display the properties of *Windows (C:)* in the dialogue box.
+6.  The dialogue box will show the disk space, available free space and the capacity of the disk, as seen in Figure 6.7.
+
+[Image: ch6_figure_6_7_disk_properties.png]
+*Figure 6.7: Properties window of Windows (C:).*

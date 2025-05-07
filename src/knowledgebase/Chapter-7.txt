@@ -1,1 +1,251 @@
+## CHAPTER 7 COMPUTER SOFTWARE
 
+**CHAPTER OVERVIEW**
+Unit 7.1 Basic software concepts
+Unit 7.2 Operating system
+Unit 7.3 Being more secure
+
+### INTRODUCTION
+
+In Chapter 1, you learned that software is a set of programs or instructions that tells the computer and its hardware how to perform specific tasks. Without software, most computers would be useless, for example without Microsoft Word software it will be difficult to type out assignments and use specialised fonts and WordArt.
+
+In this chapter, we will look at the basic software concepts, different software components and different types of software.
+
+---
+
+### UNIT 7.1 Basic software concepts
+
+In this unit, we will look at the different concepts used in software. To begin, however, we will look at the different types of software.
+
+Software consists of the following two categories, which will be explained in detail later on:
+1.  **Application software:** Application software allows you to perform tasks, such as playing games, creating slide show presentations, creating spreadsheets, and so on. There are many different types of application software programs.
+2.  **System software:** This includes the operating system and other software that controls and manages the operation of the computer.
+
+#### APPLICATION SOFTWARE
+
+Whether it is creating a report for work, typing out an assignment for school, messaging a friend, or just trying to find out where you can buy the latest PlayStation, there is probably an **application (app)** that can help you find what you are looking for. Unfortunately, there is no application that explains what it is, or what it does. So, in this section we will look at this term and how it has developed – and you do not even need an application to read it!
+
+As you have learned, computer software is a set of instructions that tells a computer what to do and how to do it. Although the computer cannot run without system software, application software is the most useful type for computer users, as it helps us perform many of the tasks that make us use computers in the first place, such as web browsing, word processing and spreadsheet processing.
+
+[Image: ch7_figure_7_1_software_apps.png]
+*Figure 7.1: Different software applications*
+
+Over recent years, classifying applications according to computing platforms has become more difficult. A **platform** is the combination of hardware and software required to make an application run. In the past, the type of software running on a computer depended on the operating system, for example, some software works with a Windows operating system; other software only works with an iOS or Unix system. That has changed, however; new development in software has resulted in many applications no longer relying on a specific operating system, it runs on the **web** and can be accessed through a browser.
+
+##### TYPES OF APPLICATION SOFTWARE
+
+The table below shows some of the different types of application software installed on a computer. You should note that although software is identified as a program, it can be anything that runs on a computer.
+
+[Table: ch7_table_7_1_app_software_examples.png] *(Table 7.1: Examples and types of application software)*
+
+Some application software, such as *Wordpad*, *Notepad*, *Calculator*, *Paint* and the *Snipping Tool*, all come packaged with the system software of the Microsoft Windows operating system. We will briefly look at these basic programs and how they can be useful to you.
+
+##### ACCESSORIES
+
+Microsoft Windows includes a few programs, such as the *Calculator*, *Paint* and *Snipping Tool*. You can start any **accessory** from the *Start* menu. An accessory is any device or program that is not necessarily required, but it can be added to a computer to perform an additional function.
+
+**WINDOWS CALCULATOR**
+To use the Windows Calculator accessory you can do the following activities:
+
+*(Guided Activity 7.1 steps incorporated)*
+1.  Click the *Start* button.
+2.  Type in *calc*.
+3.  Click *Calculator* from the search results.
+The calculator will appear on your desktop.
+
+[Image: ch7_figure_7_2_calculator_app.png]
+*Figure 7.2: The Calculator application*
+
+*(Guided Activity 7.2 steps incorporated)*
+To perform a simple calculation, you can do the following:
+1.  Use the keyboard to type in the required data.
+2.  Or, you can type in the data by using the mouse and clicking on the buttons of the calculator.
+3.  Press the *Enter* key to get your answer.
+
+**SNIPPING TOOL**
+This tool captures all, or part of the computer screen as an image. You can save this image, attach it to an email, or even paste it into another application, such as Microsoft Word or Microsoft Paint.
+
+*(Guided Activity 7.3 steps incorporated)*
+To access this program, you can do the following:
+1.  Click on the *Start* menu.
+2.  Type in *snip*.
+3.  Click on the *Snipping Tool* from the search results.
+To capture a snip, you can do the following:
+4.  In the *Snipping Tool*, select *Mode*. You can choose any of the following types of snips:
+    *   Free-form snip
+    *   Rectangular snip
+    *   Window snip
+    *   Rectangular snip
+5.  Select the area that you want to snip.
+
+[Image: ch7_figure_7_3_snipping_tool.png]
+*Figure 7.3: The Snipping Tool*
+
+6.  After you have captured your snip, save the snip.
+7.  This is done by clicking on *File > Save As*.
+8.  Type a file name and then click on *Save*.
+
+**PAINT**
+Microsoft Paint is an accessory that provides virtual pens and brushes to create art or even text.
+
+*(Guided Activity 7.4 steps incorporated)*
+To use this program, you can do the following:
+1.  Click on the *Start* button.
+2.  Type in *paint*.
+3.  Click *Paint* in the search results.
+The *Paint* window will then open and you can create your own canvas by clicking or dragging the mouse, or by using the brushes.
+
+[Image: ch7_figure_7_4_paint_tool.png]
+*Figure 7.4: The Paint tool*
+
+#### SYSTEM SOFTWARE
+
+System software is the specific type of software that manages the computer. Much like a traffic officer at a busy intersection, the system software manages the flow of data and information in the computer. This is done in the following ways:
+*   Translating the instructions from the software to a language that the hardware can understand
+*   Sending these instructions to the correct hardware
+*   Receiving information from the hardware (such as, the button press on a keyboard) and sending it to the software
+*   Allowing different applications to speak to each other
+*   Making sure all the hardware and software on the computer are in a good condition
+
+The **operating system (OS)** is the most important type of system software as it manages all the other programs in the computer.
+
+##### TYPES OF SYSTEM SOFTWARE
+
+The table below shows some of the different types of system software installed on a computer.
+
+[Table: ch7_table_7_2_system_software_examples.png] *(Table 7.2: Examples and types of system software)*
+
+---
+
+### UNIT 7.2 Operating system
+
+When you turn on a computer, it is nice to be able to move the mouse, play music, or even browse the web with just a click. However, as easy as it looks, there is a lot going on inside the computer and the real mastermind behind handling all the necessary tasks, is the operating system. Most desktops or PCs come preloaded with Microsoft Windows while **Macs** are preloaded with Mac OS X. Other PCs and desktops may use the Linux or UNIX operating systems.
+
+Recently, operating systems are found in smaller computers and devices that we use every day; from smartphones to **wireless access points**. The purpose of an operating system is to organise and control both the hardware and software to perform specific tasks.
+
+Any device that has an operating system allows you to change how the device works. This means that you can add a new security update, a new application, or even install a new operating system (depending on compatibility) whenever you want to. So, no need to throw your computer away each time you need to add a new application or update! As long as you understand how an operating system works, you can change some of the ways in which it operates; the same applies for your phone.
+
+What exactly can an operating system do? In the following section, we will take a brief look at the role that the operating system plays.
+
+#### THE ROLE OF THE OPERATING SYSTEM
+
+The operating system of a computer manages all the software and hardware of the computer. In other words, the operating system has many different functions and jobs. In most cases, people generally have a number of programs running at the same time on their computers. These programs all need to access the computer’s CPU, storage and memory. The operating system manages and coordinates these processes so that the program gets what it needs to run.
+
+#### THE OPERATING SYSTEM AND GUI
+
+Operating systems are usually preloaded onto any computer you buy. Most users use the operating system that comes with their computers; however, this can be updated or even changed when required. The most popular operating systems for PCs are Microsoft Windows, Mac OS X and Linux.
+
+Modern operating systems use a **graphical user interface (GUI)**. This interface allows you to use the mouse to click on buttons and the keyboard to type text; while everything is shown clearly on the display screen as graphics and text.
+
+Each operating system has a different look; so, if you decide to change operating systems at some point, it might initially feel weird and unfamiliar. However, modern operating systems are designed to be easy to use and the basic operating principles are the same.
+
+[Image: ch7_figure_7_5_windows_gui.png]
+*Figure 7.5: GUI of a Microsoft Windows operating system*
+
+##### TYPICAL FEATURES OF A GUI
+
+A GUI uses windows, icons and menus to perform commands, such as opening, moving, closing and deleting files. Although most GUI systems use the mouse to navigate, it can also use hotkeys and arrow keys.
+
+GUI elements are included, but not limited to the following:
+*   **Input controls:** Checkboxes, option buttons, list boxes and dialogue boxes
+*   **Navigational components:** Icons, menu usage and navigation
+*   **Informational components:** Toolbars and message boxes
+
+[Image: ch7_figure_7_6_gui_elements.png]
+*Figure 7.6: Examples of user interface elements*
+
+These operating system elements are grouped in tables and are briefly discussed below.
+
+[Table: ch7_table_7_3_input_controls.png] *(Table 7.3: Input controls)*
+[Table: ch7_table_7_4_navigational_components.png] *(Table 7.4: Navigational components)*
+[Table: ch7_table_7_5_informational_components.png] *(Table 7.5: Informational components)*
+
+#### DIFFERENT OPERATING SYSTEMS
+
+The three popular operating systems for PCs are:
+1.  Microsoft Windows
+2.  Mac OS X
+3.  Linux
+
+##### MICROSOFT WINDOWS
+
+Microsoft Windows is one of the most popular operating system. Microsoft is calling Windows 10 “the last version of Windows”. This is not because it is killing off Windows, but because it decided to rather keep improving and updating Windows 10.
+
+[Image: ch7_figure_7_7_windows_interface.png]
+*Figure 7.7: Windows user interface*
+
+##### MAC OS X
+
+This is a range of computer systems created by Apple. All Macintosh computers, better known as Macs, come preloaded with this operating system. All their recent versions are known as OS X with, the latest version that was released in 2018, called *Mojave*.
+
+[Image: ch7_figure_7_8_mac_elcapitan_interface.png]
+*Figure 7.8: Mac “El Capitan” user interface*
+
+The iPhone and iPad both have the iOS 9 user interface.
+
+##### LINUX
+
+Linux is a group of open-source operating systems. This means that it can be modified and distributed across the world by anyone. The advantages of Linux are that it is free and there are many different versions from which you can choose, for example, Linux Mint, Ubuntu, CentOS 7, etc.
+
+[Image: ch7_figure_7_9_linux_interface.png]
+*Figure 7.9: Linux user interface*
+
+#### MOBILE OPERATING SYSTEMS
+
+All of the previously mentioned information on operating systems is pretty much designed to only run on desktops or laptops. Mobile devices, such as phones, tablets and iPads differ from PCs or laptops and, therefore, have different operating systems designed just for them. Examples of these systems are Google Android, Apple iOS, Nokia Symbian, BlackBerry OS, etc.
+
+Most mobile operating systems are tied to specific hardware, with little flexibility. It also does not have as many features as the operating systems of PCs and laptops, and the different devices cannot all run on the same software.
+
+Mobile devices with communication abilities, for example smartphones, have the following two operating systems: the main user-facing software **platform** and a second lower-level **proprietary** real-time operating system, which operates the radio and other hardware.
+
+A mobile operating system starts when the device is powered on, presenting a screen with various icons or **tiles** that provide specific information and application access. It also manages cellular and wireless network connectivity, as well as phone access.
+
+---
+
+### UNIT 7.3 Being more secure
+
+Computer security is something every computer user should take very seriously. A breach in security can cause major problems. This means that you must do certain things to prevent and detect unauthorised access to your computer. **Unauthorised use** refers to anyone that gets access to your computer without your permission. In the worst-case scenario, this can refer to hackers who break into computer systems to steal, change or destroy information.
+
+One of the steps you can take to be more secure, is to create a password that allows access to your computer.
+
+#### CREATE A PASSWORD
+
+Computer passwords are used to help identify the correct user and also prevent unauthorised use. A password consists of a string of secret characters, numbers, or words that are used to verify the identity of a user during the **authentication process**. It is used together with a username, and is designed to be known only to the user and allow that user to gain access to a device, application or website.
+
+You can create a password in Windows 10 by doing the following:
+1.  Click on the *Start* button.
+2.  Type in *Control Panel*.
+3.  Open the *Control Panel*, and click on *User Accounts*.
+4.  Open *User Accounts* and choose *Make changes to accounts*.
+5.  Click on *Add a new user in PC settings*.
+6.  Choose *Make changes to my account in PC settings*.
+7.  Click or tap *Sign-in options* from the left.
+8.  In the Password area, click on the *Add* button.
+9.  Enter the new password correctly in both text fields, where required.
+10. In the *Password Hint* field, enter something that will help you remember the password. Click *Next*.
+11. Click on *Finish* to complete the password setup.
+
+To access your computer, you need to key in the correct login name and password. You must ensure to log off when you are done with your computer so that no one else has access to your information.
+
+*(Section: TIPS FOR CREATING A PASSWORD)*
+*   The longer the better – a minimum of 12-characters is recommended.
+*   Mix it up; use variations on capitalisation, spelling, numbers and punctuation.
+*   Avoid names, places and dictionary words.
+*   Use a sentence that you will remember, for example, your name and date of birth.
+*   Use the first letters of each word as your password, for example, “My name is Julia Mabula and I was born on 13 March 2001!” The password would then be “MniJMaIwbo13M21!” – it consists of 16 characters: letters – upper- and lowercase, numbers and symbols.
+
+#### OTHER AUTHENTICATION METHODS
+
+The world of computers is changing every year. Nowadays, with the touch of your finger, you can unlock your computer and phone. Businesses that are really serious about their security use fingerprint scanning, facial recognition, or an iris scanner to protect the information on their computers.
+
+[Image: ch7_figure_7_10_authentication_methods.png]
+*Figure 7.10: Authentication safety measures*
+
+#### SCREEN LOCK PATTERN
+
+Users can secure their smartphones or tablets by using a screen lock. So, every time the user turns the phone on, or wakes it up from standby mode, it requires a screen lock pattern. This can be in the form of a pin, password, fingerprint scan and nowadays, users can unlock their devices by scanning their retina.
+
+More about the pattern:
+*   It is a simple pattern that is drawn with the user’s finger.
+*   It makes the device more secure and less accessible by others.
+*   If you take privacy very seriously, using a pattern to lock the device can actually be handy.

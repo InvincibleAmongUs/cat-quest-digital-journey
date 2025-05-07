@@ -1,0 +1,298 @@
+## CHAPTER 5 HARDWARE
+
+**CHAPTER OVERVIEW**
+Unit 5.1 What is hardware?
+Unit 5.2 Input devices
+Unit 5.3 Output devices
+Unit 5.4 Storage devices
+Unit 5.5 Green computing
+
+### INTRODUCTION
+
+Have you ever wondered what we would do without computers in this day and age? Pretty much everything in this world works with computers; from using an ATM, to buying groceries and making new friends. We live in a world where, after you have bought a new computer, taken it home and, before even unpacking it, there is an advertisement for a new computer that makes yours now outdated.
+
+According to Moore’s law (1970), computer processor speeds will double every two years. For this to happen, a computer’s components must be improved on a continuous basis.
+
+Looking back to where computers started, you will realise that it was not at all as complex or technologically advanced, such as the ones we have today. In the early 1600s to 1800s, people started thinking of building a device that could solve complex problems and calculations easier and faster than what they could do manually. They wanted a device that could add and subtract. As a result, the first digital calculator that could add and subtract was built by the 18-year-old Blaise Pascal in 1642.
+
+As the years went by, newer and better calculators and computers were built. One of the first complex machines that forms an important part of the computer history, was the ENIAC, built for the US army between 1943 and 1946. It was a very big computer that could do thousands of calculations.
+
+After that, computers started changing the world more and more as it became smaller, faster and smarter.
+
+---
+
+### UNIT 5.1 What is hardware?
+
+A computer consists of two major parts – i.e. hardware and software.
+
+**Hardware** refers to all the physical parts or components of a computer, such as the monitor, keyboard, computer data storage, graphics card, sound card and motherboard. **Software** refers to the instructions that can be stored and run by hardware.
+
+There are many different kinds of hardware that can be installed inside, or connected to the outside of a computer. To make it easier for you to understand, we will divide it into the following categories:
+*   Input devices
+*   Output devices
+*   Storage devices
+
+#### PORTS AND CONNECTORS
+
+**Ports** and **connectors** form an important part of a computer. Ports allow computers to connect with different types of hardware, such as a keyboard, mouse or monitor. Many devices use cables to connect to the computer. Devices can also be connected using Wi-Fi (**wireless**), or **Bluetooth** (short-range wireless).
+
+The connector (plug) which is found at the end of a cable fits into a specific port (socket) of the computer. These ports are usually found at the back of the computer.
+
+[Image: ch5_figure_5_1_port_connector.png]
+*Figure 5.1: Port (1) and connector (2)*
+
+*(Note: The following section is derived from Table 5.1 in the PDF)*
+
+**Types of ports, common connectors and examples:**
+
+*   **Port Type:** USB port
+    *   [Image: ch5_img_usb_port.png]
+    *   [Image: ch5_img_usb_connector.png]
+    *   **Uses:** Used to connect many devices, such as smartphones, flash drives and external hard drives
+
+*   **Port Type:** VGA port
+    *   [Image: ch5_img_vga_port.png]
+    *   [Image: ch5_img_vga_connector.png]
+    *   **Uses:** Used to connect monitors and data projectors
+
+*   **Port Type:** DVI port
+    *   [Image: ch5_img_dvi_port.png]
+    *   [Image: ch5_img_dvi_connector.png]
+    *   **Uses:** Used to connect display devices, such as monitors
+
+*   **Port Type:** HDMI port
+    *   [Image: ch5_img_hdmi_port.png]
+    *   [Image: ch5_img_hdmi_connector.png]
+    *   **Uses:** Used to connect monitors, data projectors and gaming consoles
+
+*   **Port Type:** 3.5 mm port
+    *   [Image: ch5_img_3_5mm_port.png]
+    *   [Image: ch5_img_3_5mm_connector.png]
+    *   **Uses:** Used to connect audio devices, such as speakers, head phones and microphones
+
+*   **Port Type:** Ethernet
+    *   [Image: ch5_img_ethernet_port.png]
+    *   [Image: ch5_img_ethernet_connector.png]
+    *   **Uses:** Used to connect to a network device, such as a switch or router
+
+*   **Port Type:** RJ-11
+    *   [Image: ch5_img_rj11_port.png]
+    *   [Image: ch5_img_rj11_connector.png]
+    *   **Uses:** Used to connect an internet router to a telephone line
+
+#### ADAPTERS AND CONVERTORS
+
+Almost every peripheral device uses an adapter to communicate with a computer. With new technology, the type of computer ports and other computing devices change. However, instead of buying a new computing device, you can use an adaptor convertor to provide additional compatibility and functionality.
+
+Types of common adaptors include the following:
+*   HDMI to VGA
+*   HDMI to DVI
+
+---
+
+### UNIT 5.2 Input devices
+
+**Input devices** are hardware devices that allow you to enter data into the computer, or interact with the computer.
+
+Remember, when entering data, you are actually giving the computer an instruction to do something. In this section, you will learn about the different types of commonly used input devices.
+
+#### COMMON INPUT DEVICES
+
+##### KEYBOARD
+
+A keyboard is used for entering information into a computer, such as letters, words, numbers and symbols. Pressing any key on the keyboard is an input that the computer uses as data. There are different types of keyboards, as shown in the table below.
+
+*(Note: The following section is derived from Table 5.2 in the PDF)*
+
+**Different types of keyboards:**
+
+*   **Type:** Standard keyboard (external)
+    *   [Image: ch5_img_standard_keyboard.png]
+*   **Type:** Laptop keyboard (built-in)
+    *   [Image: ch5_img_laptop_keyboard.png]
+*   **Type:** Ergonomic keyboard
+    *   [Image: ch5_img_ergonomic_keyboard.png]
+*   **Type:** Gaming keyboard
+    *   [Image: ch5_img_gaming_keyboard.png]
+*   **Type:** Foldable keyboard
+    *   [Image: ch5_img_foldable_keyboard.png]
+*   **Type:** Laser keyboard
+    *   [Image: ch5_img_laser_keyboard.png]
+
+#### POINTING DEVICES
+
+Pointing devices are used to control the movement of the **cursor** on the screen. The major pointing device is the mouse for the desktop computer and the touchpad for the laptop.
+
+##### MOUSE
+
+The mouse is the second most important input device of a computer. Using the mouse, you can move the mouse pointer or cursor on the computer screen, allowing you to interact with the computer.
+
+There are different types of mice, as shown in the following table.
+
+*(Note: The following section is derived from Table 5.3 in the PDF)*
+
+**Different types of mice:**
+
+*   **Type:** Wireless mouse
+    *   **Description:** A mouse that connects to a computer using Wi-Fi or Bluetooth
+    *   [Image: ch5_img_wireless_mouse.png]
+*   **Type:** Cable mouse
+    *   **Description:** A cable mouse uses a USB connector to connect to the computer or laptop
+    *   [Image: ch5_img_cable_mouse.png]
+
+*(Section: FIRST COMPUTER MOUSE)*
+Douglas Engelbart invented the first computer mouse in 1963. The mouse had two wheels positioned at a 90-degree angle to each other to keep track of the movement. The ball mouse was only invented in 1972 and the optical mouse, around 1980.
+
+[Image: ch5_figure_5_2_engelbart_mouse.png]
+*Figure 5.2: Engelbart’s mouse*
+
+---
+
+### UNIT 5.3 Output devices
+
+**Output devices** receive data from a computer. The output device converts this data to a display, projected image, or print-out.
+
+#### COMMON OUTPUT DEVICES
+
+##### MONITORS
+
+A monitor, also known as a visual display unit (VDU), is the main output device of a computer, as it represents data in a visual form.
+
+[Image: ch5_figure_5_3_lcd_monitor.png]
+*Figure 5.3: An example of an LCD monitor*
+
+The size of a monitor is measured in inches diagonally from one corner to the other.
+
+Another important aspect of a monitor is its resolution. The clarity of text and images displayed on the monitor depends on the screen resolution. Screen resolution is measured in **pixels** (which is short for *picture element*). A pixel is a tiny dot of colour displayed on a monitor. The more pixels there are, the more detailed the picture will look. The screen resolution shows you how many pixels the screen can show horizontally and vertically. It is written as 1 280 × 800, which means that the screen can show 1 280 pixels horizontally and 800 pixels vertically.
+
+A third important characteristic is the refresh rate of a monitor. This can be defined as how quickly the image on the monitor can be updated with the newest information.
+
+##### PRINTERS
+
+Printers allow a computer to convert electronic data (soft copy) into a hard copy (i.e. printed out on a piece of paper). Printers are generally used to print large amounts of text and documents, and can also be used to print graphics, such as photos.
+
+For the purpose of this book, we will only look at the following four printers:
+1.  **Inkjet printer:** This is a very popular printer that can combine black, white and colour printing, all at the same time. These printers operate by using cartridges that contain the ink. When the print job starts, the ink heats up and flows through a set of tiny holes. The heating process results in a small droplet of ink forming, which is then released as a single dot, forming a part of the image or text. This happens continuously until the whole image or text has been completed. This is why inkjet print-outs are sometimes still a bit wet. This type of printer can be seen in Figure 5.4 and are commonly used in homes.
+2.  **Ink tank printer:** An ink tank printer uses the same technology as an inkjet printer to print documents. The difference is that an inkjet printer’s ink cartridges are replaced with ink tanks, which hold a much larger volume of ink (up to 70 ml). The ink tanks can be filled by the user when they are empty. Each colour is stored in a separate tank and only the colour that is used up, has to be refilled. Ink tank printers can print 1 000 pages or more. Ink tank printers are suitable for printing documents where a large number of copies are required.
+
+[Image: ch5_figure_5_4_inkjet_printer.png]
+*Figure 5.4: Inkjet printer*
+
+3.  **Laser printer:** This is a common printer used in the workplace. It can print a lot of sheets quickly and with high quality. A laser printer works by directing a laser beam onto a drum, which forms a mirror image of what has to be printed. This causes parts of the drum to be magnetised. When the drum rotates, it picks up the ink powder, called **toner**. The toner is then transferred to the paper, printing the letters or images on it with a hot roller bonding the toner to the paper. An example of this printer can be seen in Figure 5.5.
+4.  **3D printer:** 3D printing is the process of making a three-dimensional (3D) solid model from a digital file. It works by transforming a digital file into a 3D model by adding one layer of material at a time.
+
+[Image: ch5_figure_5_5_laser_printer.png]
+*Figure 5.5: Laser printer*
+[Image: ch5_figure_5_6_3d_printer.png]
+*Figure 5.6: 3D Printer*
+
+Print resolution is measured in **dots per inch (DPI)**. This is similar to the way pixels work on a computer. The printer settings can be adjusted to increase or decrease the DPI. The higher the DPI, the more dots there are, resulting in a high-quality print-out.
+
+[Table: ch5_table_5_4_printer_comparison.png] *(Table 5.4: Advantages and disadvantages of different printers)*
+
+---
+
+### UNIT 5.4 Storage devices
+
+Storage devices are used to store data. There are a variety of storage devices with differences in storage capacity, speed, portability, as well as functions. In this section, you will learn about the different types of storage devices and how they are used – i.e. how much data needs to be stored, how quickly the data needs to be transferred and how portable the storage needs to be.
+
+#### CONCEPTS USED IN STORAGE CAPACITY
+
+Before we discuss storage devices in great detail, let’s quickly look at the different capacities storage devices can have.
+
+Data on computers is stored as numbers, which consist of only 0s and 1s. Computer memory is made up of electronic components, which can either be on (1), or off (0). The smallest unit of data storage (0 or 1) is called a **bit**. A number made up of eight bits (11111111) is called a **byte**.
+
+[Table: ch5_table_5_5_measuring_capacity.png] *(Table 5.5: Measuring capacity)*
+
+#### COMMON STORAGE DEVICES
+
+Nowadays, we are used to hundreds of gigabytes of storage capacity in our computers. With looking at storage devices, there are three main things to remember:
+1.  **Storage capacity:** This determines how much data can be stored on the device.
+2.  **Storage speed:** This determines how quickly new information can be written to the device.
+3.  **Reliability:** This determines the likelihood of the device breaking down.
+
+We will look at the following storage devices:
+1.  Internal hard drive (**fixed**)
+2.  External hard drive (portable)
+3.  SD card
+4.  **Solid-state drive (SSD)**
+5.  Flash drive
+
+[Table: ch5_table_5_6_common_storage_devices.png] *(Table 5.6: Types of common storage devices)*
+
+*(Section: LIFE SPAN OF A HARD DRIVE)*
+Hard drives contain sensitive moving parts and because of this, they can fail. Data stored on hard drives should always be backed up (stored on another device). Modern hard drives can last for more than ten years.
+The following signs show that the hard drive might be failing:
+*   The computer is slowing down
+*   There is a clicking or grinding sound
+*   The computer freezes frequently
+
+#### CAPACITY AND ROBUSTNESS OF STORAGE DEVICES
+
+The following table summarises the average capacity and robustness for different types of storage devices, provided that they are used correctly.
+
+[Table: ch5_table_5_7_capacity_robustness.png] *(Table 5.7: The average capacity and robustness of storage devices)*
+
+#### CONNECTING PERIPHERALS
+
+A peripheral is an external device that is connected to a computer. A PC on its own cannot function efficiently. It needs peripherals, such as a mouse or keyboard for the PC to operate properly.
+
+Peripherals can be both cabled (wired) or wireless, and uses USB, Bluetooth or Wi-Fi. In this section, we will look at the different methods of connecting peripherals.
+
+##### CABLED CONNECTIONS (USB)
+
+To connect a keyboard with a USB cable, you can do the following:
+1.  Plug the USB cable of the peripheral device into the computer’s USB port.
+2.  The computer will register the keyboard. You can then start using the keyboard immediately.
+
+##### WIRELESS CONNECTIONS (BLUETOOTH)
+
+To connect a new peripheral using Bluetooth, you can do the following:
+1.  Open *Settings*.
+2.  The *Settings* window will open.
+3.  Click on *Devices*.
+4.  From the left panel, click on the *Bluetooth & other devices* tab.
+5.  Turn the *Bluetooth* toggle switch on.
+6.  Click on the *Add Bluetooth or other device* button.
+
+[Image: ch5_figure_5_6_add_bluetooth_device.png] *(Note: PDF Figure number is 5.6, should likely be 5.7 or later based on sequence)*
+*Figure [5.x]: Adding a new peripheral using Bluetooth*
+
+7.  Select the *Bluetooth* option.
+8.  Switch on the peripheral device.
+9.  A list of peripheral devices will appear. Choose the device and click it to connect.
+10. Click on the connect button to pair.
+11. Click *Done*.
+
+##### WI-FI
+
+To connect a new peripheral using Wi-Fi, you can do the following:
+1.  Click on *Start > Devices and Printers > Add a printer*.
+2.  The *Add a printer* window will open.
+3.  Choose the *Add a network, wireless or Bluetooth printer* and follow the instructions.
+
+---
+
+### UNIT 5.5 Green computing
+
+**Green computing** is about using computers in an environmentally responsible and eco-friendly manner. Green computing aims to reduce the use and impact of hazardous materials, maximise energy efficiency and promote recycling of computers that are no longer being used.
+
+Green computing tries to reduce the environmental effect of computers, by making computers more efficient and making sure the computers are built from biodegradable materials.
+
+Some examples of green computing include:
+*   Computers going to “sleep” after they have been inactive for a certain amount of time.
+*   Data stored on SSDs use considerably less electricity than data on disk drives.
+*   Improved CPU architecture allows less electricity to create more power.
+*   More efficient software requires less processing and storage space, which requires less electricity.
+*   Better resource allocation means unnecessary computers in data centres can be turned off, saving a lot of electricity.
+
+These improvements have already made significant improvements to the energy use of computers.
+
+#### GOING GREEN WHEN PRINTING
+
+With printing, you need to understand the negative effect that printing has on the environment. Currently, too much paper is been wasted for printing; most printed copies are generally ignored or thrown away after they have been used once. We should print documents when necessary, and rather file and send documents electronically (for example, through email). You can also save paper by printing on both sides of the paper (double-sided printing), as well as by recycling paper.
+
+Disposing printer cartridges in the wrong way (throwing them out in the environment) can cause serious damage to the environment. Rather, find a disposal outlet that has special bins for this purpose, for example, this type of outlet can be found at a local supermarket, such as PicknPay.
+
+[Image: ch5_figure_5_7_cartridge_recycling.png]
+*Figure 5.7: Example printer cartridge recycling outlets*
