@@ -4,8 +4,6 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import AppHeader from '@/components/layout/AppHeader';
 import LessonContent from '@/components/lessons/LessonContent';
 import QuizSection from '@/components/quiz/QuizSection';
-import DragDropGame from '@/components/lessons/DragDropGame';
-import HotspotActivity from '@/components/lessons/HotspotActivity';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ChevronRight, Book, Home } from 'lucide-react';
@@ -13,218 +11,130 @@ import { useToast } from '@/hooks/use-toast';
 import { awardPoints, checkForNewBadges, saveUserProgress, availableBadges } from '@/utils/gamification';
 import { useAuth } from '@/contexts/AuthContext';
 
-// Define a comprehensive lesson type that includes all possible properties
-interface BaseLessonData {
-  id: number;
-  moduleId: number;
-  title: string;
-  hasQuiz: boolean;
-  hasDragDrop?: boolean;
-  hasHotspots?: boolean;
-  content: React.ReactNode;
-  quizQuestions?: {
-    question: string;
-    options: string[];
-    correctAnswer: number;
-  }[];
-}
-
-// Lesson data for Module 1 - Progressively more specific
-const lessonData: Record<number, BaseLessonData> = {
-  1: {
-    id: 1,
-    moduleId: 1,
-    title: "What is Hardware?",
-    hasQuiz: true,
-    content: (
-      <div className="space-y-6">
-        <p>In this lesson, we'll learn about the fundamental concepts of hardware and software in computer systems.</p>
-        
-        <h2 className="text-2xl font-bold mt-6">Hardware vs Software</h2>
-        <div className="my-6">
-          <img 
-            src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80" 
-            alt="Illustration of computer hardware components"
-            className="rounded-lg w-full"
-          />
-          <p className="text-sm text-center text-muted-foreground mt-2">Various computer hardware components</p>
-        </div>
-        
-        <div className="grid md:grid-cols-2 gap-6 my-6">
-          <Card className="p-6">
-            <h3 className="font-bold text-xl mb-2">Hardware</h3>
-            <p className="text-base">Hardware refers to the physical components of a computer system. These are the parts that you can touch, see or feel.</p>
-            <p className="mt-2">Examples include: the monitor, keyboard, mouse, system unit, printer, scanner, etc.</p>
-          </Card>
-          <Card className="p-6">
-            <h3 className="font-bold text-xl mb-2">Software</h3>
-            <p className="text-base">Software refers to instructions that tell the hardware what to do. Software is a set of programs that cannot be physically touched.</p>
-            <p className="mt-2">Examples include: operating systems, applications, games, etc.</p>
-          </Card>
-        </div>
-        
-        <h2 className="text-2xl font-bold mt-6">Hardware Categories</h2>
-        <p>Hardware can be grouped into four main categories:</p>
-        
-        <ul className="list-disc pl-6 space-y-2 mt-4">
-          <li>
-            <strong>Input devices:</strong> Allow data or instructions to be entered into the computer (e.g., keyboard, mouse)
-          </li>
-          <li>
-            <strong>Output devices:</strong> Display or present processed data (e.g., monitor, printer)
-          </li>
-          <li>
-            <strong>Processing devices:</strong> Perform calculations and execute instructions (e.g., CPU)
-          </li>
-          <li>
-            <strong>Storage devices:</strong> Store data and software (e.g., hard drive, SSD)
-          </li>
-        </ul>
+// Mock lesson data for the first lesson of Module 1
+const lessonData = {
+  id: 1,
+  moduleId: 1,
+  title: "Introduction to Computers",
+  hasQuiz: true,
+  content: (
+    <div className="space-y-6">
+      <p>Welcome to your first lesson in Computer Applications Technology! Today, we'll be exploring the fundamentals of computer systems and understanding what makes them work.</p>
+      
+      <h2 className="text-2xl font-bold mt-6">What is a Computer?</h2>
+      <p>A computer is an electronic device that processes data according to instructions stored in its memory. It accepts input, processes it, and provides output in a useful format.</p>
+      
+      <div className="my-6">
+        <img 
+          src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=800&q=80" 
+          alt="A computer setup"
+          className="rounded-lg w-full"
+        />
+        <p className="text-sm text-center text-muted-foreground mt-2">A modern computer workstation</p>
       </div>
-    ),
-    quizQuestions: [
-      {
-        question: "Which term refers to the physical parts of a computer?",
-        options: ["Software", "Hardware", "Firmware"],
-        correctAnswer: 1
-      },
-      {
-        question: "Which of the following is NOT an example of hardware?",
-        options: ["Keyboard", "Word processor", "Monitor"],
-        correctAnswer: 1
-      },
-      {
-        question: "What is the main difference between hardware and software?",
-        options: [
-          "Hardware is cheaper than software", 
-          "Hardware can be physically touched while software cannot", 
-          "Software is more important than hardware"
-        ],
-        correctAnswer: 1
-      }
-    ]
-  },
-  2: {
-    id: 2,
-    moduleId: 1,
-    title: "Input Devices",
-    hasQuiz: false,
-    hasDragDrop: true,
-    content: (
-      <div className="space-y-6">
-        <h2 className="text-2xl font-bold">Input Devices</h2>
-        <p>Input devices allow users to enter data or instructions into a computer system. These devices convert human-understandable information into a form that the computer can process.</p>
-        
-        <div className="grid md:grid-cols-2 gap-6 my-6">
-          <Card className="p-6">
-            <div className="flex justify-center mb-4">
-              <img 
-                src="https://images.unsplash.com/photo-1563191911-e65f8655ebf9?auto=format&fit=crop&w=600&q=80" 
-                alt="Computer keyboard"
-                className="rounded-lg h-40 object-cover"
-              />
-            </div>
-            <h3 className="font-bold text-xl mb-2">Keyboard</h3>
-            <p>The keyboard is one of the main input devices. It allows the user to input letters, numbers, and symbols into a computer. Most keyboards have a standard QWERTY layout.</p>
-          </Card>
-          
-          <Card className="p-6">
-            <div className="flex justify-center mb-4">
-              <img 
-                src="https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?auto=format&fit=crop&w=600&q=80" 
-                alt="Computer mouse"
-                className="rounded-lg h-40 object-cover"
-              />
-            </div>
-            <h3 className="font-bold text-xl mb-2">Mouse</h3>
-            <p>The mouse is a pointing device that allows users to interact with elements on the screen. It typically has buttons and a scroll wheel for additional functionality.</p>
-          </Card>
-        </div>
-        
-        <h2 className="text-2xl font-bold mt-6">Output Devices</h2>
-        <p>Output devices present processed data from a computer in a human-understandable form. These devices convert the computer's processing results into text, images, sounds, or other formats.</p>
-        
-        <div className="grid md:grid-cols-2 gap-6 my-6">
-          <Card className="p-6">
-            <div className="flex justify-center mb-4">
-              <img 
-                src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=600&q=80" 
-                alt="Computer monitor"
-                className="rounded-lg h-40 object-cover"
-              />
-            </div>
-            <h3 className="font-bold text-xl mb-2">Monitor</h3>
-            <p>The monitor displays visual output from a computer. Modern monitors use LCD, LED or OLED technology to create the display.</p>
-          </Card>
-          
-          <Card className="p-6">
-            <div className="flex justify-center mb-4">
-              <img 
-                src="https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?auto=format&fit=crop&w=600&q=80" 
-                alt="Printer"
-                className="rounded-lg h-40 object-cover"
-              />
-            </div>
-            <h3 className="font-bold text-xl mb-2">Printer</h3>
-            <p>A printer creates physical copies of digital documents or images. Common types include inkjet, laser, and 3D printers.</p>
-          </Card>
-        </div>
-        
-        <h3 className="text-xl font-bold mt-8">Activity: Categorizing Devices</h3>
-        <p>In the activity below, you'll practice identifying which devices are input devices and which are output devices.</p>
+      
+      <h2 className="text-2xl font-bold mt-6">Information Processing Cycle</h2>
+      <p>The information processing cycle consists of four main steps:</p>
+      
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 my-6">
+        <Card className="p-4 text-center">
+          <div className="text-tech-primary text-2xl mb-2">1</div>
+          <h3 className="font-bold">Input</h3>
+          <p className="text-sm">Data entry via keyboard, mouse, scanner, etc.</p>
+        </Card>
+        <Card className="p-4 text-center">
+          <div className="text-tech-primary text-2xl mb-2">2</div>
+          <h3 className="font-bold">Processing</h3>
+          <p className="text-sm">Manipulation of data by the CPU</p>
+        </Card>
+        <Card className="p-4 text-center">
+          <div className="text-tech-primary text-2xl mb-2">3</div>
+          <h3 className="font-bold">Output</h3>
+          <p className="text-sm">Results displayed via monitor, printer, etc.</p>
+        </Card>
+        <Card className="p-4 text-center">
+          <div className="text-tech-primary text-2xl mb-2">4</div>
+          <h3 className="font-bold">Storage</h3>
+          <p className="text-sm">Saving data for future use</p>
+        </Card>
       </div>
-    )
-  },
-  3: {
-    id: 3,
-    moduleId: 1,
-    title: "Ports and Connectors",
-    hasQuiz: false,
-    hasHotspots: true,
-    content: (
-      <div className="space-y-6">
-        <h2 className="text-2xl font-bold">Ports and Connectors</h2>
-        <p>Computers use various ports and connectors to communicate with peripheral devices. These physical interfaces allow data transfer and power supply between the computer and external devices.</p>
-        
-        <div className="grid md:grid-cols-2 gap-6 my-6">
-          <Card className="p-6">
-            <div className="flex justify-center mb-4">
-              <img 
-                src="https://images.unsplash.com/photo-1646404327711-80ee44150fa9?auto=format&fit=crop&w=600&q=80" 
-                alt="USB ports on a computer"
-                className="rounded-lg h-40 object-cover"
-              />
-            </div>
-            <h3 className="font-bold text-xl mb-2">USB (Universal Serial Bus)</h3>
-            <p>USB ports connect a wide variety of devices to computers, including keyboards, mice, printers, flash drives, and many others. Modern computers typically have USB Type-A, USB Type-C, or both.</p>
-          </Card>
-          
-          <Card className="p-6">
-            <div className="flex justify-center mb-4">
-              <img 
-                src="https://images.unsplash.com/photo-1591088398332-8a7791972843?auto=format&fit=crop&w=600&q=80" 
-                alt="HDMI port and cable"
-                className="rounded-lg h-40 object-cover"
-              />
-            </div>
-            <h3 className="font-bold text-xl mb-2">HDMI (High-Definition Multimedia Interface)</h3>
-            <p>HDMI ports are used to connect computers to displays like monitors and TVs. They carry both high-quality audio and video signals in a single cable.</p>
-          </Card>
-        </div>
-        
-        <h3 className="text-xl font-bold mt-8">Activity: Exploring Ports and Connectors</h3>
-        <p>In the interactive activity below, you'll learn more about common ports and connectors found on computers.</p>
+      
+      <h2 className="text-2xl font-bold mt-6">Types of Computers</h2>
+      <p>There are several types of computers, classified by size, power, and purpose:</p>
+      
+      <ul className="list-disc pl-6 space-y-2 mt-4">
+        <li>
+          <strong>Desktop Computers:</strong> Stationary computers designed for use on a desk or table.
+        </li>
+        <li>
+          <strong>Laptop Computers:</strong> Portable computers with a screen, keyboard, and trackpad in a single unit.
+        </li>
+        <li>
+          <strong>Tablets:</strong> Mobile computers with touchscreens and without physical keyboards.
+        </li>
+        <li>
+          <strong>Smartphones:</strong> Mobile phones with computing capabilities and internet connectivity.
+        </li>
+        <li>
+          <strong>Servers:</strong> Powerful computers that provide resources to other computers on a network.
+        </li>
+        <li>
+          <strong>Supercomputers:</strong> Extremely powerful computers used for complex calculations and simulations.
+        </li>
+      </ul>
+      
+      <h2 className="text-2xl font-bold mt-6">The Difference Between Data and Information</h2>
+      <p>Understanding the distinction between data and information is crucial in computer systems:</p>
+      
+      <div className="grid md:grid-cols-2 gap-6 my-6">
+        <Card className="p-6">
+          <h3 className="font-bold text-xl mb-2">Data</h3>
+          <p>Raw facts and figures that don't have any specific meaning on their own. Data can be numbers, text, images, audio, or video.</p>
+          <p className="mt-2"><strong>Example:</strong> 28, 10, 2023</p>
+        </Card>
+        <Card className="p-6">
+          <h3 className="font-bold text-xl mb-2">Information</h3>
+          <p>Data that has been processed, organized, and presented in a way that makes it meaningful and useful for specific purposes.</p>
+          <p className="mt-2"><strong>Example:</strong> Your birthday is October 28, 2023</p>
+        </Card>
       </div>
-    )
-  }
+      
+      <h2 className="text-2xl font-bold mt-6">ICT in Daily Life</h2>
+      <p>Information and Communication Technology (ICT) plays an important role in our daily lives:</p>
+      
+      <ul className="list-disc pl-6 space-y-2 mt-4">
+        <li>Communication (email, messaging, video calls)</li>
+        <li>Education (online learning, research)</li>
+        <li>Entertainment (streaming, gaming)</li>
+        <li>Business (office productivity, e-commerce)</li>
+        <li>Healthcare (electronic records, telemedicine)</li>
+        <li>Transportation (GPS navigation, traffic updates)</li>
+      </ul>
+    </div>
+  ),
+  quizQuestions: [
+    {
+      question: "What does CPU stand for?",
+      options: ["Central Processing Unit", "Computer Personal Unit", "Central Personal Utility"],
+      correctAnswer: 0
+    },
+    {
+      question: "Which of these is NOT a type of computer?",
+      options: ["Desktop", "Laptop", "Dataphone"],
+      correctAnswer: 2
+    },
+    {
+      question: "What is the main purpose of computer storage?",
+      options: ["To process data", "To save data for future use", "To display output"],
+      correctAnswer: 1
+    }
+  ]
 };
 
 export default function LessonPage() {
   const { moduleId, lessonId } = useParams();
   const navigate = useNavigate();
   const [showQuiz, setShowQuiz] = useState(false);
-  const [showDragDrop, setShowDragDrop] = useState(false);
-  const [showHotspots, setShowHotspots] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
   const { toast } = useToast();
   const { user, updateUserData } = useAuth();
@@ -236,33 +146,12 @@ export default function LessonPage() {
     }
   }, [user, navigate]);
   
-  // Check if this lesson is already completed
-  useEffect(() => {
-    if (user && lessonId && user.completedLessons.includes(Number(lessonId))) {
-      setIsCompleted(true);
-    }
-  }, [user, lessonId]);
-  
   if (!user) {
     return null;
   }
 
-  // Get the lesson data based on lessonId
-  const lesson = lessonData[Number(lessonId) as keyof typeof lessonData];
-  
-  if (!lesson) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <Card className="p-6 max-w-md">
-          <h2 className="text-2xl font-bold mb-4">Lesson Not Found</h2>
-          <p className="mb-4">The lesson you're looking for doesn't exist or is still being developed.</p>
-          <Button asChild>
-            <Link to={`/modules/${moduleId}`}>Return to Module</Link>
-          </Button>
-        </Card>
-      </div>
-    );
-  }
+  // In a real app, we would fetch the lesson data based on moduleId and lessonId
+  const lesson = lessonData;
 
   const handleComplete = () => {
     if (lesson.hasQuiz && !showQuiz) {
@@ -270,17 +159,7 @@ export default function LessonPage() {
       return;
     }
     
-    if (lesson.hasDragDrop && !showDragDrop) {
-      setShowDragDrop(true);
-      return;
-    }
-    
-    if (lesson.hasHotspots && !showHotspots) {
-      setShowHotspots(true);
-      return;
-    }
-    
-    // Complete the lesson if no interactive elements or all are completed
+    // In a real app, we would update the user's progress
     completeLesson();
   };
   
@@ -296,18 +175,6 @@ export default function LessonPage() {
     
     // Complete the lesson
     completeLesson(pointsAwarded, quizScores);
-  };
-  
-  const handleDragDropComplete = () => {
-    // Award points for completing the drag-drop activity
-    const pointsAwarded = 15;
-    completeLesson(pointsAwarded);
-  };
-  
-  const handleHotspotComplete = () => {
-    // Award points for completing the hotspot activity
-    const pointsAwarded = 15;
-    completeLesson(pointsAwarded);
   };
   
   const completeLesson = (additionalPoints = 0, quizScores = {}) => {
@@ -330,15 +197,7 @@ export default function LessonPage() {
     });
     
     // Check for new badges
-    let newBadges: string[] = [];
-    
-    // Add "Hardware Basics Badge" if lesson 3 is completed
-    if (lesson.id === 3 && !user.badges.includes("hardware_basics")) {
-      newBadges = ["hardware_basics"];
-    } else {
-      // Check for other badges
-      newBadges = checkForNewBadges(updatedUserData);
-    }
+    const newBadges = checkForNewBadges(updatedUserData);
     
     if (newBadges.length > 0) {
       // Save the new badges
@@ -367,21 +226,15 @@ export default function LessonPage() {
   };
 
   const handleNextLesson = () => {
-    const nextLessonId = lesson.id + 1;
-    if (lessonData[nextLessonId as keyof typeof lessonData]) {
-      navigate(`/modules/${moduleId}/lessons/${nextLessonId}`);
-    } else {
-      navigate(`/modules/${moduleId}`);
-    }
+    // In a real app, we would navigate to the next lesson
+    // For this demo, we'll just go back to the module page
+    navigate(`/modules/${moduleId}`);
   };
 
   const handlePreviousLesson = () => {
-    const prevLessonId = lesson.id - 1;
-    if (lessonData[prevLessonId as keyof typeof lessonData]) {
-      navigate(`/modules/${moduleId}/lessons/${prevLessonId}`);
-    } else {
-      navigate(`/modules/${moduleId}`);
-    }
+    // In a real app, we would navigate to the previous lesson
+    // For this demo, we'll just go back to the module page
+    navigate(`/modules/${moduleId}`);
   };
 
   return (
@@ -423,23 +276,11 @@ export default function LessonPage() {
             <>
               <h1 className="text-3xl font-bold mb-4">{lesson.title} - Quiz</h1>
               <p className="mb-6 text-muted-foreground">Test your knowledge of the concepts covered in this lesson.</p>
-              {lesson.quizQuestions && (
-                <QuizSection 
-                  questions={lesson.quizQuestions} 
-                  onQuizComplete={handleQuizComplete} 
-                  lessonId={Number(lessonId)}
-                />
-              )}
-            </>
-          ) : showDragDrop ? (
-            <>
-              <h1 className="text-3xl font-bold mb-4">{lesson.title} - Activity</h1>
-              <DragDropGame onComplete={handleDragDropComplete} />
-            </>
-          ) : showHotspots ? (
-            <>
-              <h1 className="text-3xl font-bold mb-4">{lesson.title} - Interactive</h1>
-              <HotspotActivity onComplete={handleHotspotComplete} />
+              <QuizSection 
+                questions={lesson.quizQuestions} 
+                onQuizComplete={handleQuizComplete} 
+                lessonId={Number(lessonId)}
+              />
             </>
           ) : (
             <LessonContent 
@@ -447,8 +288,8 @@ export default function LessonPage() {
               onComplete={handleComplete}
               onNextLesson={handleNextLesson}
               onPreviousLesson={handlePreviousLesson}
-              hasNextLesson={Boolean(lessonData[(lesson.id + 1) as keyof typeof lessonData])}
-              hasPreviousLesson={Boolean(lessonData[(lesson.id - 1) as keyof typeof lessonData])}
+              hasNextLesson={true}
+              hasPreviousLesson={false}
             />
           )}
           

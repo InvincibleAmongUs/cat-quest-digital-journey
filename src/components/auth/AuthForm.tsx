@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,16 +11,8 @@ import { useAuth } from "@/contexts/AuthContext";
 export default function AuthForm() {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
-  const { login, register, user } = useAuth();
+  const { login, register } = useAuth();
   const navigate = useNavigate();
-  
-  // Monitor authentication state and redirect when authenticated
-  useEffect(() => {
-    if (user?.isAuthenticated) {
-      console.log("User authenticated in AuthForm, redirecting to dashboard");
-      navigate('/');
-    }
-  }, [user, navigate]);
   
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -29,47 +22,11 @@ export default function AuthForm() {
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
     
-    console.log("Login attempt with:", email);
-    
-    // Demo credentials check
-    if ((email === "demo" && password === "demo") || 
-        (email === "admin" && password === "admin")) {
-      // Create a demo user
-      const demoUser = {
-        id: "demo-user-1",
-        username: email === "demo" ? "DemoStudent" : "AdminUser",
-        email: email,
-        isAuthenticated: true,
-        role: email === "admin" ? "admin" : "student",
-        points: 20,
-        completedLessons: [1],
-        completedModules: [],
-        quizScores: {},
-        badges: ["first_login"],
-      };
-      
-      // Store the user in localStorage
-      localStorage.setItem("user", JSON.stringify(demoUser));
-      
-      toast({
-        title: "Demo Login Successful",
-        description: `Welcome to CATalyst Learn, ${demoUser.username}!`,
-      });
-      
-      setIsLoading(false);
-      
-      // Force navigation after the user is stored in localStorage
-      console.log("Demo login successful, navigating to dashboard");
-      setTimeout(() => navigate('/'), 100);
-      return;
-    }
-    
     const success = await login(email, password);
     setIsLoading(false);
     
     if (success) {
-      console.log("Regular login successful, navigating to dashboard");
-      setTimeout(() => navigate('/'), 100);
+      navigate('/');
     }
   };
   
@@ -88,39 +45,6 @@ export default function AuthForm() {
     if (success) {
       navigate('/');
     }
-  };
-
-  // Modified handleDemoLogin to ensure navigation works
-  const handleDemoLogin = () => {
-    setIsLoading(true);
-    
-    // Create a demo user
-    const demoUser = {
-      id: "demo-user-1",
-      username: "DemoStudent",
-      email: "demo@example.com",
-      isAuthenticated: true,
-      role: "student",
-      points: 20,
-      completedLessons: [1],
-      completedModules: [],
-      quizScores: {},
-      badges: ["first_login"],
-    };
-    
-    // Store the user in localStorage
-    localStorage.setItem("user", JSON.stringify(demoUser));
-    
-    toast({
-      title: "Demo Login Successful",
-      description: "Welcome to CATalyst Learn, DemoStudent!",
-    });
-    
-    setIsLoading(false);
-    
-    // Force navigation after the user is stored in localStorage
-    console.log("Quick demo login successful, navigating to dashboard");
-    setTimeout(() => navigate('/'), 100);
   };
 
   return (
@@ -167,12 +91,8 @@ export default function AuthForm() {
                 <Button disabled={isLoading}>
                   {isLoading ? "Logging in..." : "Log in"}
                 </Button>
-                <Button type="button" variant="outline" onClick={handleDemoLogin} disabled={isLoading}>
-                  Quick Demo Login
-                </Button>
                 <div className="text-xs text-center text-muted-foreground">
-                  <p>Demo access: Username: demo, Password: demo</p>
-                  <p>Admin access: Username: admin, Password: admin</p>
+                  <p>Demo admin access: Email: admin, Password: admin</p>
                 </div>
               </div>
             </form>

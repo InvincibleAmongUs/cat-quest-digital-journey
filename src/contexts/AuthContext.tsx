@@ -2,7 +2,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from '@/hooks/use-toast';
-import { availableBadges } from '@/utils/gamification';
 
 // Define types for our auth context
 export interface UserData {
@@ -42,7 +41,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // Load user data from localStorage on initial render
   useEffect(() => {
-    console.log("AuthProvider: Checking for stored user");
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       try {
@@ -51,22 +49,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         if (!userData.role) {
           userData.role = 'student';
         }
-        console.log("AuthProvider: Found user in localStorage", userData.username);
         setUser(userData);
       } catch (error) {
         console.error('Failed to parse user data from localStorage:', error);
         localStorage.removeItem('user');
       }
-    } else {
-      console.log("AuthProvider: No user in localStorage");
     }
   }, []);
 
   // Login function - to be replaced with an API call in the future
   const login = async (email: string, password: string): Promise<boolean> => {
     try {
-      console.log(`AuthProvider: Login attempt for ${email}`);
-      
       // Check for admin credentials
       if (email === 'admin' && password === 'admin') {
         const adminUser: UserData = {
@@ -81,39 +74,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           role: 'admin'
         };
         
-        console.log("AuthProvider: Admin login successful");
-        localStorage.setItem('user', JSON.stringify(adminUser));
         setUser(adminUser);
+        localStorage.setItem('user', JSON.stringify(adminUser));
         
         toast({
           title: "Admin Access Granted",
           description: "Welcome to the admin dashboard.",
-        });
-        
-        return true;
-      }
-      
-      // Check for demo login
-      if (email === 'demo' && password === 'demo') {
-        const demoUser: UserData = {
-          username: 'DemoStudent',
-          email: 'demo@example.com',
-          isAuthenticated: true,
-          role: 'student',
-          points: 20,
-          completedLessons: [1],
-          completedModules: [],
-          quizScores: {},
-          badges: ["first_login"],
-        };
-        
-        console.log("AuthProvider: Demo login successful");
-        localStorage.setItem('user', JSON.stringify(demoUser));
-        setUser(demoUser);
-        
-        toast({
-          title: "Demo Login Successful",
-          description: "Welcome to CATalyst Learn, DemoStudent!",
         });
         
         return true;
@@ -152,9 +118,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           role: 'student'
         };
         
-        console.log("AuthProvider: Regular user login successful");
-        localStorage.setItem('user', JSON.stringify(userData));
         setUser(userData);
+        localStorage.setItem('user', JSON.stringify(userData));
         
         toast({
           title: "Welcome back!",
@@ -184,8 +149,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   // Register function - to be replaced with an API call in the future
   const register = async (username: string, email: string, password: string): Promise<boolean> => {
     try {
-      console.log(`AuthProvider: Register attempt for ${email}`);
-      
       // In a real implementation, this would create a user in the backend
       // For now, we'll simulate storing in localStorage
       
@@ -224,9 +187,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const userData: UserData = { ...newUser };
       delete (userData as any).password; // Don't keep password in memory
       
-      console.log("AuthProvider: Registration successful");
-      localStorage.setItem('user', JSON.stringify(userData));
       setUser(userData);
+      localStorage.setItem('user', JSON.stringify(userData));
       
       toast({
         title: "Registration Successful",
@@ -247,7 +209,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // Logout function
   const logout = () => {
-    console.log("AuthProvider: Logging out user");
     localStorage.removeItem('user');
     setUser(null);
     navigate('/login');
@@ -260,7 +221,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // Update user data
   const updateUserData = (data: Partial<UserData>) => {
-    console.log("AuthProvider: Updating user data", data);
     if (user) {
       const updatedUser = { ...user, ...data };
       setUser(updatedUser);
