@@ -4,7 +4,7 @@ import AppHeader from '@/components/layout/AppHeader';
 import ProgressOverview from '@/components/dashboard/ProgressOverview';
 import CurrentModule from '@/components/dashboard/CurrentModule';
 import ModuleList from '@/components/dashboard/ModuleList';
-import { DataDragon } from '@/components/mascot/DataDragon';
+import DataDragon from '@/components/mascot/DataDragon';
 import { useAuth } from '@/contexts/AuthContext';
 import { availableBadges } from '@/utils/gamification';
 
@@ -19,6 +19,48 @@ const Dashboard = () => {
   const earnedBadges = user.badges
     .map(badgeId => availableBadges.find(badge => badge.id === badgeId))
     .filter(badge => badge !== undefined);
+
+  // Mock data for current module
+  const currentModule = {
+    id: 1,
+    title: "System Superstars",
+    description: "Learn about hardware, software and the fundamental components of computer systems",
+    progress: 25,
+    nextLessonId: 2,
+    nextLessonTitle: "Input Devices",
+    image: "/placeholder.svg"
+  };
+
+  // Mock data for module list
+  const modules = [
+    {
+      id: 1,
+      title: "System Superstars",
+      description: "Hardware & Software basics",
+      image: "/placeholder.svg",
+      progress: 25,
+      isLocked: false,
+      badgeCount: 3
+    },
+    {
+      id: 2,
+      title: "Digital Literacy",
+      description: "Understanding digital concepts",
+      image: "/placeholder.svg",
+      progress: 0,
+      isLocked: true,
+      badgeCount: 2
+    },
+    {
+      id: 3,
+      title: "File Management",
+      description: "Organize your digital files",
+      image: "/placeholder.svg",
+      progress: 0,
+      isLocked: true,
+      badgeCount: 2
+    }
+  ];
   
   return (
     <div className="min-h-screen bg-background">
@@ -30,14 +72,14 @@ const Dashboard = () => {
             <h1 className="text-3xl font-bold tracking-tight">Welcome, {user.username}!</h1>
             
             <ProgressOverview 
-              points={user.points} 
-              lessonsCompleted={user.completedLessons.length}
-              badgesCount={user.badges.length} 
+              totalProgress={25} 
+              earnedBadges={user.badges.length} 
+              totalPoints={user.points} 
             />
             
-            <CurrentModule />
+            <CurrentModule module={currentModule} />
             
-            <ModuleList />
+            <ModuleList modules={modules} />
           </div>
           
           <div className="lg:col-span-4 space-y-6">
@@ -66,13 +108,7 @@ const Dashboard = () => {
             
             <div className="border rounded-xl p-4 bg-gradient-to-b from-tech-primary/10 to-background">
               <div className="flex items-center">
-                <DataDragon size="small" />
-                <div className="ml-3">
-                  <h3 className="font-medium">Data Dragon says:</h3>
-                  <p className="text-sm text-muted-foreground">
-                    "Did you know? The first computer mouse was made of wood!"
-                  </p>
-                </div>
+                <DataDragon message="Did you know? The first computer mouse was made of wood!" />
               </div>
             </div>
           </div>
