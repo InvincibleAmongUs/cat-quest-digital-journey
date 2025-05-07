@@ -13,8 +13,24 @@ import { useToast } from '@/hooks/use-toast';
 import { awardPoints, checkForNewBadges, saveUserProgress, availableBadges } from '@/utils/gamification';
 import { useAuth } from '@/contexts/AuthContext';
 
+// Define a comprehensive lesson type that includes all possible properties
+interface BaseLessonData {
+  id: number;
+  moduleId: number;
+  title: string;
+  hasQuiz: boolean;
+  hasDragDrop?: boolean;
+  hasHotspots?: boolean;
+  content: React.ReactNode;
+  quizQuestions?: {
+    question: string;
+    options: string[];
+    correctAnswer: number;
+  }[];
+}
+
 // Lesson data for Module 1 - Progressively more specific
-const lessonData = {
+const lessonData: Record<number, BaseLessonData> = {
   1: {
     id: 1,
     moduleId: 1,
@@ -407,11 +423,13 @@ export default function LessonPage() {
             <>
               <h1 className="text-3xl font-bold mb-4">{lesson.title} - Quiz</h1>
               <p className="mb-6 text-muted-foreground">Test your knowledge of the concepts covered in this lesson.</p>
-              <QuizSection 
-                questions={lesson.quizQuestions} 
-                onQuizComplete={handleQuizComplete} 
-                lessonId={Number(lessonId)}
-              />
+              {lesson.quizQuestions && (
+                <QuizSection 
+                  questions={lesson.quizQuestions} 
+                  onQuizComplete={handleQuizComplete} 
+                  lessonId={Number(lessonId)}
+                />
+              )}
             </>
           ) : showDragDrop ? (
             <>

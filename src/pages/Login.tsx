@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthForm from '@/components/auth/AuthForm';
 import { useAuth } from '@/contexts/AuthContext';
@@ -9,8 +9,9 @@ export default function Login() {
   const { user } = useAuth();
   
   // If user is already authenticated, redirect to dashboard
-  React.useEffect(() => {
+  useEffect(() => {
     if (user?.isAuthenticated) {
+      console.log("User is authenticated, redirecting to dashboard");
       navigate('/');
     }
   }, [user, navigate]);

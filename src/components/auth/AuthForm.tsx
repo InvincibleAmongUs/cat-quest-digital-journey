@@ -1,5 +1,4 @@
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,8 +10,16 @@ import { useAuth } from "@/contexts/AuthContext";
 export default function AuthForm() {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
-  const { login, register } = useAuth();
+  const { login, register, user } = useAuth();
   const navigate = useNavigate();
+  
+  // Monitor authentication state and redirect when authenticated
+  useEffect(() => {
+    if (user?.isAuthenticated) {
+      console.log("User authenticated in AuthForm, redirecting to dashboard");
+      navigate('/');
+    }
+  }, [user, navigate]);
   
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -21,6 +28,8 @@ export default function AuthForm() {
     const formData = new FormData(e.currentTarget);
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
+    
+    console.log("Login attempt with:", email);
     
     // Demo credentials check
     if ((email === "demo" && password === "demo") || 
@@ -48,7 +57,10 @@ export default function AuthForm() {
       });
       
       setIsLoading(false);
-      navigate('/');
+      
+      // Force navigation after the user is stored in localStorage
+      console.log("Demo login successful, navigating to dashboard");
+      setTimeout(() => navigate('/'), 100);
       return;
     }
     
@@ -56,7 +68,8 @@ export default function AuthForm() {
     setIsLoading(false);
     
     if (success) {
-      navigate('/');
+      console.log("Regular login successful, navigating to dashboard");
+      setTimeout(() => navigate('/'), 100);
     }
   };
   
@@ -77,6 +90,7 @@ export default function AuthForm() {
     }
   };
 
+  // Modified handleDemoLogin to ensure navigation works
   const handleDemoLogin = () => {
     setIsLoading(true);
     
@@ -103,7 +117,10 @@ export default function AuthForm() {
     });
     
     setIsLoading(false);
-    navigate('/');
+    
+    // Force navigation after the user is stored in localStorage
+    console.log("Quick demo login successful, navigating to dashboard");
+    setTimeout(() => navigate('/'), 100);
   };
 
   return (
