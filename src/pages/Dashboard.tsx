@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import AppHeader from '@/components/layout/AppHeader';
@@ -10,52 +10,151 @@ import DataDragon from '@/components/mascot/DataDragon';
 import { BadgeCheck } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { availableBadges } from '@/utils/gamification';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
 
-// Mock data
-const currentModule = {
-  id: 1,
-  title: "System Superstars",
-  description: "Master computer systems, components and basic operations",
-  progress: 35,
-  nextLessonId: 2,
-  nextLessonTitle: "Understanding Hardware Components",
-  image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80"
-};
+interface CurrentModuleData {
+  id: number;
+  title: string;
+  description: string;
+  progress: number;
+  nextLessonId: number;
+  nextLessonTitle: string;
+  image: string;
+}
 
-const recentModules = [
-  {
-    id: 1,
-    title: "System Superstars",
-    description: "Computer systems & components",
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
-    progress: 35,
-    isLocked: false,
-    badgeCount: 3
-  },
-  {
-    id: 2,
-    title: "Digital Citizenship HQ",
-    description: "Ethics, safety & responsible use",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
-    progress: 0,
-    isLocked: false,
-    badgeCount: 4
-  },
-  {
-    id: 3,
-    title: "Word Wizardry Academy",
-    description: "Master word processing skills",
-    image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&w=800&q=80",
-    progress: 0,
-    isLocked: true,
-    badgeCount: 3
-  }
-];
+interface ModuleData {
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+  progress: number;
+  isLocked: boolean;
+  badgeCount: number;
+}
 
 export default function Dashboard() {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { toast } = useToast();
   
+  const [currentModule, setCurrentModule] = useState<CurrentModuleData | null>(null);
+  const [recentModules, setRecentModules] = useState<ModuleData[]>([]);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    const fetchDashboardData = async () => {
+      if (!user) return;
+      
+      try {
+        setLoading(true);
+        
+        // Fetch all modules
+        const { data: modulesData, error: modulesError } = await supabase
+          .from('modules')
+          .select('*')
+          .order('order_index', { ascending: true });
+        
+        if (modulesError) {
+          console.error('Error fetching modules:', modulesError);
+          toast({
+            title: "Error",
+            description: "Failed to load modules data. Please try again.",
+            variant: "destructive",
+          });
+          return;
+        }
+        
+        // Find the first uncompleted module as the "current" module
+        let currentModuleData = modulesData[0]; // Default to first module
+        
+        for (const module of modulesData) {
+          const isCompleted = user.completedModules.includes(module.id);
+          if (!isCompleted) {
+            currentModuleData = module;
+            break;
+          }
+        }
+        
+        // Fetch lessons for the current module to determine progress and next lesson
+        const { data: lessonsData, error: lessonsError } = await supabase
+          .from('lessons')
+          .select('*')
+          .eq('module_id', currentModuleData.id)
+          .order('order_index', { ascending: true });
+        
+        if (lessonsError) {
+          console.error('Error fetching lessons:', lessonsError);
+        }
+        
+        // Calculate progress for the current module
+        let completedLessons = 0;
+        let nextLessonId = null;
+        let nextLessonTitle = "";
+        
+        if (lessonsData && lessonsData.length > 0) {
+          for (const lesson of lessonsData) {
+            if (user.completedLessons.includes(lesson.id)) {
+              completedLessons++;
+            } else if (nextLessonId === null) {
+              nextLessonId = lesson.id;
+              nextLessonTitle = lesson.title;
+            }
+          }
+          
+          // If all lessons are completed, just point to the first one
+          if (nextLessonId === null && lessonsData.length > 0) {
+            nextLessonId = lessonsData[0].id;
+            nextLessonTitle = lessonsData[0].title;
+          }
+        }
+        
+        const progress = lessonsData && lessonsData.length > 0
+          ? Math.round((completedLessons / lessonsData.length) * 100)
+          : 0;
+        
+        setCurrentModule({
+          id: currentModuleData.id,
+          title: currentModuleData.title,
+          description: currentModuleData.description,
+          progress,
+          nextLessonId: nextLessonId || 1,
+          nextLessonTitle: nextLessonTitle || "Start Module",
+          image: currentModuleData.image_url || "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80"
+        });
+        
+        // Transform all modules for the recent modules list
+        const transformedModules = modulesData.slice(0, 3).map(module => {
+          // Count badges related to this module (simplified approach)
+          const badgeCount = module.id === 1 ? 3 : module.id === 2 ? 4 : 3;
+          
+          return {
+            id: module.id,
+            title: module.title,
+            description: module.description,
+            image: module.image_url || `https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80`,
+            progress: 0, // This would need a more complex calculation in a production app
+            isLocked: module.is_locked,
+            badgeCount
+          };
+        });
+        
+        setRecentModules(transformedModules);
+      } catch (err) {
+        console.error('Failed to fetch dashboard data:', err);
+        toast({
+          title: "Error",
+          description: "An unexpected error occurred. Please try again.",
+          variant: "destructive",
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchDashboardData();
+  }, [user, toast]);
+
   // If no user data is found, redirect to login
   useEffect(() => {
     if (!user) {
@@ -64,7 +163,15 @@ export default function Dashboard() {
   }, [user, navigate]);
   
   if (!user) {
-    return null; // Or a loading spinner
+    return null;
+  }
+  
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-tech-primary"></div>
+      </div>
+    );
   }
 
   return (
@@ -86,7 +193,7 @@ export default function Dashboard() {
             earnedBadges={user.badges.length} 
             totalPoints={user.points} 
           />
-          <CurrentModule module={currentModule} />
+          {currentModule && <CurrentModule module={currentModule} />}
         </div>
         
         <div className="mt-12">
@@ -96,7 +203,7 @@ export default function Dashboard() {
               View All Modules
             </Button>
           </div>
-          <ModuleList modules={recentModules} />
+          {recentModules.length > 0 && <ModuleList modules={recentModules} />}
         </div>
         
         <div className="mt-12">
