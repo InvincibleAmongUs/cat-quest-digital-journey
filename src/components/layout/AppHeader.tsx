@@ -10,7 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Home, BookOpen, Award, User, LogOut, Menu, Settings } from 'lucide-react';
+import { Home, BookOpen, Award, User, LogOut, Menu, Settings, Gamepad } from 'lucide-react';
 import { Separator } from '../ui/separator';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
 import { useAuth } from '@/contexts/AuthContext';
@@ -49,6 +49,12 @@ export default function AppHeader({ username, points }: AppHeaderProps) {
               <Link to="/modules">
                 <BookOpen className="mr-2 h-4 w-4" />
                 Modules
+              </Link>
+            </Button>
+            <Button variant="ghost" size="sm" asChild>
+              <Link to="/games">
+                <Gamepad className="mr-2 h-4 w-4" />
+                Games
               </Link>
             </Button>
             <Button variant="ghost" size="sm" asChild>
@@ -137,6 +143,12 @@ export default function AppHeader({ username, points }: AppHeaderProps) {
                 <Link to="/modules" onClick={() => setMobileMenuOpen(false)}>
                   <BookOpen className="mr-2 h-4 w-4" />
                   Modules
+                </Link>
+              </Button>
+              <Button variant="ghost" size="sm" asChild className="justify-start">
+                <Link to="/games" onClick={() => setMobileMenuOpen(false)}>
+                  <Gamepad className="mr-2 h-4 w-4" />
+                  Games
                 </Link>
               </Button>
               <Button variant="ghost" size="sm" asChild className="justify-start">

@@ -4,13 +4,20 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { ArrowRight, ArrowLeft, Check } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import ContentBlockRenderer, { AnyContentBlock } from './ContentBlockRenderer';
+import QuizQuestion from '../quiz/QuizQuestion';
 
 interface LessonContentProps {
   lesson: {
     id: number;
     title: string;
-    content: React.ReactNode;
+    blocks: AnyContentBlock[];
     hasQuiz: boolean;
+    quizQuestions: {
+      question: string;
+      options: string[];
+      correctAnswer: number;
+    }[];
   };
   onComplete: () => void;
   onNextLesson: () => void;
@@ -54,28 +61,19 @@ export default function LessonContent({
     }));
   };
 
-  const quizQuestions = [
-    {
-      question: "What does CPU stand for?",
-      options: ["Central Processing Unit", "Computer Personal Unit", "Central Personal Utility"],
-      correctAnswer: 0
-    },
-    {
-      question: "Which of these is NOT a type of computer?",
-      options: ["Desktop", "Laptop", "Dataphone"],
-      correctAnswer: 2
-    }
-  ];
-
   return (
     <div className="space-y-6">
       <div className="prose max-w-none">
         <h1 className="text-3xl font-bold">{lesson.title}</h1>
         
         {/* Main content area */}
-        <div className="mt-6">
-          {lesson.content}
-        </div>
+        {!quizStarted && (
+          <div className="mt-6">
+            {lesson.blocks.map((block, index) => (
+              <ContentBlockRenderer key={index} block={block} />
+            ))}
+          </div>
+        )}
         
         {/* Quiz section (conditionally rendered) */}
         {lesson.hasQuiz && quizStarted && (
@@ -84,22 +82,15 @@ export default function LessonContent({
               <h3 className="text-xl font-bold mb-4">Quick Quiz</h3>
               
               <div className="space-y-4">
-                {quizQuestions.map((q, qIndex) => (
-                  <div key={qIndex} className="space-y-2">
-                    <p className="font-medium">{qIndex + 1}. {q.question}</p>
-                    <div className="grid grid-cols-1 gap-2">
-                      {q.options.map((option, aIndex) => (
-                        <Button 
-                          key={aIndex}
-                          variant={selectedAnswers[qIndex] === aIndex ? "default" : "outline"} 
-                          className="justify-start"
-                          onClick={() => handleAnswerSelect(qIndex, aIndex)}
-                        >
-                          {option}
-                        </Button>
-                      ))}
-                    </div>
-                  </div>
+                {lesson.quizQuestions.map((q, qIndex) => (
+                  <QuizQuestion
+                    key={qIndex}
+                    question={q.question}
+                    options={q.options}
+                    questionIndex={qIndex}
+                    selectedAnswer={selectedAnswers[qIndex]}
+                    onSelectAnswer={(answerIndex) => handleAnswerSelect(qIndex, answerIndex)}
+                  />
                 ))}
               </div>
             </CardContent>
@@ -122,7 +113,7 @@ export default function LessonContent({
           {!isCompleted ? (
             <Button 
               onClick={handleComplete}
-              disabled={lesson.hasQuiz && quizStarted && Object.keys(selectedAnswers).length !== quizQuestions.length}
+              disabled={lesson.hasQuiz && quizStarted && Object.keys(selectedAnswers).length !== lesson.quizQuestions.length}
             >
               {lesson.hasQuiz && !quizStarted ? 'Take Quiz' : 'Complete Lesson'}
               {!lesson.hasQuiz && <Check className="ml-2 h-4 w-4" />}

@@ -9,7 +9,7 @@ const Index = () => {
   useEffect(() => {
     const userData = localStorage.getItem('user');
     if (userData) {
-      navigate('/');
+      navigate('/terms');
     } else {
       navigate('/login');
     }

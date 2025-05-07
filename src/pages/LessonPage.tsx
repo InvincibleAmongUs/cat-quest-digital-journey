@@ -10,130 +10,12 @@ import { ChevronRight, Book, Home } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { awardPoints, checkForNewBadges, saveUserProgress, availableBadges } from '@/utils/gamification';
 import { useAuth } from '@/contexts/AuthContext';
-
-// Mock lesson data for the first lesson of Module 1
-const lessonData = {
-  id: 1,
-  moduleId: 1,
-  title: "Introduction to Computers",
-  hasQuiz: true,
-  content: (
-    <div className="space-y-6">
-      <p>Welcome to your first lesson in Computer Applications Technology! Today, we'll be exploring the fundamentals of computer systems and understanding what makes them work.</p>
-      
-      <h2 className="text-2xl font-bold mt-6">What is a Computer?</h2>
-      <p>A computer is an electronic device that processes data according to instructions stored in its memory. It accepts input, processes it, and provides output in a useful format.</p>
-      
-      <div className="my-6">
-        <img 
-          src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=800&q=80" 
-          alt="A computer setup"
-          className="rounded-lg w-full"
-        />
-        <p className="text-sm text-center text-muted-foreground mt-2">A modern computer workstation</p>
-      </div>
-      
-      <h2 className="text-2xl font-bold mt-6">Information Processing Cycle</h2>
-      <p>The information processing cycle consists of four main steps:</p>
-      
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 my-6">
-        <Card className="p-4 text-center">
-          <div className="text-tech-primary text-2xl mb-2">1</div>
-          <h3 className="font-bold">Input</h3>
-          <p className="text-sm">Data entry via keyboard, mouse, scanner, etc.</p>
-        </Card>
-        <Card className="p-4 text-center">
-          <div className="text-tech-primary text-2xl mb-2">2</div>
-          <h3 className="font-bold">Processing</h3>
-          <p className="text-sm">Manipulation of data by the CPU</p>
-        </Card>
-        <Card className="p-4 text-center">
-          <div className="text-tech-primary text-2xl mb-2">3</div>
-          <h3 className="font-bold">Output</h3>
-          <p className="text-sm">Results displayed via monitor, printer, etc.</p>
-        </Card>
-        <Card className="p-4 text-center">
-          <div className="text-tech-primary text-2xl mb-2">4</div>
-          <h3 className="font-bold">Storage</h3>
-          <p className="text-sm">Saving data for future use</p>
-        </Card>
-      </div>
-      
-      <h2 className="text-2xl font-bold mt-6">Types of Computers</h2>
-      <p>There are several types of computers, classified by size, power, and purpose:</p>
-      
-      <ul className="list-disc pl-6 space-y-2 mt-4">
-        <li>
-          <strong>Desktop Computers:</strong> Stationary computers designed for use on a desk or table.
-        </li>
-        <li>
-          <strong>Laptop Computers:</strong> Portable computers with a screen, keyboard, and trackpad in a single unit.
-        </li>
-        <li>
-          <strong>Tablets:</strong> Mobile computers with touchscreens and without physical keyboards.
-        </li>
-        <li>
-          <strong>Smartphones:</strong> Mobile phones with computing capabilities and internet connectivity.
-        </li>
-        <li>
-          <strong>Servers:</strong> Powerful computers that provide resources to other computers on a network.
-        </li>
-        <li>
-          <strong>Supercomputers:</strong> Extremely powerful computers used for complex calculations and simulations.
-        </li>
-      </ul>
-      
-      <h2 className="text-2xl font-bold mt-6">The Difference Between Data and Information</h2>
-      <p>Understanding the distinction between data and information is crucial in computer systems:</p>
-      
-      <div className="grid md:grid-cols-2 gap-6 my-6">
-        <Card className="p-6">
-          <h3 className="font-bold text-xl mb-2">Data</h3>
-          <p>Raw facts and figures that don't have any specific meaning on their own. Data can be numbers, text, images, audio, or video.</p>
-          <p className="mt-2"><strong>Example:</strong> 28, 10, 2023</p>
-        </Card>
-        <Card className="p-6">
-          <h3 className="font-bold text-xl mb-2">Information</h3>
-          <p>Data that has been processed, organized, and presented in a way that makes it meaningful and useful for specific purposes.</p>
-          <p className="mt-2"><strong>Example:</strong> Your birthday is October 28, 2023</p>
-        </Card>
-      </div>
-      
-      <h2 className="text-2xl font-bold mt-6">ICT in Daily Life</h2>
-      <p>Information and Communication Technology (ICT) plays an important role in our daily lives:</p>
-      
-      <ul className="list-disc pl-6 space-y-2 mt-4">
-        <li>Communication (email, messaging, video calls)</li>
-        <li>Education (online learning, research)</li>
-        <li>Entertainment (streaming, gaming)</li>
-        <li>Business (office productivity, e-commerce)</li>
-        <li>Healthcare (electronic records, telemedicine)</li>
-        <li>Transportation (GPS navigation, traffic updates)</li>
-      </ul>
-    </div>
-  ),
-  quizQuestions: [
-    {
-      question: "What does CPU stand for?",
-      options: ["Central Processing Unit", "Computer Personal Unit", "Central Personal Utility"],
-      correctAnswer: 0
-    },
-    {
-      question: "Which of these is NOT a type of computer?",
-      options: ["Desktop", "Laptop", "Dataphone"],
-      correctAnswer: 2
-    },
-    {
-      question: "What is the main purpose of computer storage?",
-      options: ["To process data", "To save data for future use", "To display output"],
-      correctAnswer: 1
-    }
-  ]
-};
+import { term1Lessons } from '@/knowledgebase/term1_lesson_data';
 
 export default function LessonPage() {
   const { moduleId, lessonId } = useParams();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
   const [showQuiz, setShowQuiz] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
   const { toast } = useToast();
@@ -143,6 +25,8 @@ export default function LessonPage() {
   useEffect(() => {
     if (!user) {
       navigate('/login');
+    } else {
+      setLoading(false);
     }
   }, [user, navigate]);
   
@@ -150,8 +34,35 @@ export default function LessonPage() {
     return null;
   }
 
-  // In a real app, we would fetch the lesson data based on moduleId and lessonId
-  const lesson = lessonData;
+  // Find current lesson based on lessonId
+  const currentLessonIndex = term1Lessons.findIndex(lesson => lesson.id === Number(lessonId));
+  const lesson = term1Lessons[currentLessonIndex];
+  
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-tech-primary mx-auto"></div>
+          <p className="mt-4 text-tech-primary font-medium">Loading lesson content...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!lesson) {
+    return (
+      <div className="min-h-screen bg-background">
+        <AppHeader username={user.username} points={user.points} />
+        <div className="container py-8 text-center">
+          <h1 className="text-3xl font-bold mb-6">Lesson Not Found</h1>
+          <p className="mb-6">Sorry, we couldn't find the lesson you're looking for.</p>
+          <Button onClick={() => navigate(`/modules/${moduleId}`)}>
+            Return to Module
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   const handleComplete = () => {
     if (lesson.hasQuiz && !showQuiz) {
@@ -173,8 +84,24 @@ export default function LessonPage() {
       pointsAwarded += awardPoints('perfect_score');
     }
     
-    // Complete the lesson
-    completeLesson(pointsAwarded, quizScores);
+    // Only complete the lesson if score is 80% or higher
+    if (score >= 80) {
+      completeLesson(pointsAwarded, quizScores);
+    } else {
+      // Update scores but don't complete lesson
+      const updatedUserData = saveUserProgress(user, {
+        quizScores,
+        points: pointsAwarded
+      });
+      
+      updateUserData(updatedUserData);
+      
+      toast({
+        title: "Quiz score below 80%",
+        description: "You need to score at least 80% to complete this lesson. Try again!",
+        variant: "destructive",
+      });
+    }
   };
   
   const completeLesson = (additionalPoints = 0, quizScores = {}) => {
@@ -226,16 +153,25 @@ export default function LessonPage() {
   };
 
   const handleNextLesson = () => {
-    // In a real app, we would navigate to the next lesson
-    // For this demo, we'll just go back to the module page
-    navigate(`/modules/${moduleId}`);
+    const nextLesson = term1Lessons[currentLessonIndex + 1];
+    if (nextLesson) {
+      navigate(`/modules/${moduleId}/lessons/${nextLesson.id}`);
+    } else {
+      navigate(`/modules/${moduleId}`);
+    }
   };
 
   const handlePreviousLesson = () => {
-    // In a real app, we would navigate to the previous lesson
-    // For this demo, we'll just go back to the module page
-    navigate(`/modules/${moduleId}`);
+    const prevLesson = term1Lessons[currentLessonIndex - 1];
+    if (prevLesson) {
+      navigate(`/modules/${moduleId}/lessons/${prevLesson.id}`);
+    } else {
+      navigate(`/modules/${moduleId}`);
+    }
   };
+
+  const hasNextLesson = currentLessonIndex < term1Lessons.length - 1;
+  const hasPreviousLesson = currentLessonIndex > 0;
 
   return (
     <div className="min-h-screen bg-background">
@@ -288,8 +224,8 @@ export default function LessonPage() {
               onComplete={handleComplete}
               onNextLesson={handleNextLesson}
               onPreviousLesson={handlePreviousLesson}
-              hasNextLesson={true}
-              hasPreviousLesson={false}
+              hasNextLesson={hasNextLesson}
+              hasPreviousLesson={hasPreviousLesson}
             />
           )}
           
