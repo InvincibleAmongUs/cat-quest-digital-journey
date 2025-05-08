@@ -1,13 +1,11 @@
+
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Session, User } from '@supabase/supabase-js';
-import { supabase } from '@/integrations/supabase/client';
 import { toast } from '@/hooks/use-toast';
-import { Database } from '@/integrations/supabase/types';
 
 // Define types for our auth context
 export interface UserData {
-  id: string;
+  id?: string;
   username: string;
   email: string;
   points: number;
@@ -21,13 +19,10 @@ export interface UserData {
 
 interface AuthContextType {
   user: UserData | null;
-  session: Session | null;
-  loading: boolean;
   login: (email: string, password: string) => Promise<boolean>;
   register: (username: string, email: string, password: string) => Promise<boolean>;
-  logout: () => Promise<void>;
-  updateUserData: (data: Partial<UserData>) => Promise<UserData | null>;
-  refreshUserData: () => Promise<void>;
+  logout: () => void;
+  updateUserData: (data: Partial<UserData>) => void;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -42,156 +37,104 @@ export const useAuth = () => {
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<UserData | null>(null);
-  const [session, setSession] = useState<Session | null>(null);
-  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  // Function to map Supabase user and profile data to our UserData format
-  const mapUserData = async (
-    session: Session | null
-  ): Promise<UserData | null> => {
-    if (!session?.user) return null;
-
-    const supabaseUser = session.user;
-
-    try {
-      // Get profile data
-      const { data: profileData, error: profileError } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', supabaseUser.id)
-        .single();
-
-      if (profileError) {
-        console.error('Error fetching profile:', profileError);
-        return null;
-      }
-
-      // Get user progress data
-      const { data: progressData, error: progressError } = await supabase
-        .from('user_progress')
-        .select('*')
-        .eq('user_id', supabaseUser.id)
-        .maybeSingle();
-
-      if (progressError && progressError.code !== 'PGRST116') {
-        console.error('Error fetching user progress:', progressError);
-      }
-
-      // If no progress record exists yet, create one
-      let userProgress = progressData;
-      
-      if (!userProgress) {
-        const { data: newProgress, error: insertError } = await supabase
-          .from('user_progress')
-          .insert({
-            user_id: supabaseUser.id,
-            completed_lessons: [],
-            completed_modules: [],
-            quiz_scores: {},
-            badges: ['first_login']
-          })
-          .select()
-          .single();
-
-        if (insertError) {
-          console.error('Error creating user progress:', insertError);
-        } else {
-          userProgress = newProgress;
-        }
-      }
-
-      return {
-        id: supabaseUser.id,
-        username: profileData.username,
-        email: profileData.email,
-        points: profileData.points || 0,
-        isAuthenticated: true,
-        completedLessons: userProgress?.completed_lessons || [],
-        completedModules: userProgress?.completed_modules || [],
-        quizScores: userProgress?.quiz_scores as Record<number, number> || {},
-        badges: userProgress?.badges || ['first_login'],
-        role: profileData.role as 'student' | 'admin'
-      };
-    } catch (error) {
-      console.error('Error mapping user data:', error);
-      return null;
-    }
-  };
-
-  // Fetch user data on session changes
-  const refreshUserData = async (): Promise<void> => {
-    if (!session?.user) return;
-    const userData = await mapUserData(session);
-    if (userData) {
-      setUser(userData);
-    }
-  };
-
-  // Initialize authentication state
+  // Load user data from localStorage on initial render
   useEffect(() => {
-    // First set up the auth state listener
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (_event, session) => {
-        setSession(session);
-        
-        // Only update user data if there's an actual change in the session state
-        if (
-          (session && !user) || 
-          (session && user && session.user.id !== user.id) ||
-          (!session && user)
-        ) {
-          const userData = await mapUserData(session);
-          setUser(userData);
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      try {
+        const userData = JSON.parse(storedUser);
+        // Ensure the role property exists
+        if (!userData.role) {
+          userData.role = 'student';
         }
-        
-        setLoading(false);
+        setUser(userData);
+      } catch (error) {
+        console.error('Failed to parse user data from localStorage:', error);
+        localStorage.removeItem('user');
       }
-    );
-
-    // Then check for existing session
-    supabase.auth.getSession().then(async ({ data: { session } }) => {
-      setSession(session);
-      const userData = await mapUserData(session);
-      setUser(userData);
-      setLoading(false);
-    });
-
-    return () => {
-      subscription.unsubscribe();
-    };
+    }
   }, []);
 
-  // Login function
+  // Login function - to be replaced with an API call in the future
   const login = async (email: string, password: string): Promise<boolean> => {
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-
-      if (error) {
+      // Check for admin credentials
+      if (email === 'admin' && password === 'admin') {
+        const adminUser: UserData = {
+          username: 'Administrator',
+          email: 'admin@catalyst.edu',
+          points: 1000,
+          isAuthenticated: true,
+          completedLessons: [],
+          completedModules: [],
+          quizScores: {},
+          badges: ["admin_badge"],
+          role: 'admin'
+        };
+        
+        setUser(adminUser);
+        localStorage.setItem('user', JSON.stringify(adminUser));
+        
         toast({
-          title: "Login Failed",
-          description: error.message,
-          variant: "destructive",
+          title: "Admin Access Granted",
+          description: "Welcome to the admin dashboard.",
         });
-        return false;
+        
+        return true;
       }
-
-      const userData = await mapUserData(data.session);
-      if (userData) {
+      
+      // In a real implementation, this would validate against a backend
+      // For now, we'll simulate a successful login by finding the user in localStorage
+      // or creating a new one if the email doesn't exist
+      
+      // Check if user exists in our "database"
+      const allUsers = localStorage.getItem('all_users');
+      const users = allUsers ? JSON.parse(allUsers) : [];
+      const existingUser = users.find((u: any) => u.email === email);
+      
+      if (existingUser) {
+        // In a real app, we would verify the password here
+        // For demo purposes, we're just checking if the email exists
+        if (existingUser.password !== password) {
+          toast({
+            title: "Login Failed",
+            description: "Incorrect password. Please try again.",
+            variant: "destructive",
+          });
+          return false;
+        }
+        
+        const userData: UserData = {
+          username: existingUser.username,
+          email: existingUser.email,
+          points: existingUser.points || 50,
+          isAuthenticated: true,
+          completedLessons: existingUser.completedLessons || [],
+          completedModules: existingUser.completedModules || [],
+          quizScores: existingUser.quizScores || {},
+          badges: existingUser.badges || ["first_login"],
+          role: 'student'
+        };
+        
         setUser(userData);
-        setSession(data.session);
+        localStorage.setItem('user', JSON.stringify(userData));
         
         toast({
           title: "Welcome back!",
           description: "You've successfully logged in.",
         });
+        
         return true;
+      } else {
+        toast({
+          title: "Login Failed",
+          description: "User not found. Please register first.",
+          variant: "destructive",
+        });
+        return false;
       }
-
-      return false;
     } catch (error) {
       console.error('Login error:', error);
       toast({
@@ -203,47 +146,55 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  // Register function
+  // Register function - to be replaced with an API call in the future
   const register = async (username: string, email: string, password: string): Promise<boolean> => {
     try {
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: {
-            username,
-          },
-        },
-      });
-
-      if (error) {
+      // In a real implementation, this would create a user in the backend
+      // For now, we'll simulate storing in localStorage
+      
+      // Check if user already exists
+      const allUsers = localStorage.getItem('all_users');
+      const users = allUsers ? JSON.parse(allUsers) : [];
+      
+      if (users.some((u: any) => u.email === email)) {
         toast({
           title: "Registration Failed",
-          description: error.message,
+          description: "A user with this email already exists.",
           variant: "destructive",
         });
         return false;
       }
-
+      
+      // Create new user
+      const newUser = {
+        username,
+        email,
+        password, // In a real app, this would be hashed
+        points: 50,
+        isAuthenticated: true,
+        completedLessons: [],
+        completedModules: [],
+        quizScores: {},
+        badges: ["first_login"],
+        role: 'student' as const
+      };
+      
+      // Save to our "database"
+      users.push(newUser);
+      localStorage.setItem('all_users', JSON.stringify(users));
+      
+      // Set as current user
+      const userData: UserData = { ...newUser };
+      delete (userData as any).password; // Don't keep password in memory
+      
+      setUser(userData);
+      localStorage.setItem('user', JSON.stringify(userData));
+      
       toast({
         title: "Registration Successful",
         description: "Your account has been created.",
       });
-
-      // If email confirmation is enabled in Supabase, the user won't be automatically logged in
-      if (data.session) {
-        const userData = await mapUserData(data.session);
-        if (userData) {
-          setUser(userData);
-          setSession(data.session);
-        }
-      } else {
-        toast({
-          title: "Email Verification Required",
-          description: "Please check your email to verify your account.",
-        });
-      }
-
+      
       return true;
     } catch (error) {
       console.error('Registration error:', error);
@@ -257,108 +208,28 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   // Logout function
-  const logout = async () => {
-    try {
-      await supabase.auth.signOut();
-      setUser(null);
-      setSession(null);
-      navigate('/login');
-      
-      toast({
-        title: "Logged Out",
-        description: "You've been successfully logged out.",
-      });
-    } catch (error) {
-      console.error('Logout error:', error);
-      toast({
-        title: "Error",
-        description: "Failed to log out. Please try again.",
-        variant: "destructive",
-      });
-    }
+  const logout = () => {
+    localStorage.removeItem('user');
+    setUser(null);
+    navigate('/login');
+    
+    toast({
+      title: "Logged Out",
+      description: "You've been successfully logged out.",
+    });
   };
 
   // Update user data
-  const updateUserData = async (data: Partial<UserData>): Promise<UserData | null> => {
-    if (!user) return null;
-
-    try {
-      // Update profile if profile-related fields are changed
-      if (data.username || data.points !== undefined) {
-        const profileUpdates: any = {};
-        if (data.username) profileUpdates.username = data.username;
-        if (data.points !== undefined) profileUpdates.points = data.points;
-
-        const { error: profileError } = await supabase
-          .from('profiles')
-          .update(profileUpdates)
-          .eq('id', user.id);
-
-        if (profileError) {
-          console.error('Error updating profile:', profileError);
-          toast({
-            title: "Update Failed",
-            description: "Failed to update profile information.",
-            variant: "destructive",
-          });
-          return null;
-        }
-      }
-
-      // Update user progress if progress-related fields are changed
-      if (
-        data.completedLessons || 
-        data.completedModules || 
-        data.quizScores || 
-        data.badges
-      ) {
-        const progressUpdates: any = {};
-        if (data.completedLessons) progressUpdates.completed_lessons = data.completedLessons;
-        if (data.completedModules) progressUpdates.completed_modules = data.completedModules;
-        if (data.quizScores) progressUpdates.quiz_scores = data.quizScores;
-        if (data.badges) progressUpdates.badges = data.badges;
-
-        const { error: progressError } = await supabase
-          .from('user_progress')
-          .update(progressUpdates)
-          .eq('user_id', user.id);
-
-        if (progressError) {
-          console.error('Error updating user progress:', progressError);
-          toast({
-            title: "Update Failed",
-            description: "Failed to update progress information.",
-            variant: "destructive",
-          });
-          return null;
-        }
-      }
-
-      // Refresh user data to get the latest state
-      await refreshUserData();
-      return user;
-    } catch (error) {
-      console.error('Error updating user data:', error);
-      toast({
-        title: "Update Failed",
-        description: "An unexpected error occurred.",
-        variant: "destructive",
-      });
-      return null;
+  const updateUserData = (data: Partial<UserData>) => {
+    if (user) {
+      const updatedUser = { ...user, ...data };
+      setUser(updatedUser);
+      localStorage.setItem('user', JSON.stringify(updatedUser));
     }
   };
 
   return (
-    <AuthContext.Provider value={{ 
-      user, 
-      session, 
-      loading,
-      login, 
-      register, 
-      logout, 
-      updateUserData, 
-      refreshUserData 
-    }}>
+    <AuthContext.Provider value={{ user, login, register, logout, updateUserData }}>
       {children}
     </AuthContext.Provider>
   );

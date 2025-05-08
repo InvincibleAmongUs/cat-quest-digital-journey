@@ -8,10 +8,10 @@ export default function Login() {
   const navigate = useNavigate();
   const { user } = useAuth();
   
-  // If user is already authenticated, redirect to terms selection
+  // If user is already authenticated, redirect to dashboard
   React.useEffect(() => {
     if (user?.isAuthenticated) {
-      navigate('/terms');
+      navigate('/');
     }
   }, [user, navigate]);
 

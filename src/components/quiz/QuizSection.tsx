@@ -1,126 +1,119 @@
 
 import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
-import { CheckCircle, AlertCircle } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import QuizQuestion from './QuizQuestion';
+import { useToast } from '@/hooks/use-toast';
+
+export interface QuizQuestion {
+  question: string;
+  options: string[];
+  correctAnswer: number;
+}
 
 interface QuizSectionProps {
-  questions: {
-    id: number;
-    lesson_id: number;
-    question: string;
-    options: string[];
-    correct_answer: number;
-    order_index: number;
-  }[];
+  questions: QuizQuestion[];
   onQuizComplete: (score: number) => void;
   lessonId: number;
 }
 
-export default function QuizSection({ 
-  questions, 
-  onQuizComplete, 
-  lessonId 
-}: QuizSectionProps) {
+export default function QuizSection({ questions, onQuizComplete, lessonId }: QuizSectionProps) {
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, number>>({});
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [score, setScore] = useState<number | null>(null);
-
-  if (questions.length === 0) {
-    return (
-      <Alert className="mb-4">
-        <AlertCircle className="h-4 w-4" />
-        <AlertTitle>No Quiz Available</AlertTitle>
-        <AlertDescription>
-          This lesson does not have any quiz questions.
-        </AlertDescription>
-      </Alert>
-    );
-  }
-
+  const [showResults, setShowResults] = useState(false);
+  const { toast } = useToast();
+  
   const handleAnswerSelect = (questionIndex: number, answerIndex: number) => {
-    if (isSubmitted) return;
-
+    if (showResults) return;
+    
     setSelectedAnswers(prev => ({
       ...prev,
       [questionIndex]: answerIndex
     }));
   };
-
-  const handleSubmitQuiz = () => {
-    // Calculate score
-    let correctAnswers = 0;
+  
+  const handleSubmit = () => {
+    if (Object.keys(selectedAnswers).length !== questions.length) {
+      toast({
+        title: "Please answer all questions",
+        description: "You need to answer all questions before submitting.",
+        variant: "destructive",
+      });
+      return;
+    }
     
+    setShowResults(true);
+    
+    // Calculate score
+    let correctCount = 0;
     questions.forEach((q, index) => {
-      if (selectedAnswers[index] === q.correct_answer) {
-        correctAnswers++;
+      if (selectedAnswers[index] === q.correctAnswer) {
+        correctCount++;
       }
     });
-
-    const calculatedScore = Math.round((correctAnswers / questions.length) * 100);
-    setScore(calculatedScore);
-    setIsSubmitted(true);
     
-    onQuizComplete(calculatedScore);
+    const score = Math.round((correctCount / questions.length) * 100);
+    
+    // Show feedback toast
+    if (score === 100) {
+      toast({
+        title: "Perfect score! 🌟",
+        description: "Amazing job! You've mastered this material.",
+      });
+    } else if (score >= 70) {
+      toast({
+        title: "Well done! ✅",
+        description: `You scored ${score}%. Good understanding of the material!`,
+      });
+    } else {
+      toast({
+        title: "Quiz completed",
+        description: `You scored ${score}%. Consider reviewing the material again.`,
+      });
+    }
+    
+    onQuizComplete(score);
   };
-
-  const isComplete = Object.keys(selectedAnswers).length === questions.length;
-
+  
+  const allQuestionsAnswered = Object.keys(selectedAnswers).length === questions.length;
+  
   return (
-    <div className="space-y-6">
-      <Card className="border-tech-primary">
-        <CardContent className="p-6">
-          {questions.map((q, index) => (
-            <div key={q.id} className="mb-6 p-4 border rounded-lg bg-background">
-              <QuizQuestion
-                question={q.question}
-                options={q.options}
-                questionIndex={index}
-                selectedAnswer={selectedAnswers[index]}
-                onSelectAnswer={(answerIndex) => handleAnswerSelect(index, answerIndex)}
-                correctAnswer={isSubmitted ? q.correct_answer : undefined}
-              />
-            </div>
+    <Card className="my-6 border-tech-primary">
+      <CardContent className="p-6">
+        <h3 className="text-xl font-bold mb-4">Quick Quiz</h3>
+        
+        <div className="space-y-6">
+          {questions.map((q, qIndex) => (
+            <QuizQuestion
+              key={qIndex}
+              question={q.question}
+              options={q.options}
+              questionIndex={qIndex}
+              selectedAnswer={selectedAnswers[qIndex]}
+              onSelectAnswer={(answerIndex) => handleAnswerSelect(qIndex, answerIndex)}
+              showFeedback={showResults}
+              correctAnswer={showResults ? q.correctAnswer : undefined}
+            />
           ))}
-          
-          {isSubmitted && score !== null && (
-            <Alert 
-              className={`mt-4 ${
-                score >= 80 ? 'bg-green-50 border-green-200' : 'bg-amber-50 border-amber-200'
-              }`}
-            >
-              {score >= 80 ? (
-                <CheckCircle className="h-4 w-4 text-green-600" />
-              ) : (
-                <AlertCircle className="h-4 w-4 text-amber-600" />
-              )}
-              
-              <AlertTitle className={score >= 80 ? 'text-green-800' : 'text-amber-800'}>
-                {score >= 80 ? 'Congratulations!' : 'Almost there!'}
-              </AlertTitle>
-              
-              <AlertDescription className={score >= 80 ? 'text-green-700' : 'text-amber-700'}>
-                {score >= 80 
-                  ? `You scored ${score}%! You've completed this lesson successfully.` 
-                  : `You scored ${score}%. You need to score at least 80% to complete this lesson. Try again!`}
-              </AlertDescription>
-            </Alert>
-          )}
-          
-          {!isSubmitted && (
-            <div className="mt-6 flex justify-end">
-              <Button 
-                onClick={handleSubmitQuiz}
-                disabled={!isComplete}
-              >
-                Submit Answers
-              </Button>
-            </div>
-          )}
-        </CardContent>
-      </Card>
-    </div>
+        </div>
+        
+        {!showResults ? (
+          <Button 
+            className="w-full mt-6" 
+            onClick={handleSubmit}
+            disabled={!allQuestionsAnswered}
+          >
+            Submit Answers
+          </Button>
+        ) : (
+          <Button 
+            className="w-full mt-6" 
+            onClick={() => onQuizComplete(0)} // Just to continue
+            variant="default"
+          >
+            Continue to Next Section
+          </Button>
+        )}
+      </CardContent>
+    </Card>
   );
 }

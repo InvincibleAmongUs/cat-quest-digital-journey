@@ -1,16 +1,15 @@
 
 import React from 'react';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Label } from '@/components/ui/label';
-import { CheckCircle, XCircle } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { CheckCircle2, AlertCircle } from 'lucide-react';
 
 interface QuizQuestionProps {
   question: string;
   options: string[];
   questionIndex: number;
-  selectedAnswer?: number;
-  onSelectAnswer: (answerIndex: number) => void;
-  isSubmitted?: boolean;
+  selectedAnswer: number | undefined;
+  onSelectAnswer: (index: number) => void;
+  showFeedback?: boolean;
   correctAnswer?: number;
 }
 
@@ -20,67 +19,53 @@ export default function QuizQuestion({
   questionIndex,
   selectedAnswer,
   onSelectAnswer,
-  isSubmitted,
+  showFeedback = false,
   correctAnswer
 }: QuizQuestionProps) {
   return (
-    <div className="space-y-4">
-      <h3 className="font-semibold text-lg">
-        {questionIndex + 1}. {question}
-      </h3>
-      
-      <RadioGroup
-        value={selectedAnswer?.toString()}
-        onValueChange={(value) => !isSubmitted && onSelectAnswer(parseInt(value))}
-        className="space-y-3"
-      >
-        {options.map((option, index) => {
-          const isSelected = selectedAnswer === index;
-          const isCorrect = correctAnswer !== undefined && correctAnswer === index;
-          const isIncorrect = isSubmitted && isSelected && !isCorrect;
+    <div className="space-y-2">
+      <p className="font-medium">{questionIndex + 1}. {question}</p>
+      <div className="grid grid-cols-1 gap-2">
+        {options.map((option, aIndex) => {
+          const isSelected = selectedAnswer === aIndex;
+          const isCorrect = showFeedback && correctAnswer === aIndex;
+          const isIncorrect = showFeedback && isSelected && correctAnswer !== aIndex;
+          
+          let variant: "outline" | "default" | "destructive" | "secondary" = "outline";
+          
+          if (isSelected) {
+            variant = "default";
+          }
+          
+          if (showFeedback) {
+            if (isCorrect) {
+              variant = "secondary";
+            } else if (isIncorrect) {
+              variant = "destructive";
+            }
+          }
           
           return (
-            <div 
-              key={index} 
-              className={`flex items-center space-x-2 rounded-md border p-3 ${
-                isSubmitted
-                  ? isCorrect
-                    ? 'border-green-500 bg-green-50'
-                    : isIncorrect
-                      ? 'border-red-500 bg-red-50'
-                      : 'border-gray-200'
-                  : isSelected 
-                    ? 'border-tech-primary' 
-                    : 'border-gray-200'
-              }`}
+            <Button 
+              key={aIndex}
+              variant={variant}
+              className="justify-start h-auto py-3 px-4"
+              onClick={() => onSelectAnswer(aIndex)}
+              disabled={showFeedback}
             >
-              <RadioGroupItem 
-                value={index.toString()} 
-                id={`q${questionIndex}-option-${index}`} 
-                disabled={isSubmitted}
-                className={isCorrect ? 'text-green-500' : isIncorrect ? 'text-red-500' : ''}
-              />
-              <Label 
-                htmlFor={`q${questionIndex}-option-${index}`}
-                className="flex-grow"
-              >
-                {option}
-              </Label>
-              
-              {isSubmitted && (
-                <>
-                  {isCorrect && (
-                    <CheckCircle className="h-5 w-5 text-green-500" />
-                  )}
-                  {isIncorrect && (
-                    <XCircle className="h-5 w-5 text-red-500" />
-                  )}
-                </>
-              )}
-            </div>
+              <div className="flex w-full items-center justify-between">
+                <span>{option}</span>
+                {showFeedback && isCorrect && (
+                  <CheckCircle2 className="h-5 w-5 text-green-500 ml-2" />
+                )}
+                {showFeedback && isIncorrect && (
+                  <AlertCircle className="h-5 w-5 text-red-500 ml-2" />
+                )}
+              </div>
+            </Button>
           );
         })}
-      </RadioGroup>
+      </div>
     </div>
   );
 }
