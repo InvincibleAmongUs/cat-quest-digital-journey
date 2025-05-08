@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
@@ -13,18 +14,18 @@ import QuizModal from '@/components/QuizModal';
 import { useToast } from '@/hooks/use-toast';
 import { saveUserProgress } from '@/utils/gamification';
 
-interface Params {
-  moduleId: string;
-  lessonId: string;
+interface LessonParams {
+  moduleId?: string;
+  lessonId?: string;
 }
 
 export default function LessonPage() {
-  const { moduleId, lessonId } = useParams<Params>();
+  const { moduleId, lessonId } = useParams<LessonParams>();
   const navigate = useNavigate();
   const { user, updateUserData } = useAuth();
   const { toast } = useToast();
   const [lesson, setLesson] = useState<Lesson | null>(null);
-	const [module, setModule] = useState<Module | null>(null);
+  const [module, setModule] = useState<Module | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isQuizModalOpen, setIsQuizModalOpen] = useState(false);
   const [hasQuiz, setHasQuiz] = useState(false);
@@ -55,23 +56,23 @@ export default function LessonPage() {
       }
     };
 
-		const fetchModule = async () => {
-			try {
-				const moduleData = await getModule(moduleId);
-				setModule(moduleData);
-			} catch (error) {
-				console.error("Failed to load module:", error);
-				toast({
-					title: "Error",
-					description: "Failed to load module. Please try again.",
-					variant: "destructive",
-				});
-				navigate('/modules');
-			}
-		};
+    const fetchModule = async () => {
+      try {
+        const moduleData = await getModule(moduleId);
+        setModule(moduleData);
+      } catch (error) {
+        console.error("Failed to load module:", error);
+        toast({
+          title: "Error",
+          description: "Failed to load module. Please try again.",
+          variant: "destructive",
+        });
+        navigate('/modules');
+      }
+    };
 
     fetchLesson();
-		fetchModule();
+    fetchModule();
   }, [moduleId, lessonId, navigate, toast]);
 
   const navigateToLesson = (moduleId: string, lessonId: string) => {
@@ -137,52 +138,52 @@ export default function LessonPage() {
             <ReactMarkdown rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]} children={lesson.content} />
           </div>
 
-					{/* Navigation buttons */}
-					<div className="flex justify-between mt-8">
-						{prevLessonId ? (
-							<Button 
-								variant="outline"
-								onClick={() => navigateToLesson(moduleId, prevLessonId)}
-								className="flex items-center"
-							>
-								<ChevronLeft className="mr-1 h-4 w-4" />
-								Previous Lesson
-							</Button>
-						) : (
-							<Button
-								variant="outline"
-								onClick={() => navigate(`/modules/${moduleId}`)}
-								className="flex items-center"
-							>
-								<ChevronLeft className="mr-1 h-4 w-4" />
-								Back to Module
-							</Button>
-						)}
+          {/* Navigation buttons */}
+          <div className="flex justify-between mt-8">
+            {prevLessonId ? (
+              <Button 
+                variant="outline"
+                onClick={() => navigateToLesson(moduleId!, prevLessonId)}
+                className="flex items-center"
+              >
+                <ChevronLeft className="mr-1 h-4 w-4" />
+                Previous Lesson
+              </Button>
+            ) : (
+              <Button
+                variant="outline"
+                onClick={() => navigate(`/modules/${moduleId}`)}
+                className="flex items-center"
+              >
+                <ChevronLeft className="mr-1 h-4 w-4" />
+                Back to Module
+              </Button>
+            )}
 
-						<div className="space-x-2">
-							<Link
-								to={`/knowledge-base`}
-								className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700"
-							>
-								<Book className="mr-1 h-4 w-4" />
-								Knowledge Base
-							</Link>
+            <div className="space-x-2">
+              <Link
+                to={`/knowledge-base`}
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700"
+              >
+                <Book className="mr-1 h-4 w-4" />
+                Knowledge Base
+              </Link>
 
-							{hasQuiz && (
-								<Button onClick={handleStartQuiz}>
-									<ClipboardCheck className="mr-1 h-4 w-4" />
-									Take Quiz
-								</Button>
-							)}
+              {hasQuiz && (
+                <Button onClick={handleStartQuiz}>
+                  <ClipboardCheck className="mr-1 h-4 w-4" />
+                  Take Quiz
+                </Button>
+              )}
 
-							{nextLessonId && (
-								<Button onClick={() => navigateToLesson(moduleId, nextLessonId)}>
-									Next Lesson
-									<ChevronRight className="ml-1 h-4 w-4" />
-								</Button>
-							)}
-						</div>
-					</div>
+              {nextLessonId && (
+                <Button onClick={() => navigateToLesson(moduleId!, nextLessonId)}>
+                  Next Lesson
+                  <ChevronRight className="ml-1 h-4 w-4" />
+                </Button>
+              )}
+            </div>
+          </div>
         </div>
       </main>
 

@@ -24,14 +24,14 @@ export default function DataDetectivePage() {
 
   // Sample data items for the game
   const dataItems = [
-    { id: '1', name: 'Student test scores', type: 'data' },
-    { id: '2', name: 'Customer addresses', type: 'data' },
-    { id: '3', name: 'Employee birth dates', type: 'data' },
-    { id: '4', name: 'Flight arrival times', type: 'data' },
-    { id: '5', name: 'Sales report showing top products', type: 'information' },
-    { id: '6', name: 'Weather forecast for the week', type: 'information' },
-    { id: '7', name: 'Summary of student performance', type: 'information' },
-    { id: '8', name: 'Quarterly financial analysis', type: 'information' },
+    { id: '1', name: 'Student test scores', type: 'data' as const },
+    { id: '2', name: 'Customer addresses', type: 'data' as const },
+    { id: '3', name: 'Employee birth dates', type: 'data' as const },
+    { id: '4', name: 'Flight arrival times', type: 'data' as const },
+    { id: '5', name: 'Sales report showing top products', type: 'information' as const },
+    { id: '6', name: 'Weather forecast for the week', type: 'information' as const },
+    { id: '7', name: 'Summary of student performance', type: 'information' as const },
+    { id: '8', name: 'Quarterly financial analysis', type: 'information' as const },
   ];
 
   return (
