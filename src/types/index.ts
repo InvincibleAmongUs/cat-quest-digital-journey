@@ -21,6 +21,7 @@ export interface User {
   email: string;
   points: number;
   completedLessons?: string[];
+  isAuthenticated?: boolean;
 }
 
 export interface Quiz {
@@ -34,4 +35,15 @@ export interface QuizQuestion {
   text: string;
   options: string[];
   correctOptionIndex: number;
+}
+
+export interface DataItem {
+  id: string;
+  name: string;
+  type: 'data' | 'information';
+}
+
+export interface ContentBlock {
+  type: 'text' | 'heading' | 'image' | 'quiz' | 'game' | 'figure' | 'table';
+  content: any;
 }

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
@@ -14,7 +13,9 @@ import QuizModal from '@/components/QuizModal';
 import { useToast } from '@/hooks/use-toast';
 import { saveUserProgress } from '@/utils/gamification';
 
+// Define the params interface properly to satisfy the Record<string, string> constraint
 interface LessonParams {
+  [key: string]: string | undefined;
   moduleId?: string;
   lessonId?: string;
 }

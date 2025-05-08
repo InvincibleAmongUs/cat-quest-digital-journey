@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -5,6 +6,8 @@ import { Card, CardContent } from '@/components/ui/card';
 import { ChevronLeft, LayoutDashboard, BookOpen } from 'lucide-react';
 import AppHeader from '@/components/layout/AppHeader';
 import { useAuth } from '@/contexts/AuthContext';
+import ChapterViewer from '@/components/knowledgebase/ChapterViewer';
+import { useToast } from '@/hooks/use-toast';
 
 // Define the structure for a chapter
 interface Chapter {
@@ -44,12 +47,19 @@ const sampleChapters: Chapter[] = [
   },
 ];
 
+interface KnowledgeBaseParams {
+  [key: string]: string | undefined;
+  chapterId?: string;
+  termId?: string;
+}
+
 export default function KnowledgeBasePage() {
   const { user } = useAuth();
-  const { chapterId } = useParams<{ chapterId?: string }>();
+  const { chapterId, termId } = useParams<KnowledgeBaseParams>();
   const [chapters, setChapters] = useState<Chapter[]>(sampleChapters);
   const [activeChapter, setActiveChapter] = useState<string>(chapterId || 'introduction');
   const [currentChapterContent, setCurrentChapterContent] = useState<string>('');
+  const { toast } = useToast();
 
   useEffect(() => {
     // Load chapter content based on the activeChapter
@@ -66,10 +76,11 @@ export default function KnowledgeBasePage() {
     return chapters.map(chapter => (
       <li key={chapter.id} className="py-1">
         <Link
-          to={`/knowledge-base/${chapter.id}`}
+          to={`/knowledge-base/${termId || '1'}/${chapter.id}`}
           className={`block py-2 px-3 rounded-md ${
             activeChapter === chapter.id ? 'bg-primary text-primary-foreground' : 'hover:bg-muted'
           }`}
+          onClick={() => setActiveChapter(chapter.id)}
         >
           {chapter.title}
         </Link>
