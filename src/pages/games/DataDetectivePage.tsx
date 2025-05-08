@@ -22,6 +22,18 @@ export default function DataDetectivePage() {
     return null;
   }
 
+  // Sample data items for the game
+  const dataItems = [
+    { id: '1', name: 'Student test scores', type: 'data' },
+    { id: '2', name: 'Customer addresses', type: 'data' },
+    { id: '3', name: 'Employee birth dates', type: 'data' },
+    { id: '4', name: 'Flight arrival times', type: 'data' },
+    { id: '5', name: 'Sales report showing top products', type: 'information' },
+    { id: '6', name: 'Weather forecast for the week', type: 'information' },
+    { id: '7', name: 'Summary of student performance', type: 'information' },
+    { id: '8', name: 'Quarterly financial analysis', type: 'information' },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       <AppHeader 
@@ -48,7 +60,7 @@ export default function DataDetectivePage() {
             </div>
           </div>
           
-          <DataDetective />
+          <DataDetective items={dataItems} />
         </div>
       </main>
     </div>

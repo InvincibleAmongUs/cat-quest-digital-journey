@@ -1,6 +1,8 @@
+
 import React, { useState, useEffect } from 'react';
-import { useDrag, useDrop, DndProvider } from 'react-dnd';
+import { DndProvider } from 'react-dnd-html5-backend';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { useDrag, useDrop } from 'react-dnd';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { CheckCircle, XCircle, HelpCircle } from 'lucide-react';
@@ -214,7 +216,11 @@ export default function HardwareHunt({
           <div className="flex space-x-4">
             <div className="w-1/2">
               <h3 className="text-md font-semibold mb-2">Internal Components</h3>
-              <DropZone type="internal" onDrop={handleInternalDrop}>
+              <DropZone 
+                type="internal" 
+                onDrop={handleInternalDrop} 
+                isOver={false}
+              >
                 {internalComponents.map(item => (
                   <div key={item.id}>{item.name}</div>
                 ))}
@@ -223,7 +229,11 @@ export default function HardwareHunt({
 
             <div className="w-1/2">
               <h3 className="text-md font-semibold mb-2">External Components</h3>
-              <DropZone type="external" onDrop={handleExternalDrop}>
+              <DropZone 
+                type="external" 
+                onDrop={handleExternalDrop} 
+                isOver={false}
+              >
                 {externalComponents.map(item => (
                   <div key={item.id}>{item.name}</div>
                 ))}

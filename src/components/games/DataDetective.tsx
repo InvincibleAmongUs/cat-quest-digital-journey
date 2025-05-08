@@ -1,6 +1,8 @@
+
 import React, { useState, useEffect } from 'react';
-import { useDrag, useDrop, DndProvider } from 'react-dnd';
+import { DndProvider } from 'react-dnd-html5-backend';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { useDrag, useDrop } from 'react-dnd';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { CheckCircle, XCircle, HelpCircle } from 'lucide-react';
@@ -28,7 +30,16 @@ interface DataDetectiveProps {
 }
 
 export default function DataDetective({
-  items,
+  items = [
+    { id: '1', name: 'Student test scores', type: 'data' },
+    { id: '2', name: 'Customer addresses', type: 'data' },
+    { id: '3', name: 'Employee birth dates', type: 'data' },
+    { id: '4', name: 'Flight arrival times', type: 'data' },
+    { id: '5', name: 'Sales report showing top products', type: 'information' },
+    { id: '6', name: 'Weather forecast for the week', type: 'information' },
+    { id: '7', name: 'Summary of student performance', type: 'information' },
+    { id: '8', name: 'Quarterly financial analysis', type: 'information' },
+  ],
   onComplete
 }: DataDetectiveProps) {
   const { user, updateUserData } = useAuth();
