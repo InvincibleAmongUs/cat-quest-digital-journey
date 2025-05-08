@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -79,7 +80,6 @@ export default function QuizSection({
                 questionIndex={index}
                 selectedAnswer={selectedAnswers[index]}
                 onSelectAnswer={(answerIndex) => handleAnswerSelect(index, answerIndex)}
-                isSubmitted={isSubmitted}
                 correctAnswer={isSubmitted ? q.correct_answer : undefined}
               />
             </div>

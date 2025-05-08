@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent } from "@/components/ui/card";
@@ -8,7 +9,7 @@ import { Computer, Layers, Globe, Database, Lock } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import AppHeader from '@/components/layout/AppHeader';
 import { supabase } from '@/integrations/supabase/client';
-import { Database } from '@/integrations/supabase/types';
+import type { Database } from '@/integrations/supabase/types';
 
 type Term = Database['public']['Tables']['terms']['Row'];
 

@@ -97,6 +97,12 @@ export default function LessonPage() {
           console.error('Error fetching content blocks:', contentBlocksError);
         }
 
+        // Convert generic content block types to our specific types
+        const typedContentBlocks: ContentBlock[] = contentBlocksData?.map(block => ({
+          ...block,
+          type: block.type as 'text' | 'heading' | 'image' | 'quiz' | 'game'
+        })) || [];
+
         // Fetch quiz questions for this lesson
         const { data: quizQuestionsData, error: quizQuestionsError } = await supabase
           .from('quiz_questions')
@@ -135,7 +141,7 @@ export default function LessonPage() {
         // Set the complete lesson data
         setLesson({
           ...lessonData,
-          content_blocks: contentBlocksData || [],
+          content_blocks: typedContentBlocks,
           quiz_questions: quizQuestionsData || []
         });
       } catch (error) {
@@ -153,17 +159,13 @@ export default function LessonPage() {
     fetchLessonData();
   }, [moduleId, lessonId, user, toast]);
 
-  // If no user data is found, redirect to login
+  // Redirect to login if not authenticated
   useEffect(() => {
     if (!user) {
       navigate('/login');
     }
   }, [user, navigate]);
   
-  if (!user) {
-    return null;
-  }
-
   const handleComplete = async () => {
     if (lesson?.quiz_questions?.length && !showQuiz) {
       setShowQuiz(true);
@@ -175,117 +177,66 @@ export default function LessonPage() {
   };
   
   const handleQuizComplete = async (score: number) => {
-    // Save quiz score
-    const quizScores = { ...user.quizScores, [Number(lessonId)]: score };
+    setShowQuiz(false);
     
-    // Award points based on score
-    let pointsAwarded = awardPoints('quiz_complete');
-    if (score === 100) {
-      pointsAwarded += awardPoints('perfect_score');
+    // Award points based on quiz score
+    let pointsAwarded = 5; // Base points for completing
+    
+    if (score >= 90) {
+      pointsAwarded += 10;
+    } else if (score >= 75) {
+      pointsAwarded += 5;
     }
     
-    // Only complete the lesson if score is 80% or higher
-    if (score >= 80) {
-      await completeLesson(pointsAwarded, quizScores);
-    } else {
-      // Update scores but don't complete lesson
+    // Update user progress
+    await completeLesson(pointsAwarded);
+  };
+  
+  const completeLesson = async (pointsAwarded: number = 5) => {
+    if (!lessonId || !moduleId || !user) return;
+    
+    try {
+      // Save user progress and award points
       const updatedUserData = await saveUserProgress(user, {
-        quizScores,
+        completedLessons: [Number(lessonId)],
         points: pointsAwarded
       });
       
       if (updatedUserData) {
+        // Update user data in context
         await updateUserData({
-          quizScores,
+          completedLessons: [...user.completedLessons, Number(lessonId)],
           points: user.points + pointsAwarded
         });
+        
+        setIsCompleted(true);
+        
+        toast({
+          title: "Lesson Complete!",
+          description: `You earned ${pointsAwarded} points!`,
+        });
+        
+        // Check for new badges
+        const newBadges = await checkForNewBadges(user, {
+          completedLessons: [Number(lessonId)]
+        });
+        
+        if (newBadges.length > 0) {
+          // Display badge earned notification
+          toast({
+            title: "Badge Earned!",
+            description: `Congratulations! You've earned a new badge.`,
+          });
+        }
       }
-      
+    } catch (error) {
+      console.error('Error completing lesson:', error);
       toast({
-        title: "Quiz score below 80%",
-        description: "You need to score at least 80% to complete this lesson. Try again!",
-        variant: "destructive",
-      });
-    }
-  };
-  
-  const completeLesson = async (additionalPoints = 0, quizScores = {}) => {
-    setIsCompleted(true);
-    
-    // Mark lesson as completed if not already
-    const completedLessons = [...user.completedLessons];
-    if (!completedLessons.includes(Number(lessonId))) {
-      completedLessons.push(Number(lessonId));
-    }
-    
-    // Award points for lesson completion
-    const pointsAwarded = awardPoints('lesson_complete') + additionalPoints;
-    
-    // Create updated user data
-    const updatedUserData = await saveUserProgress(user, {
-      completedLessons,
-      points: pointsAwarded,
-      quizScores
-    });
-    
-    if (!updatedUserData) {
-      toast({
-        title: "Error Saving Progress",
+        title: "Error",
         description: "Failed to save your progress. Please try again.",
         variant: "destructive",
       });
-      return;
     }
-    
-    // Check for new badges
-    const newBadges = checkForNewBadges(updatedUserData);
-    
-    if (newBadges.length > 0) {
-      // Save the new badges
-      const finalUserData = await saveUserProgress(updatedUserData, {
-        badges: newBadges
-      });
-      
-      if (finalUserData) {
-        // Update user data in the context
-        await updateUserData({
-          ...finalUserData,
-          completedLessons,
-          points: user.points + pointsAwarded,
-          quizScores: { ...user.quizScores, ...quizScores },
-          badges: [...user.badges, ...newBadges]
-        });
-        
-        // Show badge notifications
-        for (const badgeId of newBadges) {
-          // Fetch badge details from Supabase
-          const { data: badgeData } = await supabase
-            .from('badges')
-            .select('name, description')
-            .eq('id', badgeId)
-            .single();
-          
-          if (badgeData) {
-            toast({
-              title: `New Badge Earned: ${badgeData.name}`,
-              description: badgeData.description,
-            });
-          }
-        }
-      }
-    } else {
-      // Update user data in the context
-      await updateUserData({
-        completedLessons,
-        points: user.points + pointsAwarded,
-        quizScores: { ...user.quizScores, ...quizScores }
-      });
-    }
-    
-    toast({
-      title: "Lesson Completed!",
-      description: `You've earned ${pointsAwarded} points and are making great progress!`,
-    });
   };
 
   const handleNextLesson = () => {
@@ -307,25 +258,27 @@ export default function LessonPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-tech-primary mx-auto"></div>
-          <p className="mt-4 text-tech-primary font-medium">Loading lesson content...</p>
-        </div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-tech-primary"></div>
       </div>
     );
   }
 
   if (!lesson) {
     return (
-      <div className="min-h-screen bg-background">
-        <AppHeader username={user.username} points={user.points} />
-        <div className="container py-8 text-center">
-          <h1 className="text-3xl font-bold mb-6">Lesson Not Found</h1>
-          <p className="mb-6">Sorry, we couldn't find the lesson you're looking for.</p>
-          <Button onClick={() => navigate(`/modules/${moduleId}`)}>
-            Return to Module
-          </Button>
-        </div>
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Card className="max-w-md">
+          <CardContent className="p-6">
+            <h2 className="text-lg font-semibold mb-4">Lesson Not Found</h2>
+            <p className="text-muted-foreground">
+              The requested lesson could not be found. Please check the URL or try again later.
+            </p>
+            <Button variant="outline" asChild>
+              <Link to="/modules">
+                Back to Modules
+              </Link>
+            </Button>
+          </CardContent>
+        </Card>
       </div>
     );
   }
@@ -341,7 +294,7 @@ export default function LessonPage() {
         <div className="container">
           <Breadcrumb>
             <BreadcrumbItem>
-              <BreadcrumbLink asChild>
+              <BreadcrumbLink>
                 <Link to="/">
                   <Home className="h-3.5 w-3.5 mr-1 inline" />
                   <span>Home</span>
@@ -350,7 +303,7 @@ export default function LessonPage() {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink asChild>
+              <BreadcrumbLink>
                 <Link to="/modules">
                   <Book className="h-3.5 w-3.5 mr-1 inline" />
                   <span>Modules</span>
@@ -359,7 +312,7 @@ export default function LessonPage() {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink asChild>
+              <BreadcrumbLink>
                 <Link to={`/modules/${moduleId}`}>
                   <span>{moduleTitle}</span>
                 </Link>
@@ -388,7 +341,11 @@ export default function LessonPage() {
                 title: lesson.title,
                 blocks: lesson.content_blocks || [],
                 hasQuiz: (lesson.quiz_questions || []).length > 0,
-                quizQuestions: lesson.quiz_questions || []
+                quizQuestions: lesson.quiz_questions?.map(q => ({
+                  question: q.question,
+                  options: q.options,
+                  correctAnswer: q.correct_answer
+                })) || []
               }}
               onComplete={handleComplete}
               onNextLesson={handleNextLesson}
@@ -399,17 +356,15 @@ export default function LessonPage() {
           )}
           
           {isCompleted && (
-            <div className="mt-8 p-6 border border-tech-primary rounded-lg bg-tech-primary/5">
-              <h2 className="text-xl font-bold mb-2">🎉 Lesson Completed!</h2>
-              <p>Great job finishing this lesson. You've earned points and made progress in your learning journey.</p>
-              <Button 
-                className="mt-4" 
-                onClick={handleNextLesson}
-              >
-                Continue to Next Lesson
-                <ChevronRight className="ml-2 h-4 w-4" />
-              </Button>
-            </div>
+            <Card className="mt-8">
+              <CardContent className="flex items-center space-x-4 p-4">
+                <CheckCircle className="h-6 w-6 text-green-500" />
+                <div>
+                  <h3 className="text-lg font-semibold">Lesson Completed</h3>
+                  <p className="text-muted-foreground">You have successfully completed this lesson.</p>
+                </div>
+              </CardContent>
+            </Card>
           )}
         </div>
       </main>
