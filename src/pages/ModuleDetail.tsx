@@ -1,10 +1,11 @@
+
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import AppHeader from '@/components/layout/AppHeader';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { CheckCircle, ChevronRight, Clock, ArrowLeft } from 'lucide-react';
+import { CheckCircle, ChevronRight, Clock, ArrowLeft, Book } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import DataDragon from '@/components/mascot/DataDragon';
 import { toast } from '@/hooks/use-toast';
@@ -96,6 +97,10 @@ export default function ModuleDetail() {
     navigate('/modules');
   };
   
+  const handleKnowledgeBaseClick = () => {
+    navigate(`/knowledge-base/1`); // Default to term 1 for now
+  };
+  
   if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
@@ -136,6 +141,17 @@ export default function ModuleDetail() {
             <p className="text-muted-foreground">{module.description}</p>
           </div>
           <DataDragon message="Dive into each lesson to master the module's concepts!" />
+        </div>
+        
+        <div className="flex items-center">
+          <Button 
+            variant="outline" 
+            onClick={handleKnowledgeBaseClick}
+            className="flex items-center"
+          >
+            <Book className="mr-2 h-4 w-4" />
+            View Full Reference Material
+          </Button>
         </div>
         
         <Card>

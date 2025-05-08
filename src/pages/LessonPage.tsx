@@ -1,11 +1,12 @@
+
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import AppHeader from '@/components/layout/AppHeader';
 import LessonContent from '@/components/lessons/LessonContent';
 import QuizSection from '@/components/quiz/QuizSection';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { ChevronRight, Book, Home } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import { ChevronRight, Book, Home, CheckCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { awardPoints, checkForNewBadges, saveUserProgress } from '@/utils/gamification';
 import { useAuth } from '@/contexts/AuthContext';
@@ -161,11 +162,15 @@ export default function LessonPage() {
 
   // Redirect to login if not authenticated
   useEffect(() => {
-    if (!user) {
+    if (!loading && !user) {
       navigate('/login');
     }
-  }, [user, navigate]);
+  }, [user, loading, navigate]);
   
+  if (!user) {
+    return null; // Or a loading spinner
+  }
+
   const handleComplete = async () => {
     if (lesson?.quiz_questions?.length && !showQuiz) {
       setShowQuiz(true);
@@ -217,9 +222,7 @@ export default function LessonPage() {
         });
         
         // Check for new badges
-        const newBadges = await checkForNewBadges(user, {
-          completedLessons: [Number(lessonId)]
-        });
+        const newBadges = await checkForNewBadges(updatedUserData);
         
         if (newBadges.length > 0) {
           // Display badge earned notification
@@ -269,14 +272,7 @@ export default function LessonPage() {
         <Card className="max-w-md">
           <CardContent className="p-6">
             <h2 className="text-lg font-semibold mb-4">Lesson Not Found</h2>
-            <p className="text-muted-foreground">
-              The requested lesson could not be found. Please check the URL or try again later.
-            </p>
-            <Button variant="outline" asChild>
-              <Link to="/modules">
-                Back to Modules
-              </Link>
-            </Button>
+            <p className="text-muted-foreground">The requested lesson could not be found. Please check the URL or try again later.</p>
           </CardContent>
         </Card>
       </div>
@@ -294,7 +290,7 @@ export default function LessonPage() {
         <div className="container">
           <Breadcrumb>
             <BreadcrumbItem>
-              <BreadcrumbLink>
+              <BreadcrumbLink asChild>
                 <Link to="/">
                   <Home className="h-3.5 w-3.5 mr-1 inline" />
                   <span>Home</span>
@@ -303,7 +299,7 @@ export default function LessonPage() {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink>
+              <BreadcrumbLink asChild>
                 <Link to="/modules">
                   <Book className="h-3.5 w-3.5 mr-1 inline" />
                   <span>Modules</span>
@@ -312,7 +308,7 @@ export default function LessonPage() {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink>
+              <BreadcrumbLink asChild>
                 <Link to={`/modules/${moduleId}`}>
                   <span>{moduleTitle}</span>
                 </Link>

@@ -12,6 +12,7 @@ import ModulesPage from "./pages/ModulesPage";
 import ModuleDetail from "./pages/ModuleDetail";
 import LessonPage from "./pages/LessonPage";
 import AchievementsPage from "./pages/AchievementsPage";
+import KnowledgeBasePage from "./pages/KnowledgeBasePage";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -42,6 +43,9 @@ const App = () => (
             <Route path="/modules/:moduleId/lessons/:lessonId" element={<ProtectedRoute><LessonPage /></ProtectedRoute>} />
             <Route path="/achievements" element={<ProtectedRoute><AchievementsPage /></ProtectedRoute>} />
             <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+            <Route path="/knowledge-base" element={<ProtectedRoute><KnowledgeBasePage /></ProtectedRoute>} />
+            <Route path="/knowledge-base/:termId" element={<ProtectedRoute><KnowledgeBasePage /></ProtectedRoute>} />
+            <Route path="/knowledge-base/:termId/:chapterId" element={<ProtectedRoute><KnowledgeBasePage /></ProtectedRoute>} />
             <Route path="/games" element={<ProtectedRoute><GamesPage /></ProtectedRoute>} />
             <Route path="/games/hardware-hunt" element={<ProtectedRoute><HardwareHuntPage /></ProtectedRoute>} />
             <Route path="/games/file-path-race" element={<ProtectedRoute><FilePathRacePage /></ProtectedRoute>} />

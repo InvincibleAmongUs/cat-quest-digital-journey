@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Computer, Layers, Globe, Database, Lock } from 'lucide-react';
+import { Computer, Layers, Globe, Database as DatabaseIcon, Lock } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import AppHeader from '@/components/layout/AppHeader';
 import { supabase } from '@/integrations/supabase/client';
@@ -94,7 +94,7 @@ export default function TermSelectionPage() {
       case 'Globe':
         return Globe;
       case 'Database':
-        return Database;
+        return DatabaseIcon; // Renamed to avoid conflict with the Database type
       default:
         return Computer;
     }
@@ -121,7 +121,7 @@ export default function TermSelectionPage() {
 
   const handleTermSelect = (termId: number) => {
     if (termId === 1) {
-      navigate('/modules/1');
+      navigate('/modules');
     }
   };
 
