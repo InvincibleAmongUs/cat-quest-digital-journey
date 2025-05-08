@@ -1,8 +1,18 @@
 
 import { Lesson, Module, Quiz } from '@/types';
+import { moduleLessons, moduleOneLessons } from '@/data/moduleOneData';
 
 export async function getLesson(moduleId: string, lessonId: string): Promise<Lesson> {
-  // Mock implementation - in a real app, this would fetch from an API
+  // Use our module data for Module 1 lessons
+  const lesson = moduleLessons.find(
+    l => l.moduleId === moduleId && l.id === lessonId
+  );
+  
+  if (lesson) {
+    return lesson;
+  }
+  
+  // Fallback to mock implementation for any other modules
   return {
     id: lessonId,
     title: "Sample Lesson",
@@ -14,7 +24,17 @@ export async function getLesson(moduleId: string, lessonId: string): Promise<Les
 }
 
 export async function getModule(moduleId: string): Promise<Module> {
-  // Mock implementation - in a real app, this would fetch from an API
+  // For Module 1, return detailed information with lessons
+  if (moduleId === "1") {
+    return {
+      id: moduleId,
+      title: "Introduction to Computing Concepts",
+      description: "Learn about computing fundamentals, data vs. information, and the value of ICT",
+      lessons: moduleLessons.filter(lesson => lesson.moduleId === moduleId)
+    };
+  }
+  
+  // Mock implementation for other modules
   return {
     id: moduleId,
     title: "Sample Module",
@@ -24,7 +44,26 @@ export async function getModule(moduleId: string): Promise<Module> {
 }
 
 export async function getQuiz(quizId: string): Promise<Quiz> {
-  // Mock implementation - in a real app, this would fetch from an API
+  // For Module 1 quizzes, extract the lesson ID from the quiz ID format "quiz-1-X"
+  if (quizId.startsWith('quiz-1-')) {
+    const lessonId = quizId.replace('quiz-', '');
+    const lessonData = moduleOneLessons[lessonId];
+    
+    if (lessonData) {
+      return {
+        id: quizId,
+        title: `Quiz: ${lessonData.title}`,
+        questions: lessonData.quizQuestions.map((q, index) => ({
+          id: `${quizId}-q${index}`,
+          text: q.question,
+          options: q.options,
+          correctOptionIndex: q.correctOptionIndex
+        }))
+      };
+    }
+  }
+  
+  // Default mock implementation
   return {
     id: quizId,
     title: "Sample Quiz",

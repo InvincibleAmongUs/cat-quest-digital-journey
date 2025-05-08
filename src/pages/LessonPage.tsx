@@ -1,10 +1,8 @@
+
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import rehypeRaw from 'rehype-raw';
 import { Button } from '@/components/ui/button';
-import { ChevronLeft, ChevronRight, Book, ClipboardCheck } from 'lucide-react';
+import { ChevronLeft, Book } from 'lucide-react';
 import AppHeader from '@/components/layout/AppHeader';
 import { useAuth } from '@/contexts/AuthContext';
 import { getLesson, getModule } from '@/utils/api';
@@ -12,6 +10,7 @@ import { Lesson, Module } from '@/types';
 import QuizModal from '@/components/QuizModal';
 import { useToast } from '@/hooks/use-toast';
 import { saveUserProgress } from '@/utils/gamification';
+import LessonContentDisplay from '@/components/lessons/LessonContentDisplay';
 
 // Define the params interface properly to satisfy the Record<string, string> constraint
 interface LessonParams {
@@ -115,11 +114,25 @@ export default function LessonPage() {
   };
 
   if (isLoading) {
-    return <div>Loading lesson...</div>;
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+      </div>
+    );
   }
 
   if (!lesson) {
-    return <div>Lesson not found.</div>;
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center p-4">
+        <div className="bg-card p-6 rounded-lg shadow-lg max-w-md w-full text-center">
+          <h2 className="text-xl font-semibold mb-4">Lesson Not Found</h2>
+          <p className="text-muted-foreground mb-6">Sorry, we couldn't find the lesson you're looking for.</p>
+          <Button onClick={() => navigate('/modules')}>
+            Go to Modules
+          </Button>
+        </div>
+      </div>
+    );
   }
 
   const nextLessonId = lesson.nextLessonId;
@@ -134,57 +147,25 @@ export default function LessonPage() {
 
       <main className="container py-8">
         <div className="max-w-3xl mx-auto">
-          <h1 className="text-3xl font-bold mb-4">{lesson.title}</h1>
-          <div className="prose dark:prose-invert">
-            <ReactMarkdown rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]} children={lesson.content} />
-          </div>
+          <Button
+            variant="ghost"
+            onClick={() => navigate(`/modules/${moduleId}`)}
+            className="mb-4 flex items-center"
+          >
+            <ChevronLeft className="mr-1 h-4 w-4" />
+            Back to Module
+          </Button>
 
-          {/* Navigation buttons */}
-          <div className="flex justify-between mt-8">
-            {prevLessonId ? (
-              <Button 
-                variant="outline"
-                onClick={() => navigateToLesson(moduleId!, prevLessonId)}
-                className="flex items-center"
-              >
-                <ChevronLeft className="mr-1 h-4 w-4" />
-                Previous Lesson
-              </Button>
-            ) : (
-              <Button
-                variant="outline"
-                onClick={() => navigate(`/modules/${moduleId}`)}
-                className="flex items-center"
-              >
-                <ChevronLeft className="mr-1 h-4 w-4" />
-                Back to Module
-              </Button>
-            )}
-
-            <div className="space-x-2">
-              <Link
-                to={`/knowledge-base`}
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700"
-              >
-                <Book className="mr-1 h-4 w-4" />
-                Knowledge Base
-              </Link>
-
-              {hasQuiz && (
-                <Button onClick={handleStartQuiz}>
-                  <ClipboardCheck className="mr-1 h-4 w-4" />
-                  Take Quiz
-                </Button>
-              )}
-
-              {nextLessonId && (
-                <Button onClick={() => navigateToLesson(moduleId!, nextLessonId)}>
-                  Next Lesson
-                  <ChevronRight className="ml-1 h-4 w-4" />
-                </Button>
-              )}
-            </div>
-          </div>
+          <LessonContentDisplay
+            lessonId={lessonId || ''}
+            moduleId={moduleId || ''}
+            onStartQuiz={handleStartQuiz}
+            onNext={() => nextLessonId && navigateToLesson(moduleId!, nextLessonId)}
+            onPrevious={() => prevLessonId && navigateToLesson(moduleId!, prevLessonId)}
+            hasNext={!!nextLessonId}
+            hasPrevious={!!prevLessonId}
+            markdownContent={lesson.content}
+          />
         </div>
       </main>
 
