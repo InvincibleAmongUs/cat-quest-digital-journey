@@ -1,11 +1,9 @@
-
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, Book } from 'lucide-react';
 import AppHeader from '@/components/layout/AppHeader';
 import { useAuth } from '@/contexts/AuthContext';
-import { getLesson, getModule } from '@/utils/api';
 import { Lesson, Module } from '@/types';
 import QuizModal from '@/components/QuizModal';
 import { useToast } from '@/hooks/use-toast';

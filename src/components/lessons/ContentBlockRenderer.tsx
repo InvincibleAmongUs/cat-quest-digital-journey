@@ -1,7 +1,11 @@
 
 import React from 'react';
-import ImagePlaceholder from './ImagePlaceholder';
-import KnowledgeImage from '@/components/knowledgebase/KnowledgeImage';
+import TextBlock from './blocks/TextBlock';
+import HeadingBlock from './blocks/HeadingBlock';
+import ImageBlock from './blocks/ImageBlock';
+import FigureBlock from './blocks/FigureBlock';
+import TableBlock from './blocks/TableBlock';
+import GameBlock from './blocks/GameBlock';
 
 // Define the types of content blocks we support
 export interface ContentBlock {
@@ -85,87 +89,26 @@ interface ContentBlockRendererProps {
 export default function ContentBlockRenderer({ block }: ContentBlockRendererProps) {
   switch (block.type) {
     case 'text':
-      return <p className="my-4">{block.content}</p>;
+      return <TextBlock block={block} />;
       
     case 'heading':
-      switch (block.content.level) {
-        case 1:
-          return <h1 className="text-3xl font-bold my-6">{block.content.text}</h1>;
-        case 2:
-          return <h2 className="text-2xl font-bold my-5">{block.content.text}</h2>;
-        case 3:
-          return <h3 className="text-xl font-bold my-4">{block.content.text}</h3>;
-        default:
-          return <h2 className="text-2xl font-bold my-5">{block.content.text}</h2>;
-      }
+      return <HeadingBlock block={block} />;
       
     case 'image':
-      // Check if the image src is a local file path or an external URL
-      if (block.content.src.startsWith('http')) {
-        return (
-          <figure className="my-6">
-            <img 
-              src={block.content.src} 
-              alt={block.content.alt} 
-              className="rounded-md mx-auto"
-            />
-            {block.content.caption && (
-              <figcaption className="text-center text-sm text-muted-foreground mt-2">
-                {block.content.caption}
-              </figcaption>
-            )}
-          </figure>
-        );
-      } else {
-        // For local files, use the filename to determine if we should use ImagePlaceholder
-        const filename = block.content.src.split('/').pop();
-        return (
-          <div className="my-6">
-            <ImagePlaceholder 
-              filename={filename || block.content.src}
-              alt={block.content.alt} 
-            />
-            {block.content.caption && (
-              <p className="text-center text-sm text-muted-foreground mt-2">
-                {block.content.isTable ? 'Table: ' : 'Figure: '}{block.content.caption}
-              </p>
-            )}
-          </div>
-        );
-      }
+      return <ImageBlock block={block} />;
     
     case 'figure':
-      return (
-        <KnowledgeImage
-          chapterId={block.content.chapterId}
-          type="figure"
-          reference={block.content.reference}
-          caption={block.content.caption}
-        />
-      );
+      return <FigureBlock block={block} />;
       
     case 'table':
-      return (
-        <KnowledgeImage
-          chapterId={block.content.chapterId}
-          type="table"
-          reference={block.content.reference}
-          caption={block.content.caption}
-        />
-      );
+      return <TableBlock block={block} />;
       
     case 'quiz':
       // The quiz will be handled by the parent component
       return null;
       
     case 'game':
-      // Games will be separately implemented and linked
-      return (
-        <div className="my-6 p-4 border rounded-md bg-muted">
-          <p className="font-medium">Interactive Game: {block.content.gameType}</p>
-          <p className="text-sm text-muted-foreground">This interactive game will be loaded separately.</p>
-        </div>
-      );
+      return <GameBlock block={block} />;
       
     default:
       return <p className="text-red-500">Unsupported content block type: {(block as any).type}</p>;

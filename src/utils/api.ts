@@ -1,15 +1,24 @@
 
 import { Lesson, Module, Quiz } from '@/types';
-import { moduleLessons, moduleOneLessons } from '@/data/moduleOneData';
+import { moduleOneLessons } from '@/data/moduleOneData';
+import { term1Lessons } from '@/knowledgebase/lessons';
 
 export async function getLesson(moduleId: string, lessonId: string): Promise<Lesson> {
-  // Use our module data for Module 1 lessons
-  const lesson = moduleLessons.find(
-    l => l.moduleId === moduleId && l.id === lessonId
-  );
-  
-  if (lesson) {
-    return lesson;
+  // Use our term1Lessons for Module 1 lessons
+  if (moduleId === "1") {
+    const lesson = term1Lessons.find(l => l.id === Number(lessonId));
+    
+    if (lesson) {
+      // Map from our internal lesson format to the expected Lesson type
+      return {
+        id: lessonId,
+        title: lesson.title,
+        content: lesson.description,
+        quizId: lesson.hasQuiz ? `quiz-${moduleId}-${lessonId}` : null,
+        nextLessonId: lesson.id < term1Lessons.length ? String(lesson.id + 1) : null,
+        prevLessonId: lesson.id > 1 ? String(lesson.id - 1) : null
+      };
+    }
   }
   
   // Fallback to mock implementation for any other modules
@@ -26,11 +35,22 @@ export async function getLesson(moduleId: string, lessonId: string): Promise<Les
 export async function getModule(moduleId: string): Promise<Module> {
   // For Module 1, return detailed information with lessons
   if (moduleId === "1") {
+    // Map our term1Lessons to the format expected by the Module type
+    const moduleLessons = term1Lessons.map(lesson => ({
+      id: String(lesson.id),
+      moduleId: String(lesson.moduleId),
+      title: lesson.title,
+      description: lesson.description,
+      quizId: lesson.hasQuiz ? `quiz-${moduleId}-${lesson.id}` : null,
+      nextLessonId: lesson.id < term1Lessons.length ? String(lesson.id + 1) : null,
+      prevLessonId: lesson.id > 1 ? String(lesson.id - 1) : null
+    }));
+    
     return {
       id: moduleId,
       title: "Introduction to Computing Concepts",
       description: "Learn about computing fundamentals, data vs. information, and the value of ICT",
-      lessons: moduleLessons.filter(lesson => lesson.moduleId === moduleId)
+      lessons: moduleLessons
     };
   }
   
@@ -46,7 +66,7 @@ export async function getModule(moduleId: string): Promise<Module> {
 export async function getQuiz(quizId: string): Promise<Quiz> {
   // For Module 1 quizzes, extract the lesson ID from the quiz ID format "quiz-1-X"
   if (quizId.startsWith('quiz-1-')) {
-    const lessonId = quizId.replace('quiz-', '');
+    const lessonId = quizId.split('-')[2];
     const lessonData = moduleOneLessons[lessonId];
     
     if (lessonData) {
@@ -57,7 +77,7 @@ export async function getQuiz(quizId: string): Promise<Quiz> {
           id: `${quizId}-q${index}`,
           text: q.question,
           options: q.options,
-          correctOptionIndex: q.correctOptionIndex
+          correctOptionIndex: q.correctAnswer
         }))
       };
     }
