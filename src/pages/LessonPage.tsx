@@ -9,6 +9,7 @@ import QuizModal from '@/components/QuizModal';
 import { useToast } from '@/hooks/use-toast';
 import { saveUserProgress } from '@/utils/gamification';
 import LessonContentDisplay from '@/components/lessons/LessonContentDisplay';
+import { getLesson, getModule } from '@/utils/api';
 
 // Define the params interface properly to satisfy the Record<string, string> constraint
 interface LessonParams {

@@ -14,6 +14,7 @@ export async function getModule(moduleId: string): Promise<Module> {
       moduleId: String(lesson.moduleId),
       title: lesson.title,
       description: lesson.description,
+      content: lesson.description, // Add the required content property
       quizId: lesson.hasQuiz ? `quiz-${moduleId}-${lesson.id}` : null,
       nextLessonId: lesson.id < term1Lessons.length ? String(lesson.id + 1) : null,
       prevLessonId: lesson.id > 1 ? String(lesson.id - 1) : null

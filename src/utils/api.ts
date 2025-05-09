@@ -1,4 +1,3 @@
-
 import { Lesson, Module, Quiz } from '@/types';
 import { moduleOneLessons } from '@/data/moduleOneData';
 import { term1Lessons } from '@/knowledgebase/lessons';
