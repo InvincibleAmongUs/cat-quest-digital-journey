@@ -1,4 +1,3 @@
-
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from '@/hooks/use-toast';
 
@@ -11,15 +10,7 @@ export interface KnowledgeBaseImage {
   type: 'figure' | 'table';
   chapter: number;
   reference: string; // e.g., "1.2" for Figure 1.2 or Table 1.2
-}
-
-export interface KnowledgeBaseChapter {
-  id: number;
-  title: string;
-  content: string;
-  images: KnowledgeBaseImage[];
-  tables: KnowledgeBaseImage[];
-  term: number;
+  url?: string; // Add the url property as optional
 }
 
 // Function to load chapter content from local files
@@ -219,4 +210,13 @@ export async function getChaptersForTerm(termId: number): Promise<KnowledgeBaseC
   }
   
   return chapters;
+}
+
+export interface KnowledgeBaseChapter {
+  id: number;
+  title: string;
+  content: string;
+  images: KnowledgeBaseImage[];
+  tables: KnowledgeBaseImage[];
+  term: number;
 }

@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { VolumeIcon, PauseIcon, PlayIcon, StopIcon } from 'lucide-react';
+import { VolumeIcon, PauseIcon, PlayIcon, StopCircleIcon } from 'lucide-react';
 import { Slider } from '@/components/ui/slider';
 
 interface TextToSpeechProps {
@@ -200,7 +200,7 @@ export default function TextToSpeech({ text }: TextToSpeechProps) {
               
               {isSpeaking && (
                 <Button variant="outline" size="sm" onClick={stopSpeech}>
-                  <StopIcon className="h-4 w-4 mr-1" /> Stop
+                  <StopCircleIcon className="h-4 w-4 mr-1" /> Stop
                 </Button>
               )}
             </div>
