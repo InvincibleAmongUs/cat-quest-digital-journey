@@ -22,6 +22,7 @@ import GamesPage from "./pages/GamesPage";
 import HardwareHuntPage from "./pages/games/HardwareHuntPage";
 import FilePathRacePage from "./pages/games/FilePathRacePage";
 import DataDetectivePage from "./pages/games/DataDetectivePage";
+import AIToolsPage from "./pages/AIToolsPage";
 import Index from "./pages/Index";
 
 const queryClient = new QueryClient();
@@ -50,6 +51,7 @@ const App = () => (
             <Route path="/games/hardware-hunt" element={<ProtectedRoute><HardwareHuntPage /></ProtectedRoute>} />
             <Route path="/games/file-path-race" element={<ProtectedRoute><FilePathRacePage /></ProtectedRoute>} />
             <Route path="/games/data-detective" element={<ProtectedRoute><DataDetectivePage /></ProtectedRoute>} />
+            <Route path="/ai-tools" element={<ProtectedRoute><AIToolsPage /></ProtectedRoute>} />
             <Route path="/admin/*" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
