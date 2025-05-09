@@ -1,5 +1,6 @@
+
 import React, { useState, useEffect } from 'react';
-import { Moon, Sun, Menu, X, Home, Books, Award, User, Brain } from 'lucide-react';
+import { Moon, Sun, Menu, X, Home, Book, Award, User, Brain } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
@@ -11,9 +12,10 @@ import AppHeaderKnowledgeLink from './AppHeaderKnowledgeLink';
 interface AppHeaderProps {
   username?: string;
   points?: number;
+  onLogout?: () => void;
 }
 
-export default function AppHeader({ username = 'Guest', points = 0 }: AppHeaderProps) {
+export default function AppHeader({ username = 'Guest', points = 0, onLogout }: AppHeaderProps) {
   const navigate = useNavigate();
   const { logout } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -40,8 +42,12 @@ export default function AppHeader({ username = 'Guest', points = 0 }: AppHeaderP
   };
 
   const handleLogout = () => {
-    logout();
-    navigate('/login');
+    if (onLogout) {
+      onLogout();
+    } else {
+      logout();
+      navigate('/login');
+    }
   };
 
   const closeMobileMenu = () => {
@@ -151,11 +157,11 @@ export default function AppHeader({ username = 'Guest', points = 0 }: AppHeaderP
                     Dashboard
                   </Link>
                   <Link to="/modules" className="flex items-center gap-2 py-2" onClick={closeMobileMenu}>
-                    <Books className="h-5 w-5" />
+                    <Book className="h-5 w-5" />
                     Modules
                   </Link>
                   <Link to="/knowledge-base" className="flex items-center gap-2 py-2" onClick={closeMobileMenu}>
-                    <Books className="h-5 w-5" />
+                    <Book className="h-5 w-5" />
                     Knowledge Base
                   </Link>
                   <Link to="/games" className="flex items-center gap-2 py-2" onClick={closeMobileMenu}>
