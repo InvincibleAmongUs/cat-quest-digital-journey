@@ -1,3 +1,4 @@
+
 import { Lesson, Module, Quiz } from '@/types';
 import { moduleOneLessons } from '@/data/moduleOneData';
 import { term1Lessons } from '@/knowledgebase/lessons';
@@ -40,6 +41,7 @@ export async function getModule(moduleId: string): Promise<Module> {
       moduleId: String(lesson.moduleId),
       title: lesson.title,
       description: lesson.description,
+      content: lesson.description, // Add the content property to fix the type error
       quizId: lesson.hasQuiz ? `quiz-${moduleId}-${lesson.id}` : null,
       nextLessonId: lesson.id < term1Lessons.length ? String(lesson.id + 1) : null,
       prevLessonId: lesson.id > 1 ? String(lesson.id - 1) : null
