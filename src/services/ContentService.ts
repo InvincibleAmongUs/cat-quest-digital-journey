@@ -1,4 +1,3 @@
-
 import { supabase } from '@/integrations/supabase/client';
 import { KnowledgeBaseChapter, KnowledgeBaseImage } from '@/utils/knowledgeBase';
 import { extractChapterTitle, extractSections, extractReferences, formatText } from '@/utils/textParser';
@@ -190,6 +189,7 @@ export class ContentService {
           
           chapterImages.push({
             id: filenameWithoutExtension,
+            name: filenameWithoutExtension,  // Adding name property to match interface
             filename: line.trim(),
             alt,
             type: isTable ? 'table' : 'figure',
@@ -272,10 +272,10 @@ export class ContentService {
         }
         
         // If paragraph mentions tables, add them after the paragraph
-        if (tableMatches) {
+        if (tableMatches && chapter.tables) {
           tableMatches.forEach(match => {
             const refNumber = match.replace(/Table\s+/i, '').trim();
-            const table = chapter.tables.find(img => img.reference === refNumber);
+            const table = chapter.tables?.find(img => img.reference === refNumber);
             
             if (table) {
               blocks.push({
