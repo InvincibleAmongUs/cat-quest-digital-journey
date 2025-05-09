@@ -22,11 +22,21 @@ export default function AuthForm() {
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
     
-    const success = await login(email, password);
-    setIsLoading(false);
-    
-    if (success) {
-      navigate('/');
+    try {
+      const success = await login(email, password);
+      
+      if (success) {
+        navigate('/terms');
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      toast({
+        title: "Login Failed",
+        description: "An unexpected error occurred. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
   
@@ -39,11 +49,21 @@ export default function AuthForm() {
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
     
-    const success = await register(username, email, password);
-    setIsLoading(false);
-    
-    if (success) {
-      navigate('/');
+    try {
+      const success = await register(username, email, password);
+      
+      if (success) {
+        navigate('/terms');
+      }
+    } catch (error) {
+      console.error('Registration error:', error);
+      toast({
+        title: "Registration Failed",
+        description: "An unexpected error occurred. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -67,8 +87,8 @@ export default function AuthForm() {
                   <Input
                     id="email"
                     name="email" 
-                    placeholder="Email or username"
-                    type="text"
+                    placeholder="Email"
+                    type="email"
                     autoCapitalize="none"
                     autoComplete="email"
                     autoCorrect="off"
@@ -92,7 +112,7 @@ export default function AuthForm() {
                   {isLoading ? "Logging in..." : "Log in"}
                 </Button>
                 <div className="text-xs text-center text-muted-foreground">
-                  <p>Demo admin access: Email: admin, Password: admin</p>
+                  <p>Demo admin access: Email: 24529974@mylife.unisa.ac.za</p>
                 </div>
               </div>
             </form>

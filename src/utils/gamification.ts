@@ -1,5 +1,5 @@
-
 import { UserData } from '@/contexts/AuthContext';
+import { supabase } from '@/integrations/supabase/client';
 
 // Types for gamification system
 export interface Badge {
@@ -81,52 +81,104 @@ export function awardPoints(action: 'lesson_complete' | 'quiz_complete' | 'perfe
   return pointsMap[action];
 }
 
-// Save user progress
-export function saveUserProgress(userData: UserData, updates: Partial<UserData>): UserData {
-  // Create updated user data
-  const updatedUserData = {
-    ...userData,
-    completedLessons: [
-      ...userData.completedLessons,
-      ...(updates.completedLessons || [])
-    ].filter((v, i, a) => a.indexOf(v) === i),
-    completedModules: [
-      ...userData.completedModules,
-      ...(updates.completedModules || [])
-    ].filter((v, i, a) => a.indexOf(v) === i),
-    points: (userData.points || 0) + (updates.points || 0),
-    quizScores: { ...userData.quizScores, ...(updates.quizScores || {}) },
-    badges: [
-      ...userData.badges,
-      ...(updates.badges || [])
-    ].filter((v, i, a) => a.indexOf(v) === i)
-  };
-  
-  // In a real application, we would send this to the backend
-  // For now we update localStorage
-  localStorage.setItem('user', JSON.stringify(updatedUserData));
-  
-  // Update user data in all_users if it exists
-  const allUsers = localStorage.getItem('all_users');
-  if (allUsers) {
-    try {
-      const users = JSON.parse(allUsers);
-      const updatedUsers = users.map((user: any) => {
-        if (user.email === userData.email) {
-          const { password, ...userDataWithoutPassword } = user;
-          return {
-            ...userDataWithoutPassword,
-            ...updatedUserData,
-            password // Keep the password
-          };
-        }
-        return user;
-      });
-      localStorage.setItem('all_users', JSON.stringify(updatedUsers));
-    } catch (error) {
-      console.error('Failed to update user in all_users:', error);
-    }
+// Save user progress to Supabase
+export async function saveUserProgress(userData: UserData, updates: Partial<UserData>): Promise<UserData | null> {
+  if (!userData.id) {
+    console.error('Cannot save progress: User ID is missing');
+    return null;
   }
   
-  return updatedUserData;
+  try {
+    // Create updated user data
+    const updatedUserData = {
+      ...userData,
+      completedLessons: [
+        ...userData.completedLessons,
+        ...(updates.completedLessons || [])
+      ].filter((v, i, a) => a.indexOf(v) === i),
+      completedModules: [
+        ...userData.completedModules,
+        ...(updates.completedModules || [])
+      ].filter((v, i, a) => a.indexOf(v) === i),
+      points: (userData.points || 0) + (updates.points || 0),
+      quizScores: { ...userData.quizScores, ...(updates.quizScores || {}) },
+      badges: [
+        ...userData.badges,
+        ...(updates.badges || [])
+      ].filter((v, i, a) => a.indexOf(v) === i)
+    };
+    
+    // Update points in profiles table
+    if (updates.points) {
+      const { error: profileError } = await supabase
+        .from('profiles')
+        .update({ points: updatedUserData.points })
+        .eq('id', userData.id);
+      
+      if (profileError) {
+        console.error('Error updating user points:', profileError);
+        return null;
+      }
+    }
+    
+    // Update progress in user_progress table
+    const { error: progressError } = await supabase
+      .from('user_progress')
+      .update({
+        completed_lessons: updatedUserData.completedLessons,
+        completed_modules: updatedUserData.completedModules,
+        quiz_scores: updatedUserData.quizScores,
+        badges: updatedUserData.badges
+      })
+      .eq('user_id', userData.id);
+    
+    if (progressError) {
+      console.error('Error updating user progress:', progressError);
+      return null;
+    }
+    
+    return updatedUserData;
+  } catch (error) {
+    console.error('Failed to save user progress:', error);
+    return null;
+  }
+}
+
+// Get badges information
+export async function getBadgesInfo(badgeIds: string[]): Promise<Badge[]> {
+  try {
+    const { data, error } = await supabase
+      .from('badges')
+      .select('*')
+      .in('id', badgeIds);
+    
+    if (error) {
+      console.error('Error fetching badges:', error);
+      return [];
+    }
+    
+    return data as unknown as Badge[];
+  } catch (error) {
+    console.error('Failed to fetch badges:', error);
+    return [];
+  }
+}
+
+// Function to create a new edge function to check for new badges
+export async function checkForNewBadgesServerSide(userId: string): Promise<string[]> {
+  try {
+    const { data, error } = await supabase.functions.invoke('check-badges', {
+      body: { userId },
+    });
+    
+    if (error) {
+      console.error('Error invoking check-badges function:', error);
+      return [];
+    }
+    
+    return data.newBadges || [];
+  } catch (error) {
+    console.error('Failed to check for new badges:', error);
+    return [];
+  }
 }

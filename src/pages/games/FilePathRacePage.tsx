@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft } from 'lucide-react';
 import AppHeader from '@/components/layout/AppHeader';
@@ -21,6 +21,9 @@ export default function FilePathRacePage() {
   if (!user) {
     return null;
   }
+
+  // Sample target path for the game
+  const sampleTargetPath = "/Users/student/Documents/School/Grade10/CAT/Projects/Term1";
 
   return (
     <div className="min-h-screen bg-background">
@@ -44,11 +47,11 @@ export default function FilePathRacePage() {
           <div className="flex justify-between items-center mb-6">
             <div>
               <h1 className="text-3xl font-bold">File Path Race</h1>
-              <p className="text-muted-foreground">Navigate through file folders to find the correct paths</p>
+              <p className="text-muted-foreground">Navigate the file system quickly to reach the target</p>
             </div>
           </div>
           
-          <FilePathRace />
+          <FilePathRace targetPath={sampleTargetPath} />
         </div>
       </main>
     </div>

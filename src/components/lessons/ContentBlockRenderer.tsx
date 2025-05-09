@@ -1,10 +1,11 @@
 
 import React from 'react';
 import ImagePlaceholder from './ImagePlaceholder';
+import KnowledgeImage from '@/components/knowledgebase/KnowledgeImage';
 
 // Define the types of content blocks we support
 export interface ContentBlock {
-  type: 'text' | 'heading' | 'image' | 'quiz' | 'game';
+  type: 'text' | 'heading' | 'image' | 'quiz' | 'game' | 'figure' | 'table';
   content: any;
 }
 
@@ -26,6 +27,25 @@ export interface ImageBlock extends ContentBlock {
   content: {
     src: string;
     alt: string;
+    caption?: string;
+    isTable?: boolean;
+  };
+}
+
+export interface FigureBlock extends ContentBlock {
+  type: 'figure';
+  content: {
+    chapterId: number;
+    reference: string;
+    caption?: string;
+  };
+}
+
+export interface TableBlock extends ContentBlock {
+  type: 'table';
+  content: {
+    chapterId: number;
+    reference: string;
     caption?: string;
   };
 }
@@ -49,7 +69,14 @@ export interface GameBlock extends ContentBlock {
   };
 }
 
-export type AnyContentBlock = TextBlock | HeadingBlock | ImageBlock | QuizBlock | GameBlock;
+export type AnyContentBlock = 
+  | TextBlock 
+  | HeadingBlock 
+  | ImageBlock 
+  | FigureBlock 
+  | TableBlock 
+  | QuizBlock 
+  | GameBlock;
 
 interface ContentBlockRendererProps {
   block: AnyContentBlock;
@@ -93,12 +120,39 @@ export default function ContentBlockRenderer({ block }: ContentBlockRendererProp
         // For local files, use the filename to determine if we should use ImagePlaceholder
         const filename = block.content.src.split('/').pop();
         return (
-          <ImagePlaceholder 
-            filename={filename || block.content.src}
-            alt={block.content.alt} 
-          />
+          <div className="my-6">
+            <ImagePlaceholder 
+              filename={filename || block.content.src}
+              alt={block.content.alt} 
+            />
+            {block.content.caption && (
+              <p className="text-center text-sm text-muted-foreground mt-2">
+                {block.content.isTable ? 'Table: ' : 'Figure: '}{block.content.caption}
+              </p>
+            )}
+          </div>
         );
       }
+    
+    case 'figure':
+      return (
+        <KnowledgeImage
+          chapterId={block.content.chapterId}
+          type="figure"
+          reference={block.content.reference}
+          caption={block.content.caption}
+        />
+      );
+      
+    case 'table':
+      return (
+        <KnowledgeImage
+          chapterId={block.content.chapterId}
+          type="table"
+          reference={block.content.reference}
+          caption={block.content.caption}
+        />
+      );
       
     case 'quiz':
       // The quiz will be handled by the parent component
