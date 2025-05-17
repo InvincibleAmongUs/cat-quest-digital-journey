@@ -27,113 +27,145 @@ export const useAuth = () => {
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<UserData | null>(null);
   const [session, setSession] = useState<Session | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true); // Start true by default
   const navigate = useNavigate();
   const { toast } = useToast();
 
   useEffect(() => {
-    setIsLoading(true);
+    // Listener for Supabase auth state changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (_event, currentSession) => {
-        setSession(currentSession);
-        const userData = await mapUserData(supabase, currentSession);
-        setUser(userData);
-        // Delay setting isLoading to false to ensure dependent components pick up new user state
-        setTimeout(() => setIsLoading(false), 0);
+        setIsLoading(true); // Indicate loading while processing new auth state
+        try {
+          console.log('[AuthContext] onAuthStateChange event:', _event, 'session:', currentSession);
+          setSession(currentSession);
+          const userData = await mapUserData(supabase, currentSession);
+          console.log('[AuthContext] onAuthStateChange userData mapped:', userData);
+          setUser(userData);
+
+          if (_event === 'SIGNED_IN' && userData?.isAuthenticated) {
+            toast({
+              title: "Welcome back!",
+              description: "You've successfully logged in.",
+            });
+          }
+        } catch (error) {
+          console.error("[AuthContext] Error in onAuthStateChange callback:", error);
+          setUser(null); // Reset user on error
+        } finally {
+          setIsLoading(false); // Ensure loading is set to false
+        }
       }
     );
 
-    supabase.auth.getSession().then(async ({ data: { session: initialSession } }) => {
-      setSession(initialSession);
-      const initialUserData = await mapUserData(supabase, initialSession);
-      setUser(initialUserData);
-      setIsLoading(false);
-    });
+    // Initial session check and user data hydration
+    const initializeAuth = async () => {
+      setIsLoading(true); // Ensure loading is true during initialization
+      try {
+        console.log('[AuthContext] Initializing auth, calling getSession');
+        const { data: { session: initialSession }, error: getSessionError } = await supabase.auth.getSession();
+        
+        if (getSessionError) {
+          console.error('[AuthContext] Error getting initial session:', getSessionError);
+        }
+        console.log('[AuthContext] Initial session from getSession():', initialSession);
+        setSession(initialSession);
+        const initialUserData = await mapUserData(supabase, initialSession);
+        console.log('[AuthContext] Initial userData mapped from getSession():', initialUserData);
+        setUser(initialUserData);
+      } catch (error) {
+        console.error("[AuthContext] Error in initializeAuth:", error);
+        setUser(null); // Reset user on error
+      } finally {
+        setIsLoading(false); // Ensure loading is set to false after initialization
+      }
+    };
+
+    initializeAuth();
 
     return () => {
       subscription?.unsubscribe();
     };
-  }, []);
+  }, []); // Empty dependency array ensures this runs once on mount
 
   const login = async (email: string, password: string): Promise<boolean> => {
-    setIsLoading(true);
+    //isLoading state is now managed by onAuthStateChange
     try {
-      const { session: newSession, error } = await loginWithCredentials(supabase, toast, email, password);
-      if (error || !newSession) {
-        setIsLoading(false);
-        return false;
+      const { error } = await loginWithCredentials(supabase, toast, email, password);
+      if (error) {
+        // loginWithCredentials service already shows a toast for login failure
+        return false; // Login attempt failed
       }
-      const userData = await mapUserData(supabase, newSession);
-      setUser(userData);
-      setSession(newSession);
-      toast({
-          title: "Welcome back!",
-          description: "You've successfully logged in.",
-      });
-      setIsLoading(false);
-      return true;
-    } catch (err) { // Catch any unexpected errors from service
-      console.error('Login process error:', err);
+      // Successful Supabase login attempt. onAuthStateChange will handle user/session state.
+      return true; 
+    } catch (err) { 
+      console.error('Login process error in AuthContext:', err);
+      // This catch block might be redundant if loginWithCredentials handles all its errors
+      // and returns an error object. However, it's good for unexpected issues.
       toast({
         title: "Login Failed",
         description: "An unexpected error occurred during login.",
         variant: "destructive",
       });
-      setIsLoading(false);
       return false;
     }
   };
 
   const register = async (username: string, email: string, password: string): Promise<boolean> => {
-    setIsLoading(true);
+    //isLoading state is now managed by onAuthStateChange
     try {
-      const { session: newSession, error } = await registerWithCredentials(supabase, toast, username, email, password);
+      const { error } = await registerWithCredentials(supabase, toast, username, email, password);
       if (error) {
-        setIsLoading(false);
+        // registerWithCredentials service already shows toasts
         return false;
       }
-      // User might not be logged in immediately if email verification is on
-      if (newSession) {
-        const userData = await mapUserData(supabase, newSession);
-        setUser(userData);
-        setSession(newSession);
-      }
-      setIsLoading(false);
+      // Successful Supabase registration. If email verification is not required,
+      // onAuthStateChange will handle user/session state.
+      // If email verification is required, user will remain null until verified.
       return true;
     } catch (err) {
-      console.error('Registration process error:', err);
-       toast({
+      console.error('Registration process error in AuthContext:', err);
+      toast({
         title: "Registration Failed",
         description: "An unexpected error occurred during registration.",
         variant: "destructive",
       });
-      setIsLoading(false);
       return false;
     }
   };
 
   const logout = async () => {
-    setIsLoading(true);
+    setIsLoading(true); // Indicate loading for logout process
     const { error } = await signOut(supabase, toast);
+    // onAuthStateChange will set user and session to null and trigger isLoading to false.
+    // We still navigate here explicitly.
     if (!error) {
-      setUser(null);
-      setSession(null);
-      navigate('/login');
+      navigate('/login'); // Ensure redirection after logout
     }
-    setIsLoading(false);
+    // If onAuthStateChange is robust, explicitly setting user/session/isLoading here might be redundant
+    // but doesn't harm. The primary driver for isLoading will be onAuthStateChange's finally block.
+    // For safety, ensure isLoading becomes false if onAuthStateChange doesn't fire quickly.
+    if (error) setIsLoading(false); 
   };
   
   const refreshUserData = async (): Promise<void> => {
     if (!session?.user) return;
     setIsLoading(true);
-    const userData = await mapUserData(supabase, session);
-    setUser(userData);
-    setIsLoading(false);
+    try {
+      const userData = await mapUserData(supabase, session);
+      setUser(userData);
+    } catch (error) {
+      console.error("[AuthContext] Error in refreshUserData:", error);
+      setUser(null);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const updateUserData = async (data: Partial<UserData>): Promise<UserData | null> => {
     if (!user) return null;
-    setIsLoading(true);
+    // We don't set global isLoading here, as this is a background update.
+    // Individual components initiating this can show their own loading state.
     let hasError = false;
 
     const profileUpdates: Partial<Pick<UserData, 'username' | 'points'>> = {};
@@ -169,8 +201,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       });
     }
     
-    await refreshUserData(); // This will also set isLoading to false
-    return user; // Return the optimistic user state before refresh, or await refresh and return latest
+    // After updates, refresh the user data to ensure consistency
+    await refreshUserData(); 
+    // Return the user state which should have been updated by refreshUserData
+    return user; 
   };
 
   return (
@@ -188,3 +222,4 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     </AuthContext.Provider>
   );
 };
+
