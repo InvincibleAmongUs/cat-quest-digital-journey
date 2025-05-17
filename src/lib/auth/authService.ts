@@ -1,4 +1,3 @@
-
 import { SupabaseClient, Session, User } from '@supabase/supabase-js';
 import { UserData } from '@/contexts/authTypes';
 import { Database } from '@/integrations/supabase/types';
@@ -112,10 +111,10 @@ export const updateUserProgressData = async (
   progressUpdates: Partial<Pick<UserData, 'completedLessons' | 'completedModules' | 'quizScores' | 'badges'>>
 ): Promise<{ error: Error | null }> => {
   const updatesToApply: any = {};
-  if (progressUpdates.completedLessons) updatesToApply.completed_lessons = progressUpdates.completedLessons;
-  if (progressUpdates.completedModules) updatesToApply.completed_modules = progressUpdates.completedModules;
-  if (progressUpdates.quizScores) updatesToApply.quiz_scores = progressUpdates.quizScores;
-  if (progressUpdates.badges) updatesToApply.badges = progressUpdates.badges;
+  if (progressUpdates.completedLessons !== undefined) updatesToApply.completed_lessons = progressUpdates.completedLessons;
+  if (progressUpdates.completedModules !== undefined) updatesToApply.completed_modules = progressUpdates.completedModules;
+  if (progressUpdates.quizScores !== undefined) updatesToApply.quiz_scores = progressUpdates.quizScores;
+  if (progressUpdates.badges !== undefined) updatesToApply.badges = progressUpdates.badges;
 
   if (Object.keys(updatesToApply).length === 0) return { error: null };
 
@@ -134,4 +133,45 @@ export const updateUserProgressData = async (
     return { error: new Error(error.message) };
   }
   return { error: null };
+};
+
+export const updateUserCombinedData = async (
+  supabase: SupabaseClient<Database>,
+  toast: ToastType,
+  userId: string,
+  data: Partial<UserData>
+): Promise<{ hasError: boolean }> => {
+  let opHasError = false;
+  let updateAttempted = false;
+
+  const profileUpdates: Partial<Pick<UserData, 'username' | 'points'>> = {};
+  if (data.username !== undefined) profileUpdates.username = data.username;
+  if (data.points !== undefined) profileUpdates.points = data.points;
+
+  if (Object.keys(profileUpdates).length > 0) {
+    updateAttempted = true;
+    const { error: profileError } = await updateUserProfileData(supabase, toast, userId, profileUpdates);
+    if (profileError) opHasError = true;
+  }
+
+  const progressUpdates: Partial<Pick<UserData, 'completedLessons' | 'completedModules' | 'quizScores' | 'badges'>> = {};
+  if (data.completedLessons !== undefined) progressUpdates.completedLessons = data.completedLessons;
+  if (data.completedModules !== undefined) progressUpdates.completedModules = data.completedModules;
+  if (data.quizScores !== undefined) progressUpdates.quizScores = data.quizScores;
+  if (data.badges !== undefined) progressUpdates.badges = data.badges;
+  
+  if (Object.keys(progressUpdates).length > 0) {
+    updateAttempted = true;
+    const { error: progressError } = await updateUserProgressData(supabase, toast, userId, progressUpdates);
+    if (progressError) opHasError = true;
+  }
+
+  if (updateAttempted && !opHasError) {
+    toast({
+      title: "User Data Updated",
+      description: "Your information has been successfully updated.",
+    });
+  }
+
+  return { hasError: opHasError };
 };

@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Session } from '@supabase/supabase-js';
@@ -10,8 +9,9 @@ import {
   loginWithCredentials, 
   registerWithCredentials, 
   signOut,
-  updateUserProfileData,
-  updateUserProgressData
+  updateUserCombinedData // Import the new combined function
+  // updateUserProfileData, // No longer directly used here
+  // updateUserProgressData // No longer directly used here
 } from '@/lib/auth/authService';
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -32,6 +32,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const { toast } = useToast();
 
   useEffect(() => {
+    // ... keep existing code (onAuthStateChange listener and initializeAuth function)
     // Listener for Supabase auth state changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (_event, currentSession) => {
@@ -89,7 +90,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []); // Empty dependency array ensures this runs once on mount
 
   const login = async (email: string, password: string): Promise<boolean> => {
-    //isLoading state is now managed by onAuthStateChange
+    // ... keep existing code (login function)
     try {
       const { error } = await loginWithCredentials(supabase, toast, email, password);
       if (error) {
@@ -112,7 +113,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const register = async (username: string, email: string, password: string): Promise<boolean> => {
-    //isLoading state is now managed by onAuthStateChange
+    // ... keep existing code (register function)
     try {
       const { error } = await registerWithCredentials(supabase, toast, username, email, password);
       if (error) {
@@ -135,6 +136,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const logout = async () => {
+    // ... keep existing code (logout function)
     setIsLoading(true); // Indicate loading for logout process
     const { error } = await signOut(supabase, toast);
     // onAuthStateChange will set user and session to null and trigger isLoading to false.
@@ -149,6 +151,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
   
   const refreshUserData = async (): Promise<void> => {
+    // ... keep existing code (refreshUserData function)
     if (!session?.user) return;
     setIsLoading(true);
     try {
@@ -163,47 +166,22 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const updateUserData = async (data: Partial<UserData>): Promise<UserData | null> => {
-    if (!user) return null;
-    // We don't set global isLoading here, as this is a background update.
-    // Individual components initiating this can show their own loading state.
-    let hasError = false;
-
-    const profileUpdates: Partial<Pick<UserData, 'username' | 'points'>> = {};
-    if (data.username !== undefined) profileUpdates.username = data.username;
-    if (data.points !== undefined) profileUpdates.points = data.points;
-
-    if (Object.keys(profileUpdates).length > 0) {
-      const { error } = await updateUserProfileData(supabase, toast, user.id, profileUpdates);
-      if (error) hasError = true;
-    }
-
-    const progressUpdates: Partial<Pick<UserData, 'completedLessons' | 'completedModules' | 'quizScores' | 'badges'>> = {};
-    if (data.completedLessons) progressUpdates.completedLessons = data.completedLessons;
-    if (data.completedModules) progressUpdates.completedModules = data.completedModules;
-    if (data.quizScores) progressUpdates.quizScores = data.quizScores;
-    if (data.badges) progressUpdates.badges = data.badges;
-    
-    if (Object.keys(progressUpdates).length > 0) {
-      const { error } = await updateUserProgressData(supabase, toast, user.id, progressUpdates);
-      if (error) hasError = true;
-    }
-
-    if (hasError) {
+    if (!user) {
       toast({
-        title: "Update Partially Failed",
-        description: "Some user data might not have been updated.",
-        variant: "warning",
+          title: "Update Failed",
+          description: "You must be logged in to update user data.",
+          variant: "destructive",
       });
-    } else {
-       toast({
-        title: "User Data Updated",
-        description: "Your information has been successfully updated.",
-      });
+      return null;
     }
+
+    // Call the consolidated service function. It handles its own detailed toasting.
+    await updateUserCombinedData(supabase, toast, user.id, data);
     
-    // After updates, refresh the user data to ensure consistency
+    // After updates, refresh the user data to ensure consistency in the context.
     await refreshUserData(); 
-    // Return the user state which should have been updated by refreshUserData
+    
+    // Return the user state. Consumers will get the latest state via context re-render.
     return user; 
   };
 
@@ -222,4 +200,3 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     </AuthContext.Provider>
   );
 };
-
