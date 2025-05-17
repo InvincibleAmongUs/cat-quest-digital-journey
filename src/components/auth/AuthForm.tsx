@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom"; // Removed useNavigate
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -11,9 +11,9 @@ import { useAuth } from "@/contexts/AuthContext";
 export default function AuthForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
-  const { login, register, isLoading } = useAuth(); // Changed from "loading" to "isLoading"
-  const navigate = useNavigate();
-  
+  const { login, register, isLoading } = useAuth();
+  // const navigate = useNavigate(); // Removed useNavigate
+
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -23,16 +23,18 @@ export default function AuthForm() {
     const password = formData.get("password") as string;
     
     try {
-      const success = await login(email, password);
-      
-      if (success) {
-        navigate('/terms');
-      }
+      await login(email, password);
+      // Navigation is now handled by Login.tsx based on AuthContext state
+      // if (success) {
+      //   navigate('/terms'); // Removed navigation
+      // }
     } catch (error) {
-      console.error('Login error:', error);
+      // The login function in AuthContext now typically handles its own toasts
+      // for Supabase errors. This catch is for unexpected errors in the process.
+      console.error('Login error in AuthForm:', error);
       toast({
         title: "Login Failed",
-        description: "An unexpected error occurred. Please try again.",
+        description: "An unexpected error occurred during login. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -50,16 +52,18 @@ export default function AuthForm() {
     const password = formData.get("password") as string;
     
     try {
-      const success = await register(username, email, password);
-      
-      if (success) {
-        navigate('/terms');
-      }
+      await register(username, email, password);
+      // Navigation is now handled by Login.tsx based on AuthContext state
+      // if (success) {
+      //  navigate('/terms'); // Removed navigation
+      // }
     } catch (error) {
-      console.error('Registration error:', error);
+      // The register function in AuthContext now typically handles its own toasts
+      // for Supabase errors. This catch is for unexpected errors in the process.
+      console.error('Registration error in AuthForm:', error);
       toast({
         title: "Registration Failed",
-        description: "An unexpected error occurred. Please try again.",
+        description: "An unexpected error occurred during registration. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -85,30 +89,30 @@ export default function AuthForm() {
               <div className="grid gap-4">
                 <div className="grid gap-2">
                   <Input
-                    id="email"
+                    id="email-login" // Ensure unique IDs if elements are ever simultaneously in DOM
                     name="email" 
                     placeholder="Email"
                     type="email"
                     autoCapitalize="none"
                     autoComplete="email"
                     autoCorrect="off"
-                    disabled={isSubmitting || isLoading} // Changed from "loading" to "isLoading"
+                    disabled={isSubmitting || isLoading}
                     required
                   />
                 </div>
                 <div className="grid gap-2">
                   <Input
-                    id="password"
+                    id="password-login" // Ensure unique IDs
                     name="password"
                     placeholder="Your password"
                     type="password"
                     autoCapitalize="none"
                     autoComplete="current-password"
-                    disabled={isSubmitting || isLoading} // Changed from "loading" to "isLoading"
+                    disabled={isSubmitting || isLoading}
                     required
                   />
                 </div>
-                <Button disabled={isSubmitting || isLoading}> // Changed from "loading" to "isLoading"
+                <Button type="submit" disabled={isSubmitting || isLoading}>
                   {isSubmitting ? "Logging in..." : "Log in"}
                 </Button>
                 <div className="text-xs text-center text-muted-foreground">
@@ -123,41 +127,41 @@ export default function AuthForm() {
               <div className="grid gap-4">
                 <div className="grid gap-2">
                   <Input
-                    id="username"
+                    id="username-register" // Ensure unique IDs
                     name="username"
                     placeholder="Username"
                     type="text"
                     autoCapitalize="none"
-                    disabled={isSubmitting || isLoading} // Changed from "loading" to "isLoading"
+                    disabled={isSubmitting || isLoading}
                     required
                   />
                 </div>
                 <div className="grid gap-2">
                   <Input
-                    id="email"
+                    id="email-register" // Ensure unique IDs
                     name="email"
                     placeholder="name@school.edu"
                     type="email"
                     autoCapitalize="none"
                     autoComplete="email"
                     autoCorrect="off"
-                    disabled={isSubmitting || isLoading} // Changed from "loading" to "isLoading"
+                    disabled={isSubmitting || isLoading}
                     required
                   />
                 </div>
                 <div className="grid gap-2">
                   <Input
-                    id="password"
+                    id="password-register" // Ensure unique IDs
                     name="password"
                     placeholder="Choose a password"
                     type="password"
                     autoCapitalize="none"
                     autoComplete="new-password"
-                    disabled={isSubmitting || isLoading} // Changed from "loading" to "isLoading"
+                    disabled={isSubmitting || isLoading}
                     required
                   />
                 </div>
-                <Button disabled={isSubmitting || isLoading}> // Changed from "loading" to "isLoading"
+                <Button type="submit" disabled={isSubmitting || isLoading}>
                   {isSubmitting ? "Creating account..." : "Create account"}
                 </Button>
               </div>
@@ -173,3 +177,4 @@ export default function AuthForm() {
     </Card>
   );
 }
+

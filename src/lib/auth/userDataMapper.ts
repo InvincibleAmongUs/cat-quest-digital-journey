@@ -20,8 +20,10 @@ export const mapUserData = async (
 
     if (profileError) {
       console.error('Error fetching profile:', profileError);
-      // It's possible the profile isn't created yet if handle_new_user trigger is slow or failed
-      // For now, we'll return null, but this could be an area for more robust handling
+      // If profile doesn't exist (e.g., trigger delay/failure), or other error
+      // We might still want to return basic user info if session.user is available
+      // but for now, sticking to null if profile fetch fails critical data.
+      // If `handle_new_user` trigger guarantees profile creation, this is less of a concern.
       return null;
     }
 
@@ -33,10 +35,12 @@ export const mapUserData = async (
 
     if (progressError && progressError.code !== 'PGRST116') { // PGRST116: no rows found
       console.error('Error fetching user progress:', progressError);
+      // Don't return null here, as progress might be optional or can be created.
     }
 
     let userProgress = progressData;
-    if (!userProgress) {
+    if (!userProgress && profileData) { // Ensure profileData exists before trying to create progress
+      console.log(`No user progress found for ${supabaseUser.id}, creating new entry.`);
       const { data: newProgress, error: insertError } = await supabase
         .from('user_progress')
         .insert({
@@ -44,33 +48,39 @@ export const mapUserData = async (
           completed_lessons: [],
           completed_modules: [],
           quiz_scores: {},
-          badges: ['first_login'],
+          badges: ['first_login'], // ensure 'first_login' badge is an array
         })
         .select()
         .single();
 
       if (insertError) {
         console.error('Error creating user progress:', insertError);
-        // If progress creation fails, we might still want to return partial user data
+        // If progress creation fails, we proceed with defaults for progress fields
       } else {
         userProgress = newProgress;
+        console.log(`New user progress created for ${supabaseUser.id}:`, newProgress);
       }
     }
+    
+    // Determine user role safely
+    const roleValue = profileData.role;
+    const userRole: 'student' | 'admin' = (roleValue === 'admin' || roleValue === 'student') ? roleValue : 'student';
 
     return {
       id: supabaseUser.id,
-      username: profileData.username,
-      email: profileData.email, // Supabase user email might be more up-to-date if changed
+      username: profileData.username || `User_${supabaseUser.id.substring(0, 6)}`, // Fallback username
+      email: supabaseUser.email || profileData.email || '', // Prioritize Supabase user email, then profile, then fallback
       points: profileData.points || 0,
       isAuthenticated: true,
       completedLessons: userProgress?.completed_lessons || [],
       completedModules: userProgress?.completed_modules || [],
       quizScores: (userProgress?.quiz_scores as Record<number, number>) || {},
-      badges: userProgress?.badges || ['first_login'],
-      role: profileData.role as 'student' | 'admin',
+      badges: userProgress?.badges && Array.isArray(userProgress.badges) ? userProgress.badges : ['first_login'],
+      role: userRole,
     };
   } catch (error) {
     console.error('Error mapping user data:', error);
     return null;
   }
 };
+
