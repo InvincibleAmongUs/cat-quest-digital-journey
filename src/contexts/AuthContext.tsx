@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Session, User } from '@supabase/supabase-js';
@@ -22,7 +23,7 @@ export interface UserData {
 interface AuthContextType {
   user: UserData | null;
   session: Session | null;
-  loading: boolean;
+  isLoading: boolean;  // Changed from "loading" to "isLoading" for consistency
   login: (email: string, password: string) => Promise<boolean>;
   register: (username: string, email: string, password: string) => Promise<boolean>;
   logout: () => Promise<void>;
@@ -43,7 +44,7 @@ export const useAuth = () => {
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<UserData | null>(null);
   const [session, setSession] = useState<Session | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);  // Changed from "loading" to "isLoading"
   const navigate = useNavigate();
 
   // Function to map Supabase user and profile data to our UserData format
@@ -145,7 +146,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           setUser(userData);
         }
         
-        setLoading(false);
+        setIsLoading(false);  // Changed from "loading" to "isLoading"
       }
     );
 
@@ -154,7 +155,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setSession(session);
       const userData = await mapUserData(session);
       setUser(userData);
-      setLoading(false);
+      setIsLoading(false);  // Changed from "loading" to "isLoading"
     });
 
     return () => {
@@ -165,6 +166,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   // Login function
   const login = async (email: string, password: string): Promise<boolean> => {
     try {
+      setIsLoading(true);  // Changed from "loading" to "isLoading"
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -176,6 +178,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           description: error.message,
           variant: "destructive",
         });
+        setIsLoading(false);  // Changed from "loading" to "isLoading"
         return false;
       }
 
@@ -188,9 +191,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           title: "Welcome back!",
           description: "You've successfully logged in.",
         });
+        setIsLoading(false);  // Changed from "loading" to "isLoading"
         return true;
       }
 
+      setIsLoading(false);  // Changed from "loading" to "isLoading"
       return false;
     } catch (error) {
       console.error('Login error:', error);
@@ -199,6 +204,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         description: "An unexpected error occurred.",
         variant: "destructive",
       });
+      setIsLoading(false);  // Changed from "loading" to "isLoading"
       return false;
     }
   };
@@ -206,6 +212,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   // Register function
   const register = async (username: string, email: string, password: string): Promise<boolean> => {
     try {
+      setIsLoading(true);  // Changed from "loading" to "isLoading"
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
@@ -222,6 +229,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           description: error.message,
           variant: "destructive",
         });
+        setIsLoading(false);  // Changed from "loading" to "isLoading"
         return false;
       }
 
@@ -244,6 +252,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         });
       }
 
+      setIsLoading(false);  // Changed from "loading" to "isLoading"
       return true;
     } catch (error) {
       console.error('Registration error:', error);
@@ -252,6 +261,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         description: "An unexpected error occurred.",
         variant: "destructive",
       });
+      setIsLoading(false);  // Changed from "loading" to "isLoading"
       return false;
     }
   };
@@ -259,6 +269,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   // Logout function
   const logout = async () => {
     try {
+      setIsLoading(true);  // Changed from "loading" to "isLoading"
       await supabase.auth.signOut();
       setUser(null);
       setSession(null);
@@ -268,6 +279,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         title: "Logged Out",
         description: "You've been successfully logged out.",
       });
+      setIsLoading(false);  // Changed from "loading" to "isLoading"
     } catch (error) {
       console.error('Logout error:', error);
       toast({
@@ -275,6 +287,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         description: "Failed to log out. Please try again.",
         variant: "destructive",
       });
+      setIsLoading(false);  // Changed from "loading" to "isLoading"
     }
   };
 
@@ -352,7 +365,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     <AuthContext.Provider value={{ 
       user, 
       session, 
-      loading,
+      isLoading,  // Changed from "loading" to "isLoading"
       login, 
       register, 
       logout, 

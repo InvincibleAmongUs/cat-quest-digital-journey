@@ -9,14 +9,14 @@ import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
 
 export default function AuthForm() {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
-  const { login, register } = useAuth();
+  const { login, register, isLoading } = useAuth(); // Changed from "loading" to "isLoading"
   const navigate = useNavigate();
   
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsLoading(true);
+    setIsSubmitting(true);
     
     const formData = new FormData(e.currentTarget);
     const email = formData.get("email") as string;
@@ -36,13 +36,13 @@ export default function AuthForm() {
         variant: "destructive",
       });
     } finally {
-      setIsLoading(false);
+      setIsSubmitting(false);
     }
   };
   
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsLoading(true);
+    setIsSubmitting(true);
     
     const formData = new FormData(e.currentTarget);
     const username = formData.get("username") as string;
@@ -63,7 +63,7 @@ export default function AuthForm() {
         variant: "destructive",
       });
     } finally {
-      setIsLoading(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -92,7 +92,7 @@ export default function AuthForm() {
                     autoCapitalize="none"
                     autoComplete="email"
                     autoCorrect="off"
-                    disabled={isLoading}
+                    disabled={isSubmitting || isLoading} // Changed from "loading" to "isLoading"
                     required
                   />
                 </div>
@@ -104,12 +104,12 @@ export default function AuthForm() {
                     type="password"
                     autoCapitalize="none"
                     autoComplete="current-password"
-                    disabled={isLoading}
+                    disabled={isSubmitting || isLoading} // Changed from "loading" to "isLoading"
                     required
                   />
                 </div>
-                <Button disabled={isLoading}>
-                  {isLoading ? "Logging in..." : "Log in"}
+                <Button disabled={isSubmitting || isLoading}> // Changed from "loading" to "isLoading"
+                  {isSubmitting ? "Logging in..." : "Log in"}
                 </Button>
                 <div className="text-xs text-center text-muted-foreground">
                   <p>Demo admin access: Email: 24529974@mylife.unisa.ac.za</p>
@@ -128,7 +128,7 @@ export default function AuthForm() {
                     placeholder="Username"
                     type="text"
                     autoCapitalize="none"
-                    disabled={isLoading}
+                    disabled={isSubmitting || isLoading} // Changed from "loading" to "isLoading"
                     required
                   />
                 </div>
@@ -141,7 +141,7 @@ export default function AuthForm() {
                     autoCapitalize="none"
                     autoComplete="email"
                     autoCorrect="off"
-                    disabled={isLoading}
+                    disabled={isSubmitting || isLoading} // Changed from "loading" to "isLoading"
                     required
                   />
                 </div>
@@ -153,12 +153,12 @@ export default function AuthForm() {
                     type="password"
                     autoCapitalize="none"
                     autoComplete="new-password"
-                    disabled={isLoading}
+                    disabled={isSubmitting || isLoading} // Changed from "loading" to "isLoading"
                     required
                   />
                 </div>
-                <Button disabled={isLoading}>
-                  {isLoading ? "Creating account..." : "Create account"}
+                <Button disabled={isSubmitting || isLoading}> // Changed from "loading" to "isLoading"
+                  {isSubmitting ? "Creating account..." : "Create account"}
                 </Button>
               </div>
             </form>
